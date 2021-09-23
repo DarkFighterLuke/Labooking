@@ -5,7 +5,7 @@
         <div><img src="https://icons.getbootstrap.com/assets/icons/list.svg" class="btn" width=140% id="sidebarToggle"></div>
         <div><h1 class="title">Labooking</h1></div>
         <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>-->
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle user menu" onclick="openUserMenu();"><img src="/home/luca/go/src/Labooking/static/img/icons/user-avatar-filled-alt-svgrepo-com.svg" alt="Nome Utente"></button>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle user menu" onclick="openUserMenu();"><img src="img/icons/user-avatar-filled-alt-svgrepo-com.svg" alt="Nome Utente"></button>
         <!--suppress XmlDuplicatedId -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
