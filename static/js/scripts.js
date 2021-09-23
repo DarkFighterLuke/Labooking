@@ -32,7 +32,7 @@ function sleep(ms) {
 function openUserMenu(){
     let userAvatar=document.getElementById("user-avatar");
     if(userAvatar.style.display==="none"){
-        sleep(800).then(()=>userAvatar.style.display="block");
+        sleep(250).then(()=>userAvatar.style.display="block");
     }
     else{
         userAvatar.style.display="none";
