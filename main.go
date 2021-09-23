@@ -8,3 +8,10 @@ import (
 func main() {
 	beego.Run()
 }
+
+func init() {
+	beego.SetStaticPath("/css", "static/css")
+	beego.SetStaticPath("/fonts", "static/fonts")
+	beego.SetStaticPath("/img", "static/img")
+	beego.SetStaticPath("/js", "static/js")
+}
