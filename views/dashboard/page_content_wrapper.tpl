@@ -12,14 +12,17 @@
     <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
-    {{template "dashboard/sidebar.html"}}
-    <!-- Page content wrapper-->
-    <div id="page-content-wrapper">
-        <!-- Page content-->
-        <div class="container-fluid">
-            <h2 class="mt-4 content-tab-title">{{.title}}</h2>
-            <!--Renderizzare contenuto specifico-->
+    <div class="d-flex" id="wrapper">
+        {{template "dashboard/sidebar.html"}}
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            {{template "dashboard/navbar.tpl"}}
+            <!-- Page content-->
+            <div class="container-fluid">
+                <h2 class="mt-4 content-tab-title">{{.title}}</h2>
+                <!--Renderizzare contenuto specifico-->
+            </div>
         </div>
+        {{template "dashboard/scripts.tpl"}}
     </div>
-    {{template "dashboard/scripts.tpl"}}
 </body>
