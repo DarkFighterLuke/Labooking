@@ -12,7 +12,7 @@
     <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
-    {{template "sidebar.tpl"}}
+    {{template "dashboard/sidebar.html"}}
     <!-- Page content wrapper-->
     <div id="page-content-wrapper">
         <!-- Page content-->
@@ -21,5 +21,5 @@
             <!--Renderizzare contenuto specifico-->
         </div>
     </div>
-    {{template "scripts.tpl"}}
+    {{template "dashboard/scripts.tpl"}}
 </body>
