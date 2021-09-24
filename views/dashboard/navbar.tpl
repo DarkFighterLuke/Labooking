@@ -17,8 +17,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="d-flex flex-row">
-                                <label id="username" class="nav-link dropdown-toggle">Nome Utente</label>
-                                <img id="user-avatar" src="img/icons/user-avatar-filled-alt-svgrepo-com.svg" alt="Nome Utente">
+                                <label id="username" class="nav-link dropdown-toggle">{{.NomeUtente}}</label>
+                                <img id="user-avatar" src="img/icons/user-avatar-filled-alt-svgrepo-com.svg" alt="{{.NomeUtente}}">
                             </div>
                         </a>
 
