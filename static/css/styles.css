@@ -4309,6 +4309,16 @@ textarea.form-control-lg {
   color: white;
 }
 
+.dropdown-item .badge {
+  position: absolute;
+  margin-left: 5%;
+  #bottom: 10%;
+  #right: 10%;
+  #border-radius: 50%;
+  background-color: red;
+  color: white;
+}
+
 .card {
   position: relative;
   display: flex;
