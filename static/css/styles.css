@@ -4319,6 +4319,24 @@ textarea.form-control-lg {
   color: white;
 }
 
+@media (max-width: 992px) {
+  #mobile-nav {
+    display: block;
+  }
+  #normal-nav {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  #mobile-nav {
+    display: none;
+  }
+  #normal-nav {
+    display: block;
+  }
+}
+
 .card {
   position: relative;
   display: flex;
