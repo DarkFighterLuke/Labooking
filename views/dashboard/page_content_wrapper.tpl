@@ -16,7 +16,7 @@
         {{template "dashboard/sidebar.html"}}
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
-            {{template "dashboard/navbar.tpl"}}
+            {{template "dashboard/navbar.tpl" .}}
             {{template "dashboard/page_content.tpl" .}}
         </div>
         {{template "dashboard/scripts.tpl"}}

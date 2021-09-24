@@ -11,31 +11,28 @@ func (c *HomepageController) Get() {
 	case "home":
 		c.Data["Title"] = "Attività recenti"
 		c.Data["TabName"] = "home"
-		c.TplName = "dashboard/page_content_wrapper.tpl"
+		c.Data["NumNotifiche"] = "9+"
 		break
 	case "prenota":
 		c.Data["Title"] = "Cerca laboratorio"
 		c.Data["TabName"] = "prenota"
-		c.TplName = "dashboard/page_content_wrapper.tpl"
 		break
 	case "referti":
 		c.Data["Title"] = "I tuoi referti"
 		c.Data["TabName"] = "referti"
-		c.TplName = "dashboard/page_content_wrapper.tpl"
 		break
 	case "calendario":
 		c.Data["Title"] = "Calendario"
 		c.Data["TabName"] = "calendario"
-		c.TplName = "dashboard/page_content_wrapper.tpl"
 		break
 	case "guida":
 		c.Data["Title"] = "Guida ai test"
 		c.Data["TabName"] = "guida"
-		c.TplName = "dashboard/page_content_wrapper.tpl"
 		break
 	default:
 		// TODO: Personalizzare pagina di errore con link alla dashboard
 		c.Abort("404")
+		return
 	}
-
+	c.TplName = "dashboard/page_content_wrapper.tpl"
 }

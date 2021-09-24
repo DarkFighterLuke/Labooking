@@ -4292,6 +4292,23 @@ textarea.form-control-lg {
   color: #fff;
 }
 
+.notification {
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+}
+
+.notification .badge {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+}
+
 .card {
   position: relative;
   display: flex;
