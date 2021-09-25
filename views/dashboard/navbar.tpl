@@ -1,7 +1,7 @@
 <!-- Top navigation mobile-->
 <nav class="navbar navbar-expand-lg bg-lightblue border-bottom" id="mobile-nav">
     <div class="container-fluid d-flex justify-content-between">
-        <div><img src="https://icons.getbootstrap.com/assets/icons/list.svg" class="btn" width=140% id="sidebarToggle"></div>
+        <div><img src="https://icons.getbootstrap.com/assets/icons/list.svg" class="btn" width=140% id="sidebarToggleMobile"></div>
         <div><h1 class="title">Labooking</h1></div>
         <a href="#" class="notification">
             <img src="img/icons/bell-svgrepo-com.svg" width=120%>
