@@ -1,0 +1,58 @@
+.carousel-inner img {
+	width: 100%;
+      	height: 100%;
+}
+
+.carousel-indicators li {
+	width: 0.5em;
+    	height: 0.5em;
+    	border-radius: 100%;
+}
+
+html, body {
+	height: 100%
+}
+
+.navbar-brand {
+	position: absolute;
+      	left: 48%;
+      	text-align: center;
+      	margin: auto;	
+	font-size:35px;
+	font-family: 'Oleo Script Swash Caps', cursive;
+}
+
+p{
+	font-weight: normal;
+	font-family:'Open Sans';	
+	font-family: cursive;
+	font-size: 17px;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+	font-family:'Open Sans';
+	font-weight:bold;
+	font-size: 20px;	
+}
+
+
+nav .navbar-nav li a{
+	color: white !important;
+  	font-family:'Open Sans';
+  	font-weight:bold;
+  	text-decoration: underline;
+  	font-size: 17px;
+}
+
+.card{
+border-radius: 25px;    
+}
+
+.border-3 {
+    border-width:3px !important;
+}
+
+#demo{
+margin-top: 5%;
+}
