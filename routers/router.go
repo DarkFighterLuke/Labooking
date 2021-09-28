@@ -6,5 +6,6 @@ import (
 )
 
 func init() {
+	beego.Router("/", &controllers.LandingPageController{})
 	beego.Router("/dashboard", &controllers.HomepageController{})
 }
