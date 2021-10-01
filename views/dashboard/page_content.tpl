@@ -6,6 +6,6 @@
     {{else}}{{if eq .TabName "prenota"}}<!--Renderizza template prenotazione test-->
     {{else}}{{if eq .TabName "referti"}}<!--Renderizza template referti-->
     {{else}}{{if eq .TabName "calendario"}}<!--Renderizza template calendario-->
-    {{else}}{{if eq .TabName "guida"}}<!--Renderizza template guida ai test-->
+    {{else}}{{if eq .TabName "guida"}} {{template "dashboard/guida/guida.tpl" .}}
     {{end}}{{end}}{{end}}{{end}}{{end}}
 </div>
