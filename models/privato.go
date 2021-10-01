@@ -5,6 +5,10 @@ import (
 	"time"
 )
 
+func init() {
+	orm.RegisterModel(new(Privato))
+}
+
 type Privato struct {
 	IdPrivato              int    `orm:"pk;auto"`
 	Nome                   string `orm:"size(255)"`
