@@ -7,5 +7,5 @@ type LandingPageController struct {
 }
 
 func (c *LandingPageController) Get() {
-	c.TplName = "landingPage/index.html"
+	c.TplName = "landingPage/index.tpl"
 }
