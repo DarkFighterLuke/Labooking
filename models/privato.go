@@ -16,15 +16,15 @@ type Privato struct {
 	CodiceFiscale          string    `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16"`
 	NumeroTesseraSanitaria string    `orm:"size(20);unique" form:",,Numero Tessera Sanitaria: " maxLength:"20"`
 	Citta                  string    `orm:"size(255)" form:""`
-	Cap                    string    `orm:"size(5)" form:",,CAP: "`
+	Cap                    string    `orm:"size(5)" form:",,CAP: " maxLength:"5"`
 	Via                    string    `orm:"size(255)" form:",,Via/Piazza: "`
 	Civico                 int       `orm:"digits(4)" form:""`
-	Prefisso               string    `orm:"size(2)" form:""`
-	Telefono               string    `orm:"size(10);unique" form:""`
+	Prefisso               string    `orm:"size(2)" form:"" maxLength:"2"`
+	Telefono               string    `orm:"size(10);unique" form:"" maxLength:"10"`
 	Email                  string    `orm:"size(255);unique" form:""`
 	EmailConfermata        bool      `form:"-"`
-	Psw                    string    `orm:"size(255)" form:"password,password,Password: "`
-	DataNascita            time.Time `orm:"type(date)" form:",date,Data di nascita: "`
+	Psw                    string    `orm:"size(255)" form:"Password,password,Password: "`
+	DataNascita            time.Time `orm:"type(date)"`
 	Medico                 *Medico   `orm:"rel(fk)" form:"-"`
 }
 
