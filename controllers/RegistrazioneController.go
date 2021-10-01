@@ -10,6 +10,7 @@ type RegistrazioneController struct {
 }
 
 func (rc *RegistrazioneController) Get() {
-	rc.Data["Form"] = &models.Privato{}
+	rc.Data["FormPrivato"] = &models.Privato{}
+	rc.Data["FormMedico"] = &models.Medico{}
 	rc.TplName = "registrazione/registrazione.tpl"
 }
