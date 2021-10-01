@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"github.com/astaxie/beego/orm"
+	"time"
+)
 
 type Privato struct {
 	IdPrivato              int    `orm:"pk;auto"`
@@ -19,4 +22,33 @@ type Privato struct {
 	Psw                    string    `orm:"size(255)"`
 	DataNascita            time.Time `orm:"type(date)"`
 	Medico                 *Medico   `orm:"rel(fk)"`
+}
+
+func (p *Privato) Aggiungi() error {
+	o := orm.NewOrm()
+	_, err := o.Insert(p)
+	return err
+}
+
+func (p *Privato) Seleziona() (interface{}, error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(p)
+	privati := make([]Privato, 0)
+	_, err := qs.All(privati)
+	if err != nil {
+		return nil, err
+	}
+	return privati, nil
+}
+
+func (p *Privato) Modifica() error {
+	o := orm.NewOrm()
+	_, err := o.Update(p)
+	return err
+}
+
+func (p *Privato) Elimina() error {
+	o := orm.NewOrm()
+	_, err := o.Delete(p)
+	return err
 }
