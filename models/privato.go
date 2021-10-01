@@ -18,7 +18,7 @@ type Privato struct {
 	Citta                  string    `orm:"size(255)" form:""`
 	Cap                    string    `orm:"size(5)" form:",,CAP: " maxLength:"5"`
 	Via                    string    `orm:"size(255)" form:",,Via/Piazza: "`
-	Civico                 int       `orm:"digits(4)" form:""`
+	Civico                 int       `orm:"digits(4)" form:"" maxLength:"4"`
 	Prefisso               string    `orm:"size(2)" form:"" maxLength:"2"`
 	Telefono               string    `orm:"size(10);unique" form:"" maxLength:"10"`
 	Email                  string    `orm:"size(255);unique" form:""`
