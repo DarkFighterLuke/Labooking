@@ -1,9 +1,9 @@
 package controllers
 
-import "github.com/astaxie/beego"
+import "github.com/beego/beego/v2/server/web"
 
 type LandingPageController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (c *LandingPageController) Get() {

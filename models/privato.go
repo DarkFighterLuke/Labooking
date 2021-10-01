@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/astaxie/beego/orm"
+	"github.com/beego/beego/v2/client/orm"
 	"time"
 )
 
@@ -10,22 +10,22 @@ func init() {
 }
 
 type Privato struct {
-	IdPrivato              int    `orm:"pk;auto"`
-	Nome                   string `orm:"size(255)"`
-	Cognome                string `orm:"size(255)"`
-	CodiceFiscale          string `orm:"size(16);unique"`
-	NumeroTesseraSanitaria string `orm:"size(20);unique"`
-	Citta                  string `orm:"size(255)"`
-	Cap                    string `orm:"size(5)"`
-	Via                    string `orm:"size(255)"`
-	Civico                 int    `orm:"digits(4)"`
-	Prefisso               string `orm:"size(2)"`
-	Telefono               string `orm:"size(10);unique"`
-	Email                  string `orm:"size(255);unique"`
-	EmailConfermata        bool
-	Psw                    string    `orm:"size(255)"`
-	DataNascita            time.Time `orm:"type(date)"`
-	Medico                 *Medico   `orm:"rel(fk)"`
+	IdPrivato              int       `orm:"pk;auto" form:"-"`
+	Nome                   string    `orm:"size(255)" form:""`
+	Cognome                string    `orm:"size(255)" form:""`
+	CodiceFiscale          string    `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16"`
+	NumeroTesseraSanitaria string    `orm:"size(20);unique" form:",,Numero Tessera Sanitaria: " maxLength:"20"`
+	Citta                  string    `orm:"size(255)" form:""`
+	Cap                    string    `orm:"size(5)" form:",,CAP: "`
+	Via                    string    `orm:"size(255)" form:",,Via/Piazza: "`
+	Civico                 int       `orm:"digits(4)" form:""`
+	Prefisso               string    `orm:"size(2)" form:""`
+	Telefono               string    `orm:"size(10);unique" form:""`
+	Email                  string    `orm:"size(255);unique" form:""`
+	EmailConfermata        bool      `form:"-"`
+	Psw                    string    `orm:"size(255)" form:"password,password,Password: "`
+	DataNascita            time.Time `orm:"type(date)" form:",date,Data di nascita: "`
+	Medico                 *Medico   `orm:"rel(fk)" form:"-"`
 }
 
 func (p *Privato) Aggiungi() error {
