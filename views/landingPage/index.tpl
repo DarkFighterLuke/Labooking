@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  {{template "head_landing_page"}}
 
   <body class="bg-light">
     {{template "top_bar_landing_page"}}
