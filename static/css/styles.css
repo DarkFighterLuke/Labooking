@@ -10972,4 +10972,8 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: -15rem;
   }
+
+  .tab-guida {
+    margin-left: 40px;
+  }
 }
