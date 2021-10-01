@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  {{template "head_landing_page"}}
+  {{template "landingPage/head.html"}}
 
   <body class="bg-light">
-    {{template "top_bar_landing_page"}}
+    {{template "landingPage/top_bar.html"}}
     <div class="container h-75 w-100">
       <div id="demo" class="carousel slide h-50 w-100" data-ride="carousel">
 
