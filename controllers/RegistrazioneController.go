@@ -41,13 +41,13 @@ func (rc *RegistrazioneController) registrazionePrivato() {
 	valid := validation.Validation{}
 	isValid, err := valid.Valid(&p)
 	if err != nil {
-		rc.Abort("400")
+		rc.Abort("500")
 		return
 	}
 	if isValid {
 		err = p.Aggiungi()
 		if err != nil {
-			rc.Abort("400")
+			rc.Abort("500")
 			return
 		}
 	} else {
