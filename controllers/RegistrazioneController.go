@@ -75,3 +75,16 @@ func (rc *RegistrazioneController) registrazioneMedico() {
 		rc.Abort("500")
 	}
 }
+
+func (rc *RegistrazioneController) registrazioneLaboratorio() {
+	l := models.Laboratorio{}
+	err := rc.ParseForm(&l)
+	if err != nil {
+		rc.Abort("400")
+		return
+	}
+	err = rc.validateAndInsert(&l)
+	if err != nil {
+		rc.Abort("500")
+	}
+}
