@@ -38,21 +38,27 @@ func (rc *RegistrazioneController) registrazionePrivato() {
 		rc.Abort("400")
 		return
 	}
-	valid := validation.Validation{}
-	isValid, err := valid.Valid(&p)
+	err = rc.validateAndInsert(&p)
 	if err != nil {
 		rc.Abort("500")
-		return
+	}
+}
+
+func (rc *RegistrazioneController) validateAndInsert(user models.WriterDB) error {
+	valid := validation.Validation{}
+	isValid, err := valid.Valid(user)
+	if err != nil {
+		return err
 	}
 	if isValid {
-		err = p.Aggiungi()
+		err = user.Aggiungi()
 		if err != nil {
-			rc.Abort("500")
-			return
+			return err
 		}
 	} else {
 		for _, err := range valid.Errors {
 			rc.Ctx.WriteString(err.Key + ": " + err.Message)
 		}
 	}
+	return nil
 }
