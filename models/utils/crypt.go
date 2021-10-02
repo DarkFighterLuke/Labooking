@@ -13,7 +13,7 @@ import (
 
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-//Genera una stringa ALFABETICA lunga n
+// RandStringRunes Genera una stringa ALFABETICA lunga n
 func RandStringRunes(n int) string {
 	rand.Seed(time.Now().Unix())
 	b := make([]rune, n)
@@ -23,7 +23,7 @@ func RandStringRunes(n int) string {
 	return string(b)
 }
 
-//Crea una hash per la stringa secret utilizzando la cifratura sha1
+// CryptSHA1 Crea una hash per la stringa secret utilizzando la cifratura sha1
 func CryptSHA1(secret string) ([]byte, error) {
 	h := sha1.New()
 	_, err := io.WriteString(h, secret)
@@ -35,7 +35,7 @@ func CryptSHA1(secret string) ([]byte, error) {
 	return hash, err
 }
 
-//Cripta la stringa text usando una key come chiave di cifratura mediante l'algoritmo AES
+// EncryptAES Cripta la stringa text usando una key come chiave di cifratura mediante l'algoritmo AES
 func EncryptAES(key []byte, text string) ([]byte, error) {
 	// key := []byte(keyText)
 	plaintext := []byte(text)
@@ -60,7 +60,7 @@ func EncryptAES(key []byte, text string) ([]byte, error) {
 	return ciphertext, nil
 }
 
-//Decripta la stringa text usando una key come chiave di cifratura mediante l'algoritmo AES reversato
+// DecryptAES Decripta la stringa text usando una key come chiave di cifratura mediante l'algoritmo AES reversato
 func DecryptAES(key []byte, ct []byte) (string, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
