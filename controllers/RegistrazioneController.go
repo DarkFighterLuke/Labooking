@@ -12,5 +12,10 @@ type RegistrazioneController struct {
 func (rc *RegistrazioneController) Get() {
 	rc.Data["FormPrivato"] = &models.Privato{}
 	rc.Data["FormMedico"] = &models.Medico{}
+	rc.Data["FormLaboratorio"] = &models.Laboratorio{}
 	rc.TplName = "registrazione/registrazione.tpl"
+}
+
+func (rc *RegistrazioneController) Post() {
+
 }
