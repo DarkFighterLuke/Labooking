@@ -25,9 +25,10 @@ type Privato struct {
 	EmailConfermata        bool      `form:"-"`
 	Psw                    string    `orm:"size(255)" form:"Password,password,Password: " valid:"Required"`
 	DataNascita            time.Time `orm:"type(date)" valid:"Required;MaxSize(5);Numeric"`
-	Medico                 *Medico   `orm:"rel(fk)" form:"-"`
+	Medico                 *Medico   `orm:"rel(fk);null;on_delete(set_null)" form:"-"`
 }
 
+//TODO: criptare password
 func (p *Privato) Aggiungi() error {
 	o := orm.NewOrm()
 	_, err := o.Insert(p)
