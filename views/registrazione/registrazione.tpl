@@ -6,17 +6,22 @@
         {{template "landingPage/top_bar.html"}}
 
         <!-- Form privato -->
-        <form action="" method="POST">
+        <form id="privato" action="" method="POST">
+            <!--Aggiungere campo tipo form-->
             {{.FormPrivato | renderform}}
+            <!--Aggiungere input per la data di nascita-->
         </form>
 
         <!-- Form medico -->
-        <form action="" method="POST">
+        <form id="medico" action="" method="POST">
+            <!--Aggiungere campo tipo form-->
             {{.FormMedico | renderform}}
+            <!--Aggiungere input per la data di nascita-->
         </form>
 
         <!-- Form laboratorio -->
-        <form action="" method="POST">
+        <form id="laboratorio" action="" method="POST">
+            <!--Aggiungere campo tipo form-->
             {{.FormLaboratorio | renderform}}
         </form>
     </body>

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"Labooking/models"
+	"github.com/beego/beego/v2/core/validation"
 	"github.com/beego/beego/v2/server/web"
 )
 
@@ -17,5 +18,41 @@ func (rc *RegistrazioneController) Get() {
 }
 
 func (rc *RegistrazioneController) Post() {
+	switch rc.GetString("idForm") {
+	case "privato":
+		rc.registrazionePrivato()
+		break
+	case "medico":
+		break
+	case "laboratorio":
+		break
+	default:
+		rc.Abort("400")
+	}
+}
 
+func (rc *RegistrazioneController) registrazionePrivato() {
+	p := models.Privato{}
+	err := rc.ParseForm(&p)
+	if err != nil {
+		rc.Abort("400")
+		return
+	}
+	valid := validation.Validation{}
+	isValid, err := valid.Valid(&p)
+	if err != nil {
+		rc.Abort("400")
+		return
+	}
+	if isValid {
+		err = p.Aggiungi()
+		if err != nil {
+			rc.Abort("400")
+			return
+		}
+	} else {
+		for _, err := range valid.Errors {
+			rc.Ctx.WriteString(err.Key + ": " + err.Message)
+		}
+	}
 }
