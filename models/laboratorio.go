@@ -21,8 +21,8 @@ type Laboratorio struct {
 	Email           string           `orm:"size(255);unique" form:""`
 	EmailConfermata bool             `form:"-"`
 	Psw             string           `orm:"size(255)" form:"Password,password,Password: "`
-	Test            *[]InfoTest      `orm:"reverse(many)"`
-	Orari           *[]OrariApertura `orm:"reverse(many)"`
+	Test            []*InfoTest      `orm:"reverse(many)"`
+	Orari           []*OrariApertura `orm:"reverse(many)"`
 }
 
 func (l *Laboratorio) Aggiungi() error {
