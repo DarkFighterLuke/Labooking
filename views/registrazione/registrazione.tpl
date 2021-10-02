@@ -30,7 +30,7 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <ul class="nav nav-pills">
-                            <li class="nav-item active"><a data-toggle="pill" href="#utente">Utente</a></li>
+                            <li class="nav-item active"><a data-toggle="pill" href="#privato">Privato</a></li>
                             <li class="nav-item"><a data-toggle="pill" href="#organizzazione">Organizzazione</a></li>
                             <li class="nav-item"><a data-toggle="pill" href="#medico">Medico</a></li>
                             <li class="nav-item"><a data-toggle="pill" href="#laboratorio">Laboratorio</a></li>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="tab-content">
 
-                        <div id="utente" class="tab-pane fade in active">
+                        <div id="privato" class="tab-pane fade in active">
 
                             <!-- Form privato -->
                             <form id="privato" action="" method="POST">
