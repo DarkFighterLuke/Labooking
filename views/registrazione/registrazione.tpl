@@ -39,10 +39,9 @@
                     <div class="tab-content">
 
                         <div id="privato" class="tab-pane fade in active">
-
                             <!-- Form privato -->
-                            <form id="privato" action="" method="POST">
-                                <input type="text" name="privato" hidden="true">
+                            <form id="form-privato" action="/signup?idForm=privato" method="POST">
+                                <input type="text" name="privato" hidden>
                                 {{.FormPrivato | renderform}}
                                 <!--Aggiungere input per la data di nascita-->
                                 <br><input id="submit-privato" type="submit">
