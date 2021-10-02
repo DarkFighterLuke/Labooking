@@ -2,7 +2,9 @@ package main
 
 import (
 	_ "Labooking/routers"
-	"github.com/astaxie/beego"
+	"github.com/beego/beego/v2/client/orm"
+	"github.com/beego/beego/v2/server/web"
+	"log"
 )
 
 func main() {
