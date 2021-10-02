@@ -44,25 +44,6 @@ func (rc *RegistrazioneController) registrazionePrivato() {
 	}
 }
 
-func (rc *RegistrazioneController) validateAndInsert(user models.WriterDB) error {
-	valid := validation.Validation{}
-	isValid, err := valid.Valid(user)
-	if err != nil {
-		return err
-	}
-	if isValid {
-		err = user.Aggiungi()
-		if err != nil {
-			return err
-		}
-	} else {
-		for _, err := range valid.Errors {
-			rc.Ctx.WriteString(err.Key + ": " + err.Message)
-		}
-	}
-	return nil
-}
-
 func (rc *RegistrazioneController) registrazioneMedico() {
 	m := models.Medico{}
 	err := rc.ParseForm(&m)
@@ -87,4 +68,23 @@ func (rc *RegistrazioneController) registrazioneLaboratorio() {
 	if err != nil {
 		rc.Abort("500")
 	}
+}
+
+func (rc *RegistrazioneController) validateAndInsert(user models.WriterDB) error {
+	valid := validation.Validation{}
+	isValid, err := valid.Valid(user)
+	if err != nil {
+		return err
+	}
+	if isValid {
+		err = user.Aggiungi()
+		if err != nil {
+			return err
+		}
+	} else {
+		for _, err := range valid.Errors {
+			rc.Ctx.WriteString(err.Key + ": " + err.Message)
+		}
+	}
+	return nil
 }
