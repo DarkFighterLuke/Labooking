@@ -10,6 +10,7 @@
             <input type="text" name="privato" hidden="true">
             {{.FormPrivato | renderform}}
             <!--Aggiungere input per la data di nascita-->
+            <input type="submit">
         </form>
 
         <!-- Form medico -->
@@ -17,12 +18,14 @@
             <input type="text" name="medico" hidden="true">
             {{.FormMedico | renderform}}
             <!--Aggiungere input per la data di nascita-->
+            <input type="submit">
         </form>
 
         <!-- Form laboratorio -->
         <form id="laboratorio" action="" method="POST">
             <input type="text" name="laboratorio" hidden="true">
             {{.FormLaboratorio | renderform}}
+            <input type="submit">
         </form>
     </body>
 </html>
