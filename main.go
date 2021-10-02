@@ -4,6 +4,7 @@ import (
 	_ "Labooking/routers"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/server/web"
+	_ "github.com/go-sql-driver/mysql"
 	"log"
 )
 
@@ -19,15 +20,16 @@ func init() {
 	web.SetStaticPath("/js", "static/js")
 
 	//database config
-	err := orm.RegisterDriver("mysql", orm.DRMySQL)
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
-
 	driver, err := web.AppConfig.String("mysqldriver")
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	err = orm.RegisterDriver(driver, orm.DRMySQL)
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
 	mysqluser, err := web.AppConfig.String("mysqluser")
 	if err != nil {
 		log.Fatalln(err)
