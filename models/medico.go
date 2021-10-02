@@ -23,31 +23,31 @@ type Medico struct {
 	CodiceRegionale string `orm:"size(255)" form:",,Codice regionale: "`
 }
 
-func (p *Medico) Aggiungi() error {
+func (m *Medico) Aggiungi() error {
 	o := orm.NewOrm()
-	_, err := o.Insert(p)
+	_, err := o.Insert(m)
 	return err
 }
 
-func (p *Medico) Seleziona() (interface{}, error) {
+func (m *Medico) Seleziona() (interface{}, error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(p)
-	privati := make([]Medico, 0)
-	_, err := qs.All(privati)
+	qs := o.QueryTable(m)
+	medici := make([]Medico, 0)
+	_, err := qs.All(medici)
 	if err != nil {
 		return nil, err
 	}
-	return privati, nil
+	return medici, nil
 }
 
-func (p *Medico) Modifica() error {
+func (m *Medico) Modifica() error {
 	o := orm.NewOrm()
-	_, err := o.Update(p)
+	_, err := o.Update(m)
 	return err
 }
 
-func (p *Medico) Elimina() error {
+func (m *Medico) Elimina() error {
 	o := orm.NewOrm()
-	_, err := o.Delete(p)
+	_, err := o.Delete(m)
 	return err
 }
