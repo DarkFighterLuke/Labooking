@@ -62,3 +62,16 @@ func (rc *RegistrazioneController) validateAndInsert(user models.WriterDB) error
 	}
 	return nil
 }
+
+func (rc *RegistrazioneController) registrazioneMedico() {
+	m := models.Medico{}
+	err := rc.ParseForm(&m)
+	if err != nil {
+		rc.Abort("400")
+		return
+	}
+	err = rc.validateAndInsert(&m)
+	if err != nil {
+		rc.Abort("500")
+	}
+}
