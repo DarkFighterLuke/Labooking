@@ -1,0 +1,41 @@
+html, body {
+    height: 100%
+}
+
+p{
+    font-weight: normal;
+    font-family:'Open Sans';
+    font-family: cursive;
+    font-size: 17px;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family:'Open Sans';
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.navbar {
+    padding: 0;
+}
+
+.navbar-brand {
+    margin: auto;
+    font-size:35px;
+    font-family: 'Oleo Script Swash Caps', cursive;
+}
+
+.h-10 {
+    height: 10%!important;
+}
+
+.card{
+    border-radius: 25px;
+}
+
+.card-header:first-child {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
