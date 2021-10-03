@@ -2,32 +2,24 @@ html, body {
     height: 100%
 }
 
-p{
-    font-weight: normal;
-    font-family:'Open Sans';
-    font-family: cursive;
-    font-size: 17px;
-}
-
-
-h1, h2, h3, h4, h5, h6 {
+h1{
     font-family:'Open Sans';
     font-weight: bold;
     font-size: 20px;
+    padding-bottom: 10px;
+    padding-top: 15px;
 }
 
 .navbar {
     padding: 0;
+    border-radius: 0px;
 }
 
 .navbar-brand {
-    margin: auto;
     font-size:35px;
     font-family: 'Oleo Script Swash Caps', cursive;
-}
-
-.h-10 {
-    height: 10%!important;
+    margin-bottom: 2px;
+    margin-top: 2px;
 }
 
 .card{
@@ -39,3 +31,45 @@ h1, h2, h3, h4, h5, h6 {
     border-top-right-radius: 25px;
 }
 
+input[type=text], input[type=password] {
+    background-color: #fafafa;
+    border:0;
+    box-shadow:0 0 4px rgba(0,0,0,0.3);
+    transition: .3s box-shadow;
+    width:20%;
+    margin:10px 0;
+    padding:10px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    appearance:none;
+    -webkit-appearance:none;
+    padding:10px;
+    border:none;
+    background-color:#3F51B5;
+    color:#fff;
+    font-weight:600;
+    border-radius:5px;
+    width:25%;
+}
+
+.border-bottom-input {
+    border:0;
+    border-bottom:1px solid #eee;
+}
+
+.rounded-input {
+    padding:10px;
+    border-radius:10px;
+}
+
+.already-registred{
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.form-labooking{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
