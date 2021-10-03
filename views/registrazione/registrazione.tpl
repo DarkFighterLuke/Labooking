@@ -17,7 +17,7 @@
             <a class="navbar-brand" href="/">Labooking</a>
          </nav>
       </div>
-      <div class="container h-10">
+      <div class="container">
          <div class="row justify-content-center d-flex align-items-end h-100">
             <h1>Registrazione</h1>
          </div>
@@ -38,7 +38,7 @@
                   <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST">
                      <input type="text" name="privato" hidden>
                      {{.FormPrivato | renderform}}
-                     <!--Aggiungere input per la data di nascita-->
+                     <br>Data di nascita: <input name="DataNascita" type="text" value="">
                      <br><br><input id="submit-privato" type="submit">
                   </form>
                </div>
