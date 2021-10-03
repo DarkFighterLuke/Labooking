@@ -13,7 +13,7 @@
    </head>
    <body class="bg-light">
       <div>
-         <nav class="navbar navbar-dark bg-primary">
+         <nav class="navbar navbar-dark bg-primary h-100">
             <a class="navbar-brand" href="/">Labooking</a>
          </nav>
       </div>
@@ -35,11 +35,11 @@
             <div class="tab-content">
                <div id="privato" class="tab-pane fade in active">
                   <!-- Form privato -->
-                  <form id="form-privato" action="/signup?idForm=privato" method="POST">
+                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST">
                      <input type="text" name="privato" hidden>
                      {{.FormPrivato | renderform}}
                      <!--Aggiungere input per la data di nascita-->
-                     <br><input id="submit-privato" type="submit">
+                     <br><br><input id="submit-privato" type="submit">
                   </form>
                </div>
                <div id="organizzazione" class="tab-pane fade">
@@ -54,7 +54,7 @@
             </div>
          </div>
       </div>
-      <div class="container">
+      <div class="container already-registred">
          <div class="row justify-content-center">
             <a href="#" class="align-self-center">Sei già registrato? Effettua il login</a>
          </div>
