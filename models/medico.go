@@ -26,7 +26,7 @@ type Medico struct {
 	EmailConfermata bool   `form:"-"`
 	Psw             string `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-medico"`
 	ConfermaPsw     string `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-medico"`
-	CodiceRegionale string `orm:"size(255)" form:",,Codice regionale: " maxLength:"7" valid:"Required;Length(7)"`
+	CodiceRegionale string `orm:"size(255)" form:",,Codice regionale: " maxLength:"7" valid:"Required;Length(7)" id:"codice-regionale-medico"`
 }
 
 func (m *Medico) Aggiungi() error {
