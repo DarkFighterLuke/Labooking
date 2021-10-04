@@ -38,7 +38,7 @@
                   <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST">
                      <input type="text" name="privato" hidden>
                      {{.FormPrivato | renderform}}
-                     <br>Data di nascita: <input name="DataNascita" type="text" value="">
+                     <br>Data di nascita: <input name="DataNascita" type="date" value="">
                      <br><br><input id="submit-privato" type="submit">
                   </form>
                </div>
