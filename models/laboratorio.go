@@ -1,7 +1,10 @@
 package models
 
 import (
+	"Labooking/models/utils"
+	"encoding/hex"
 	"github.com/beego/beego/v2/client/orm"
+	"github.com/beego/beego/v2/core/validation"
 )
 
 func init() {
@@ -10,24 +13,31 @@ func init() {
 
 type Laboratorio struct {
 	IdLaboratorio   int              `orm:"pk;auto" form:"-"`
-	Nome            string           `orm:"size(255)" form:""`
-	PartitaIva      string           `orm:"size(11);unique" form:",,Partita Iva: " maxLenght:"11"`
-	Citta           string           `orm:"size(255)" form:""`
-	Cap             string           `orm:"size(5)" form:",,CAP: " maxLength:"5"`
-	Via             string           `orm:"size(255)" form:",,Via/Piazza: "`
-	Civico          int              `orm:"digits(4)" form:"" maxLength:"4"`
-	Prefisso        string           `orm:"size(2)" form:"" maxLength:"2"`
-	Telefono        string           `orm:"size(10);unique" form:"" maxLength:"10"`
-	Email           string           `orm:"size(255);unique" form:""`
+	Nome            string           `orm:"size(255)" form:"" valid:"Required"`
+	PartitaIva      string           `orm:"size(11);unique" form:",,Partita Iva: " maxLenght:"11" valid:"Required;Length(11)"`
+	Citta           string           `orm:"size(255)" form:"" valid:"Required"`
+	Cap             string           `orm:"size(5)" form:",,CAP: " maxLength:"5" valid:"Required:Length(5)"`
+	Via             string           `orm:"size(255)" form:",,Via/Piazza: " valid:"Required"`
+	Civico          int              `orm:"digits(4)" form:"" maxLength:"4" valid:"Required;Range(1,9999)"`
+	Prefisso        string           `orm:"size(2)" form:"" maxLength:"2" valid:"Required;Length(2)"`
+	Telefono        string           `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)"`
+	Email           string           `orm:"size(255);unique" form:"" valid:"Required;Email"`
 	EmailConfermata bool             `form:"-"`
-	Psw             string           `orm:"size(255)" form:"Password,password,Password: "`
-	Test            []*InfoTest      `orm:"reverse(many)"`
-	Orari           []*OrariApertura `orm:"reverse(many)"`
+	Psw             string           `orm:"size(255)" form:"Password,password,Password: " valid:"Required"`
+	ConfermaPsw     string           `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required"`
+	Test            []*InfoTest      `orm:"reverse(many)" valid:"Required"`
+	Orari           []*OrariApertura `orm:"reverse(many)" valid:"Required"`
 }
 
 func (l *Laboratorio) Aggiungi() error {
+	bytePsw, err := utils.CryptSHA1(l.Psw)
+	if err != nil {
+		return err
+	}
+	l.Psw = hex.EncodeToString(bytePsw)
+
 	o := orm.NewOrm()
-	_, err := o.Insert(l)
+	_, err = o.Insert(l)
 	return err
 }
 
@@ -52,4 +62,15 @@ func (l *Laboratorio) Elimina() error {
 	o := orm.NewOrm()
 	_, err := o.Delete(l)
 	return err
+}
+
+func (l *Laboratorio) Valid(v *validation.Validation) {
+
+	if l.Psw != l.ConfermaPsw {
+		v.SetError("ConfermaPsw", "must be equal to Psw")
+	}
+
+	if !utils.IsPswValid(l.Psw) {
+		v.SetError("Psw", "is not strong enough")
+	}
 }
