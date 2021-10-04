@@ -112,11 +112,11 @@ function checkCapPrivato(){
 
 function checkViaPrivato(){
     if(viaPrivato.value.length<1 || viaPrivato.value.length>255){
-        nomePrivato.style.backgroundColor="red";
+        viaPrivato.style.backgroundColor="red";
         return false;
     }
     else{
-        cognomePrivato.style.backgroundColor="white";
+        viaPrivato.style.backgroundColor="white";
         return true;
     }
 }
