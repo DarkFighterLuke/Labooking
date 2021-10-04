@@ -13,19 +13,19 @@ func init() {
 
 type Medico struct {
 	IdMedico        int    `orm:"pk;auto" form:"-"`
-	Nome            string `orm:"size(255)" form:"" valid:"Required"`
-	Cognome         string `orm:"size(255)" form:"" valid:"Required"`
-	CodiceFiscale   string `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16" valid:"Required;Length(16)"`
-	CittaStudio     string `orm:"size(255)" form:",,Città dello studio: " valid:"Required"`
-	CapStudio       string `orm:"size(5)" form:",,CAP dello studio: " maxLength:"5" valid:"Required;Length(5)"`
-	ViaStudio       string `orm:"size(255)" form:",,Via/Piazza dello studio: " valid:"Required"`
-	CivicoStudio    int    `orm:"digits(4)" form:",,Civico dello studio: " maxLength:"4" valid:"Required;Range(1, 9999)"`
+	Nome            string `orm:"size(255)" form:"" valid:"Required" id:"nome-medico"`
+	Cognome         string `orm:"size(255)" form:"" valid:"Required" id:"cognome-medico"`
+	CodiceFiscale   string `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16" valid:"Required;Length(16)" id:"codice-fiscale-medico"`
+	CittaStudio     string `orm:"size(255)" form:",,Città dello studio: " valid:"Required" id:"citta-medico"`
+	CapStudio       string `orm:"size(5)" form:",,CAP dello studio: " maxLength:"5" valid:"Required;Length(5)" id:"cap-medico"`
+	ViaStudio       string `orm:"size(255)" form:",,Via/Piazza dello studio: " valid:"Required" id:"via-medico"`
+	CivicoStudio    int    `orm:"digits(4)" form:",,Civico dello studio: " maxLength:"4" valid:"Required;Range(1, 9999)" id:"civico-medico"`
 	Prefisso        string `orm:"size(6)" form:"-" maxLength:"2" valid:"Required;Length(2)"`
-	Telefono        string `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)"`
-	Email           string `orm:"size(255);unique" form:"" valid:"Required;Email"`
+	Telefono        string `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-medico"`
+	Email           string `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-medico"`
 	EmailConfermata bool   `form:"-"`
-	Psw             string `orm:"size(255)" form:"Password,password,Password: " valid:"Required"`
-	ConfermaPsw     string `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required"`
+	Psw             string `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-medico"`
+	ConfermaPsw     string `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-medico"`
 	CodiceRegionale string `orm:"size(255)" form:",,Codice regionale: " maxLength:"7" valid:"Required;Length(7)"`
 }
 
