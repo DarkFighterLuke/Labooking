@@ -4,6 +4,8 @@ import (
 	"Labooking/models"
 	"github.com/beego/beego/v2/core/validation"
 	"github.com/beego/beego/v2/server/web"
+	"github.com/pkg/errors"
+	"net/http"
 )
 
 type RegistrazioneController struct {
@@ -20,7 +22,12 @@ func (rc *RegistrazioneController) Get() {
 func (rc *RegistrazioneController) Post() {
 	switch rc.GetString("idForm") {
 	case "privato":
-		rc.registrazionePrivato()
+		err := rc.registrazionePrivato()
+		if err != nil {
+			rc.Ctx.WriteString(err.Error())
+			return
+		}
+		rc.Redirect("/dashboard?page=home", http.StatusFound)
 		break
 	case "medico":
 		break
@@ -31,43 +38,43 @@ func (rc *RegistrazioneController) Post() {
 	}
 }
 
-func (rc *RegistrazioneController) registrazionePrivato() {
+func (rc *RegistrazioneController) registrazionePrivato() error {
 	p := models.Privato{}
 	err := rc.ParseForm(&p)
 	if err != nil {
-		rc.Abort("400")
-		return
+		return err
 	}
 	err = rc.validateAndInsert(&p)
 	if err != nil {
-		rc.Abort("500")
+		return err
 	}
+	return nil
 }
 
-func (rc *RegistrazioneController) registrazioneMedico() {
+func (rc *RegistrazioneController) registrazioneMedico() error {
 	m := models.Medico{}
 	err := rc.ParseForm(&m)
 	if err != nil {
-		rc.Abort("400")
-		return
+		return err
 	}
 	err = rc.validateAndInsert(&m)
 	if err != nil {
-		rc.Abort("500")
+		return err
 	}
+	return nil
 }
 
-func (rc *RegistrazioneController) registrazioneLaboratorio() {
+func (rc *RegistrazioneController) registrazioneLaboratorio() error {
 	l := models.Laboratorio{}
 	err := rc.ParseForm(&l)
 	if err != nil {
-		rc.Abort("400")
-		return
+		return err
 	}
 	err = rc.validateAndInsert(&l)
 	if err != nil {
-		rc.Abort("500")
+		return err
 	}
+	return nil
 }
 
 func (rc *RegistrazioneController) validateAndInsert(user models.WriterDB) error {
@@ -82,9 +89,11 @@ func (rc *RegistrazioneController) validateAndInsert(user models.WriterDB) error
 			return err
 		}
 	} else {
+		var errori string
 		for _, err := range valid.Errors {
-			rc.Ctx.WriteString(err.Key + ": " + err.Message)
+			errori = errori + err.Key + ":" + err.Message + "\n"
 		}
+		return errors.Errorf(errori)
 	}
 	return nil
 }
