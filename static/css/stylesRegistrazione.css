@@ -42,6 +42,17 @@ input[type=text], input[type=password], input[type=date] {
     box-sizing: border-box;
 }
 
+select {
+    background-color: #fafafa;
+    border:0;
+    box-shadow:0 0 4px rgba(0,0,0,0.3);
+    transition: .3s box-shadow;
+    width:20%;
+    margin:10px 0;
+    padding:10px;
+    box-sizing: border-box;
+}
+
 input[type=submit] {
     appearance:none;
     -webkit-appearance:none;

@@ -35,10 +35,10 @@
             <div class="tab-content">
                <div id="privato" class="tab-pane fade in active">
                   <!-- Form privato -->
-                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST">
+                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST" arseonsubmit="return submitPrivato()">
                      <input type="text" name="privato" hidden>
                      {{.FormPrivato | renderform}}
-                     <br>Data di nascita: <input name="DataNascita" type="date" value="">
+                     <br>Data di nascita: <input name="DataNascita" type="date" value="" id="data-nascita-privato">
                      <br><br><input id="submit-privato" type="submit">
                   </form>
                </div>
@@ -59,5 +59,7 @@
             <a href="#" class="align-self-center">Sei già registrato? Effettua il login</a>
          </div>
       </div>
+      <script src="js/registrazione/prefissi_telefonici.js"></script>
+      <script src="js/registrazione/registrazione.js"></script>
    </body>
 </html>
