@@ -1,6 +1,13 @@
 package models
 
-import "time"
+import (
+	"github.com/beego/beego/v2/client/orm"
+	"time"
+)
+
+func init() {
+	orm.RegisterModel(new(OrariApertura))
+}
 
 type OrariApertura struct {
 	IdOrariApertura int          `orm:"pk;auto"`
