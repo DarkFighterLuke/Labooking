@@ -3,7 +3,6 @@ package models
 import (
 	"Labooking/models/utils"
 	"encoding/hex"
-	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
 	"time"
@@ -39,7 +38,7 @@ func (p *Privato) Aggiungi() error {
 		return err
 	}
 	p.Psw = hex.EncodeToString(bytePsw)
-	fmt.Println(p.Psw)
+
 	o := orm.NewOrm()
 	_, err = o.Insert(p)
 	return err
