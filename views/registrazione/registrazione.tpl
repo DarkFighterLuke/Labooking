@@ -55,7 +55,7 @@
                </div>
                <div id="laboratorio" class="tab-pane fade">
                   <!-- Form laboratorio -->
-                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST">
+                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST" onsubmit="return submitLaboratorio()">
                      <input type="text" name="laboratorio" hidden>
                      {{.FormLaboratorio | renderform}}
                      <br><br><input id="submit-laboratorio" type="submit">
