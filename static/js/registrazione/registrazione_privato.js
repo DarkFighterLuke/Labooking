@@ -117,10 +117,6 @@ function checkCivico(){
     }
 }
 
-function checkPrefisso(){
-    // TODO: controllare se il prefisso è presente nella lista di prefissi
-}
-
 function checkTelefono(){
     if(telefonoPrivato.value.length!==10 || !telefonoPrivato.value.match(/^[0-9]+$/)){
         telefonoPrivato.style.backgroundColor="red";
