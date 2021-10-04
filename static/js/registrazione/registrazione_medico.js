@@ -97,11 +97,11 @@ function checkCapMedico(){
 
 function checkViaMedico(){
     if(viaMedico.value.length<1 || viaMedico.value.length>255){
-        nomeMedico.style.backgroundColor="red";
+        viaMedico.style.backgroundColor="red";
         return false;
     }
     else{
-        cognomeMedico.style.backgroundColor="white";
+        viaMedico.style.backgroundColor="white";
         return true;
     }
 }
