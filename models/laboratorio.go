@@ -14,9 +14,9 @@ func init() {
 type Laboratorio struct {
 	IdLaboratorio   int              `orm:"pk;auto" form:"-"`
 	Nome            string           `orm:"size(255)" form:"" valid:"Required"`
-	PartitaIva      string           `orm:"size(11);unique" form:",,Partita Iva: " maxLenght:"11" valid:"Required;Length(11)"`
+	PartitaIva      string           `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)"`
 	Citta           string           `orm:"size(255)" form:"" valid:"Required"`
-	Cap             string           `orm:"size(5)" form:",,CAP: " maxLength:"5" valid:"Required:Length(5)"`
+	Cap             string           `orm:"size(5)" form:",,CAP: " maxLength:"5" valid:"Required;Length(5)"`
 	Via             string           `orm:"size(255)" form:",,Via/Piazza: " valid:"Required"`
 	Civico          int              `orm:"digits(4)" form:"" maxLength:"4" valid:"Required;Range(1,9999)"`
 	Prefisso        string           `orm:"size(2)" form:"" maxLength:"2" valid:"Required;Length(2)"`
@@ -25,8 +25,8 @@ type Laboratorio struct {
 	EmailConfermata bool             `form:"-"`
 	Psw             string           `orm:"size(255)" form:"Password,password,Password: " valid:"Required"`
 	ConfermaPsw     string           `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required"`
-	Test            []*InfoTest      `orm:"reverse(many)" valid:"Required"`
-	Orari           []*OrariApertura `orm:"reverse(many)" valid:"Required"`
+	Test            []*InfoTest      `orm:"reverse(many)" form:"-"`
+	Orari           []*OrariApertura `orm:"reverse(many)" form:"-"`
 }
 
 func (l *Laboratorio) Aggiungi() error {
