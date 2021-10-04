@@ -1,0 +1,2 @@
+initElementsPrivato();
+initElementsMedico();
