@@ -30,8 +30,23 @@ func (rc *RegistrazioneController) Post() {
 		rc.Redirect("/dashboard?page=home", http.StatusFound)
 		break
 	case "medico":
+		err := rc.registrazioneMedico()
+		if err != nil {
+			rc.Ctx.WriteString(err.Error())
+			return
+		}
+		rc.Redirect("/dashboard?page=home", http.StatusFound)
 		break
 	case "laboratorio":
+		err := rc.registrazioneLaboratorio()
+		if err != nil {
+			rc.Ctx.WriteString(err.Error())
+			return
+		}
+		rc.Redirect("/dashboard?page=home", http.StatusFound)
+		break
+	case "organizzazione":
+		//TODO: implementa logica registrazione organizzazione
 		break
 	default:
 		rc.Abort("400")

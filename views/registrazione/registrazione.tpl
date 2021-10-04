@@ -43,13 +43,23 @@
                   </form>
                </div>
                <div id="organizzazione" class="tab-pane fade">
-                  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+                  <p>ok</p>
                </div>
                <div id="medico" class="tab-pane fade">
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
+                  <!-- Form medico -->
+                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST">
+                     <input type="text" name="medico" hidden>
+                     {{.FormMedico | renderform}}
+                     <br><br><input id="submit-medico" type="submit">
+                  </form>
                </div>
                <div id="laboratorio" class="tab-pane fade">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                  <!-- Form laboratorio -->
+                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST">
+                     <input type="text" name="laboratorio" hidden>
+                     {{.FormLaboratorio | renderform}}
+                     <br><br><input id="submit-laboratorio" type="submit">
+                  </form>
                </div>
             </div>
          </div>
