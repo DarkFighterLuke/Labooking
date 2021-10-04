@@ -35,7 +35,7 @@
             <div class="tab-content">
                <div id="privato" class="tab-pane fade in active">
                   <!-- Form privato -->
-                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST" arseonsubmit="return submitPrivato()">
+                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST" onsubmit="return submitPrivato()">
                      <input type="text" name="privato" hidden>
                      {{.FormPrivato | renderform}}
                      <br>Data di nascita: <input name="DataNascita" type="date" value="" id="data-nascita-privato">
@@ -47,7 +47,7 @@
                </div>
                <div id="medico" class="tab-pane fade">
                   <!-- Form medico -->
-                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST">
+                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST" onsubmit="return submitMedico()">
                      <input type="text" name="medico" hidden>
                      {{.FormMedico | renderform}}
                      <br><br><input id="submit-medico" type="submit">
@@ -70,6 +70,8 @@
          </div>
       </div>
       <script src="js/registrazione/prefissi_telefonici.js"></script>
+      <script src="js/registrazione/registrazione_privato.js"></script>
+      <script src="js/registrazione/registrazione_medico.js"></script>
       <script src="js/registrazione/registrazione.js"></script>
    </body>
 </html>
