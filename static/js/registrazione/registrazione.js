@@ -1,5 +1,6 @@
 initElementsPrivato();
 initElementsMedico();
+initElementsLaboratorio();
 
 function underAgeValidate(birthday){
     // it will accept two types of format yyyy-mm-dd and yyyy/mm/dd

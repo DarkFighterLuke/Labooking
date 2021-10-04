@@ -72,6 +72,7 @@
       <script src="js/registrazione/prefissi_telefonici.js"></script>
       <script src="js/registrazione/registrazione_privato.js"></script>
       <script src="js/registrazione/registrazione_medico.js"></script>
+      <script src="js/registrazione/registrazione_laboratorio.js"></script>
       <script src="js/registrazione/registrazione.js"></script>
    </body>
 </html>
