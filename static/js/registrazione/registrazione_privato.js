@@ -122,7 +122,6 @@ function checkPrefisso(){
 }
 
 function checkTelefono(){
-    console.log("ci");
     if(telefonoPrivato.value.length!==10 || !telefonoPrivato.value.match(/^[0-9]+$/)){
         telefonoPrivato.style.backgroundColor="red";
         return false;
