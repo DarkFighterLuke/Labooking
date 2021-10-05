@@ -62,7 +62,6 @@ func (p *Privato) Aggiungi() error {
 
 func (p *Privato) Seleziona(cols ...string) error {
 	o := orm.NewOrm()
-
 	err := o.Read(p, cols...)
 	if err != nil {
 		return err
@@ -72,14 +71,12 @@ func (p *Privato) Seleziona(cols ...string) error {
 
 func (p *Privato) Modifica() error {
 	o := orm.NewOrm()
-
 	_, err := o.Update(p)
 	return err
 }
 
 func (p *Privato) Elimina(cols ...string) error {
 	o := orm.NewOrm()
-
 	err := p.Seleziona(cols...)
 	_, err = o.Delete(p)
 	return err
