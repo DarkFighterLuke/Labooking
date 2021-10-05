@@ -11,10 +11,10 @@ func init() {
 
 type OrariApertura struct {
 	IdOrariApertura int          `orm:"pk;auto"`
-	IdLaboratorio   *Laboratorio `orm:"rel(fk)"`
-	Giorno          int
-	Orario          time.Time
-	Stato           bool
+	IdLaboratorio   *Laboratorio `orm:"rel(fk);column(id_laboratorio)"`
+	Giorno          string       `orm:""`
+	Orario          time.Time    `orm:"type(date)"`
+	Stato           bool         `orm:"type(bool)"`
 }
 
 func (oa *OrariApertura) Aggiungi() error {
