@@ -7,7 +7,7 @@ type ReaderDB interface {
 type WriterDB interface {
 	Aggiungi() error
 	Modifica() error
-	Elimina() error
+	Elimina(cols ...string) error
 }
 
 type ReadWriteDB interface {

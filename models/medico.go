@@ -53,13 +53,16 @@ func (m *Medico) Seleziona(cols ...string) error {
 
 func (m *Medico) Modifica() error {
 	o := orm.NewOrm()
+
 	_, err := o.Update(m)
 	return err
 }
 
-func (m *Medico) Elimina() error {
+func (m *Medico) Elimina(cols ...string) error {
 	o := orm.NewOrm()
-	_, err := o.Delete(m)
+
+	err := m.Seleziona(cols...)
+	_, err = o.Delete(m)
 	return err
 }
 

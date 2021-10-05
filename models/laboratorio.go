@@ -53,13 +53,17 @@ func (l *Laboratorio) Seleziona(cols ...string) error {
 
 func (l *Laboratorio) Modifica() error {
 	o := orm.NewOrm()
-	_, err := o.Update(l)
+
+	err := l.Seleziona()
+	_, err = o.Update(l)
 	return err
 }
 
-func (l *Laboratorio) Elimina() error {
+func (l *Laboratorio) Elimina(cols ...string) error {
 	o := orm.NewOrm()
-	_, err := o.Delete(l)
+
+	err := l.Seleziona()
+	_, err = o.Delete(l)
 	return err
 }
 

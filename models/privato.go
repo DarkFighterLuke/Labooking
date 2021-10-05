@@ -56,13 +56,16 @@ func (p *Privato) Seleziona(cols ...string) error {
 
 func (p *Privato) Modifica() error {
 	o := orm.NewOrm()
+
 	_, err := o.Update(p)
 	return err
 }
 
-func (p *Privato) Elimina() error {
+func (p *Privato) Elimina(cols ...string) error {
 	o := orm.NewOrm()
-	_, err := o.Delete(p)
+
+	err := p.Seleziona(cols...)
+	_, err = o.Delete(p)
 	return err
 }
 
