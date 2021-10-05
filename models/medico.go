@@ -42,7 +42,6 @@ func (m *Medico) Aggiungi() error {
 
 func (m *Medico) Seleziona(cols ...string) error {
 	o := orm.NewOrm()
-
 	err := o.Read(m, cols...)
 	if err != nil {
 		return err
@@ -52,14 +51,12 @@ func (m *Medico) Seleziona(cols ...string) error {
 
 func (m *Medico) Modifica() error {
 	o := orm.NewOrm()
-
 	_, err := o.Update(m)
 	return err
 }
 
 func (m *Medico) Elimina(cols ...string) error {
 	o := orm.NewOrm()
-
 	err := m.Seleziona(cols...)
 	_, err = o.Delete(m)
 	return err

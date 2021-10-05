@@ -42,7 +42,6 @@ func (l *Laboratorio) Aggiungi() error {
 
 func (l *Laboratorio) Seleziona(cols ...string) error {
 	o := orm.NewOrm()
-
 	err := o.Read(l, cols...)
 	if err != nil {
 		return err
@@ -52,16 +51,13 @@ func (l *Laboratorio) Seleziona(cols ...string) error {
 
 func (l *Laboratorio) Modifica() error {
 	o := orm.NewOrm()
-
-	err := l.Seleziona()
-	_, err = o.Update(l)
+	_, err := o.Update(l)
 	return err
 }
 
 func (l *Laboratorio) Elimina(cols ...string) error {
 	o := orm.NewOrm()
-
-	err := l.Seleziona()
+	err := l.Seleziona(cols...)
 	_, err = o.Delete(l)
 	return err
 }
