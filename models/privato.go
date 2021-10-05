@@ -92,7 +92,7 @@ func (p *Privato) Valid(v *validation.Validation) {
 		v.SetError("ConfermaPsw", "must be equal to Psw")
 	}
 
-	if !utils.IsPswValid(p.Psw) {
+	/*if !utils.IsPswValid(p.Psw) {
 		v.SetError("Psw", "is not strong enough")
-	}
+	}*/
 }

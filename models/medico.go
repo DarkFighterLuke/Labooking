@@ -68,7 +68,7 @@ func (m *Medico) Valid(v *validation.Validation) {
 		v.SetError("ConfermaPsw", "must be equal to Psw")
 	}
 
-	if !utils.IsPswValid(m.Psw) {
+	/*if !utils.IsPswValid(m.Psw) {
 		v.SetError("Psw", "is not strong enough")
-	}
+	}*/
 }

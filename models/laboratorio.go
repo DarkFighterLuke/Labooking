@@ -68,7 +68,7 @@ func (l *Laboratorio) Valid(v *validation.Validation) {
 		v.SetError("ConfermaPsw", "must be equal to Psw")
 	}
 
-	if !utils.IsPswValid(l.Psw) {
+	/*if !utils.IsPswValid(l.Psw) {
 		v.SetError("Psw", "is not strong enough")
-	}
+	}*/
 }
