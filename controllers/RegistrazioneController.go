@@ -59,6 +59,7 @@ func (rc *RegistrazioneController) registrazionePrivato() error {
 	if err != nil {
 		return err
 	}
+	p.Prefisso = rc.GetString("Prefisso")
 	err = rc.validateAndInsert(&p)
 	if err != nil {
 		return err
@@ -72,6 +73,7 @@ func (rc *RegistrazioneController) registrazioneMedico() error {
 	if err != nil {
 		return err
 	}
+	m.Prefisso = rc.GetString("Prefisso")
 	err = rc.validateAndInsert(&m)
 	if err != nil {
 		return err
@@ -85,6 +87,7 @@ func (rc *RegistrazioneController) registrazioneLaboratorio() error {
 	if err != nil {
 		return err
 	}
+	l.Prefisso = rc.GetString("Prefisso")
 	err = rc.validateAndInsert(&l)
 	if err != nil {
 		return err

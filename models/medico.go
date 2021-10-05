@@ -19,7 +19,7 @@ type Medico struct {
 	CapStudio       string `orm:"size(5)" form:",,CAP dello studio: " maxLength:"5" valid:"Required;Length(5)" id:"cap-medico"`
 	ViaStudio       string `orm:"size(255)" form:",,Via/Piazza dello studio: " valid:"Required" id:"via-medico"`
 	CivicoStudio    int    `orm:"digits(4)" form:",,Civico dello studio: " maxLength:"4" valid:"Required;Range(1, 9999)" id:"civico-medico"`
-	Prefisso        string `orm:"size(6)" form:"-" maxLength:"2" valid:"Required;Length(2)"`
+	Prefisso        string `orm:"size(6)" form:"-" valid:"Required"`
 	Telefono        string `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-medico"`
 	Email           string `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-medico"`
 	EmailConfermata bool   `form:"-"`

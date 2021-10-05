@@ -18,7 +18,7 @@ type Laboratorio struct {
 	Cap             string           `orm:"size(5)" form:",,CAP: " maxLength:"5" valid:"Required;Length(5)" id:"cap-laboratorio"`
 	Via             string           `orm:"size(255)" form:",,Via/Piazza: " valid:"Required" id:"via-laboratorio"`
 	Civico          int              `orm:"digits(4)" form:"" maxLength:"4" valid:"Required;Range(1,9999)" id:"civico-laboratorio"`
-	Prefisso        string           `orm:"size(2)" form:"-" maxLength:"2" valid:"Required;Length(2)"`
+	Prefisso        string           `orm:"size(6)" form:"-" valid:"Required"`
 	Telefono        string           `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-laboratorio"`
 	Email           string           `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-laboratorio"`
 	EmailConfermata bool             `form:"-"`
