@@ -2,7 +2,6 @@ package models
 
 import (
 	"Labooking/models/utils"
-	"encoding/hex"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
 	"time"
@@ -33,14 +32,31 @@ type Privato struct {
 }
 
 func (p *Privato) Aggiungi() error {
-	bytePsw, err := utils.CryptSHA1(p.Psw)
+	var found = false
+	ptemp := *p
+	err := ptemp.Seleziona("numero_tessera_sanitaria")
+	if err == nil {
+		found = true
+		p.IdPrivato = ptemp.IdPrivato
+		p.Nome = ptemp.Nome
+		p.Cognome = ptemp.Cognome
+		p.CodiceFiscale = ptemp.CodiceFiscale
+		p.NumeroTesseraSanitaria = ptemp.NumeroTesseraSanitaria
+		p.DataNascita = ptemp.DataNascita
+		p.Medico = ptemp.Medico
+	}
+
+	p.Psw, err = utils.CryptSHA1(p.Psw)
 	if err != nil {
 		return err
 	}
-	p.Psw = hex.EncodeToString(bytePsw)
 
 	o := orm.NewOrm()
-	_, err = o.Insert(p)
+	if found {
+		_, err = o.Update(p)
+	} else {
+		_, err = o.Insert(p)
+	}
 	return err
 }
 

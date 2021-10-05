@@ -92,7 +92,7 @@ func (rc *RegistrazioneController) registrazioneLaboratorio() error {
 	return nil
 }
 
-func (rc *RegistrazioneController) validateAndInsert(user models.WriterDB) error {
+func (rc *RegistrazioneController) validateAndInsert(user models.ReadWriteDB) error {
 	valid := validation.Validation{}
 	isValid, err := valid.Valid(user)
 	if err != nil {
