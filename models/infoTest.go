@@ -9,7 +9,7 @@ func init() {
 type InfoTest struct {
 	IdInfoTest    int          `orm:"pk;auto"`
 	IdLaboratorio *Laboratorio `orm:"rel(fk)"`
-	TipologiaTest string
-	Costo         float32
-	Tempi         int // Tempo espressi in secondi
+	TipologiaTest string       `orm:""`
+	Costo         float32      `orm:"digits(4,2)"`
+	Tempi         int          `orm:""` // Tempo espresso in secondi
 }
