@@ -2,7 +2,6 @@ package models
 
 import (
 	"Labooking/models/utils"
-	"encoding/hex"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
 )
@@ -30,11 +29,11 @@ type Medico struct {
 }
 
 func (m *Medico) Aggiungi() error {
-	bytePsw, err := utils.CryptSHA1(m.Psw)
+	var err error
+	m.Psw, err = utils.CryptSHA1(m.Psw)
 	if err != nil {
 		return err
 	}
-	m.Psw = hex.EncodeToString(bytePsw)
 
 	o := orm.NewOrm()
 	_, err = o.Insert(m)

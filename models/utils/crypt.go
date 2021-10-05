@@ -5,6 +5,7 @@ import (
 	"crypto/cipher"
 	rand2 "crypto/rand"
 	"crypto/sha1"
+	"encoding/hex"
 	"github.com/pkg/errors"
 	"io"
 	"math/rand"
@@ -24,15 +25,15 @@ func RandStringRunes(n int) string {
 }
 
 // CryptSHA1 Crea una hash per la stringa secret utilizzando la cifratura sha1
-func CryptSHA1(secret string) ([]byte, error) {
+func CryptSHA1(secret string) (string, error) {
 	h := sha1.New()
 	_, err := io.WriteString(h, secret)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	hash := h.Sum(nil)
 
-	return hash, err
+	return hex.EncodeToString(hash), err
 }
 
 // EncryptAES Cripta la stringa text usando una key come chiave di cifratura mediante l'algoritmo AES

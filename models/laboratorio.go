@@ -2,7 +2,6 @@ package models
 
 import (
 	"Labooking/models/utils"
-	"encoding/hex"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
 )
@@ -30,11 +29,11 @@ type Laboratorio struct {
 }
 
 func (l *Laboratorio) Aggiungi() error {
-	bytePsw, err := utils.CryptSHA1(l.Psw)
+	var err error
+	l.Psw, err = utils.CryptSHA1(l.Psw)
 	if err != nil {
 		return err
 	}
-	l.Psw = hex.EncodeToString(bytePsw)
 
 	o := orm.NewOrm()
 	_, err = o.Insert(l)
