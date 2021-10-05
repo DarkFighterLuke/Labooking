@@ -41,15 +41,14 @@ func (l *Laboratorio) Aggiungi() error {
 	return err
 }
 
-func (l *Laboratorio) Seleziona() (interface{}, error) {
+func (l *Laboratorio) Seleziona(cols ...string) error {
 	o := orm.NewOrm()
-	qs := o.QueryTable(l)
-	laboratori := make([]Laboratorio, 0)
-	_, err := qs.All(laboratori)
+
+	err := o.Read(l, cols...)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return laboratori, nil
+	return nil
 }
 
 func (l *Laboratorio) Modifica() error {

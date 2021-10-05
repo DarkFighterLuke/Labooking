@@ -1,7 +1,7 @@
 package models
 
 type ReaderDB interface {
-	Seleziona() (interface{}, error)
+	Seleziona(cols ...string) error
 }
 
 type WriterDB interface {

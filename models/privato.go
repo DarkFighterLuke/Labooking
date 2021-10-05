@@ -44,15 +44,14 @@ func (p *Privato) Aggiungi() error {
 	return err
 }
 
-func (p *Privato) Seleziona() (interface{}, error) {
+func (p *Privato) Seleziona(cols ...string) error {
 	o := orm.NewOrm()
-	qs := o.QueryTable(p)
-	privati := make([]Privato, 0)
-	_, err := qs.All(privati)
+
+	err := o.Read(p, cols...)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return privati, nil
+	return nil
 }
 
 func (p *Privato) Modifica() error {
