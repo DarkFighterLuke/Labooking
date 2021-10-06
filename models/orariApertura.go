@@ -10,7 +10,7 @@ func init() {
 }
 
 type OrariApertura struct {
-	IdOrariApertura int          `orm:"pk;auto"`
+	IdOrariApertura int64        `orm:"pk;auto"`
 	IdLaboratorio   *Laboratorio `orm:"rel(fk);column(id_laboratorio)"`
 	Giorno          string       `orm:""`
 	Orario          time.Time    `orm:"type(date)"`

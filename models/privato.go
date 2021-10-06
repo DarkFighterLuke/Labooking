@@ -12,7 +12,7 @@ func init() {
 }
 
 type Privato struct {
-	IdPrivato              int       `orm:"pk;auto" form:"-"`
+	IdPrivato              int64     `orm:"pk;auto" form:"-"`
 	Nome                   string    `orm:"size(255)" form:"" valid:"Required" id:"nome-privato"`
 	Cognome                string    `orm:"size(255)" form:"" valid:"Required" id:"cognome-privato"`
 	CodiceFiscale          string    `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16" valid:"Required;Length(16)" id:"codice-fiscale-privato"`

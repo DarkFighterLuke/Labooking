@@ -11,7 +11,7 @@ func init() {
 }
 
 type Laboratorio struct {
-	IdLaboratorio   int              `orm:"pk;auto" form:"-"`
+	IdLaboratorio   int64            `orm:"pk;auto" form:"-"`
 	Nome            string           `orm:"size(255)" form:"" valid:"Required" id:"nome-laboratorio"`
 	PartitaIva      string           `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-laboratorio"`
 	Citta           string           `orm:"size(255)" form:"" valid:"Required" id:"citta-laboratorio"`

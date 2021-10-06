@@ -11,7 +11,7 @@ func init() {
 }
 
 type Medico struct {
-	IdMedico        int    `orm:"pk;auto" form:"-"`
+	IdMedico        int64  `orm:"pk;auto" form:"-"`
 	Nome            string `orm:"size(255)" form:"" valid:"Required" id:"nome-medico"`
 	Cognome         string `orm:"size(255)" form:"" valid:"Required" id:"cognome-medico"`
 	CodiceFiscale   string `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16" valid:"Required;Length(16)" id:"codice-fiscale-medico"`
