@@ -84,3 +84,7 @@ input[type=submit] {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
+.bg-primary{
+    background-color: #00A4D3 !important;
+}
