@@ -120,6 +120,20 @@ func (rc *RegistrazioneController) registrazioneLaboratorio() error {
 			continue
 		}
 	}
+
+	infoTest, err := rc.parseAndValidateInfoTest()
+	if err != nil {
+		return err
+	}
+
+	for _, it := range infoTest {
+		it.IdLaboratorio = &models.Laboratorio{IdLaboratorio: id}
+		_, err := it.Aggiungi()
+		if err != nil {
+			continue
+		}
+	}
+
 	return nil
 }
 
@@ -137,12 +151,12 @@ func (rc *RegistrazioneController) parseAndValidateOrariApertura() ([]models.Ora
 		if orarioApertura == "" || orarioChiusura == "" || giorno == "" {
 			break
 		} else {
-			oa, err := time.Parse("03:04", orarioApertura)
+			oa, err := time.Parse("15:04", orarioApertura)
 			if err != nil {
 				return nil, err
 			}
 			oa = oa.AddDate(1, 0, 0)
-			oc, err := time.Parse("03:04", orarioChiusura)
+			oc, err := time.Parse("15:04", orarioChiusura)
 			if err != nil {
 				return nil, err
 			}
@@ -171,6 +185,62 @@ func (rc *RegistrazioneController) parseAndValidateOrariApertura() ([]models.Ora
 		}
 	}
 	return orari, nil
+}
+
+func (rc *RegistrazioneController) parseAndValidateInfoTest() ([]models.InfoTest, error) {
+	var tipologiaTest = []string{"molecolare", "antigenico", "sierologico"}
+	var ore = make([]int, 3)
+	var minuti = make([]int, 3)
+	var costo = make([]float64, 3)
+	var effettua = make([]string, 3)
+
+	var infoTest []models.InfoTest
+	var err error
+
+	for i := 0; i < 3; i++ {
+		effettua[i] = rc.GetString(tipologiaTest[i] + "-effettua")
+		if effettua[i] == "on" {
+			ore[i], err = rc.GetInt(tipologiaTest[i] + "-ore")
+			if err != nil {
+				return nil, err
+			}
+			minuti[i], err = rc.GetInt(tipologiaTest[i] + "-minuti")
+			if err != nil {
+				return nil, err
+			}
+			costo[i], err = rc.GetFloat(tipologiaTest[i] + "-costo")
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	for i := 0; i < 3; i++ {
+		if ore[i] < 0 {
+			return nil, fmt.Errorf("%s", "le ore necessarie ad analizzare un test diagnostico non possono essere inferiori a 0")
+		}
+		if minuti[i] != 0 && minuti[i] != 15 && minuti[i] != 30 && minuti[i] != 45 {
+			return nil, fmt.Errorf("%s", "i minuti necessarie ad analizzare un test diagnostico non possono essere diversi dai valori prestabiliti")
+		}
+		if costo[i] < 0 || costo[i] > 9999.99 {
+			return nil, fmt.Errorf("%s", "il costo di un test diagnostico non può essere negativo o superiore a 9999.99")
+		}
+		tempo, err := time.ParseDuration(strconv.Itoa(ore[i]) + "h" + strconv.Itoa(minuti[i]) + "m")
+		if err != nil {
+			return nil, err
+		}
+
+		if effettua[i] == "on" {
+			it := models.InfoTest{
+				TipologiaTest: tipologiaTest[i],
+				Costo:         costo[i],
+				Tempi:         int64(tempo.Seconds()),
+			}
+			infoTest = append(infoTest, it)
+		}
+	}
+
+	return infoTest, nil
 }
 
 func (rc *RegistrazioneController) validate(user models.ReadWriteDB) error {

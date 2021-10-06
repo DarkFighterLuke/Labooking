@@ -8,7 +8,7 @@ func init() {
 
 type InfoTest struct {
 	IdInfoTest    int64        `orm:"pk;auto"`
-	IdLaboratorio *Laboratorio `orm:"rel(fk)"`
+	IdLaboratorio *Laboratorio `orm:"rel(fk);column(id_laboratorio)"`
 	TipologiaTest string       `orm:""`
 	Costo         float64      `orm:"digits(4);decimals(2)"`
 	Tempi         int64        `orm:""` // Tempo espresso in secondi

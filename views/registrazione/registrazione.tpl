@@ -48,34 +48,100 @@
                   <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST" onsubmit="return submitLaboratorio()">
                      <input type="text" name="laboratorio" hidden>
                      {{.FormLaboratorio | renderform}}
-                     <table id="table-orari-apertura">
-                        <tr>
-                           <th>Orario apertura</th>
-                           <th>Orario chiusura</th>
-                           <th>Giorno</th>
-                        </tr>
-                        <tr>
-                           <td>
-                              <input name="orario-apertura-1" type="time">
-                           </td>
-                           <td>
-                              <input name="orario-chiusura-1" type="time">
-                           </td>
-                           <td>
-                              <select name="giorno-1">
-                                 <option value="lunedi">Lunedì</option>
-                                 <option value="martedi">Martedì</option>
-                                 <option value="mercoledi">Mercoledì</option>
-                                 <option value="giovedi">Giovedì</option>
-                                 <option value="venerdi">Venerdì</option>
-                                 <option value="sabato">Sabato</option>
-                                 <option value="domenica">Domenica</option>
-                              </select>
-                           </td>
-                        </tr>
-                     </table>
-                     <button onclick="return aggiungiRiga()">Aggiungi</button>
-                     <script src="js/registrazione/orari_apertura.js"></script>
+                     <div>
+                        <table id="table-orari-apertura">
+                           <tr>
+                              <th>Orario apertura</th>
+                              <th>Orario chiusura</th>
+                              <th>Giorno</th>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <input name="orario-apertura-1" type="time">
+                              </td>
+                              <td>
+                                 <input name="orario-chiusura-1" type="time">
+                              </td>
+                              <td>
+                                 <select name="giorno-1">
+                                    <option value="lunedi">Lunedì</option>
+                                    <option value="martedi">Martedì</option>
+                                    <option value="mercoledi">Mercoledì</option>
+                                    <option value="giovedi">Giovedì</option>
+                                    <option value="venerdi">Venerdì</option>
+                                    <option value="sabato">Sabato</option>
+                                    <option value="domenica">Domenica</option>
+                                 </select>
+                              </td>
+                           </tr>
+                        </table>
+                        <button onclick="return aggiungiRiga()">Aggiungi</button>
+                        <script src="js/registrazione/orari_apertura.js"></script>
+                     </div>
+                     <div>
+                        <table>
+                           <tr>
+                              <th>Tipologia test</th>
+                              <th>Tempo necessario all'analisi</th>
+                              <th>Costo</th>
+                              <th>Effettua</th>
+                           </tr>
+                           <tr>
+                              <td>Molecolare</td>
+                              <td>
+                                 <input type="number" name="molecolare-ore" min="0">
+                                 <select name="molecolare-minuti">
+                                    <option value="0">0</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                 </select>
+                              </td>
+                              <td>
+                                 <input type="number" name="molecolare-costo" min="0" step="0.5">
+                              </td>
+                              <td>
+                                 <input type="checkbox" name="molecolare-effettua">
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>Antigenico</td>
+                              <td>
+                                 <input type="number" name="antigenico-ore" min="0">
+                                 <select name="antigenico-minuti">
+                                    <option value="0">0</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                 </select>
+                              </td>
+                              <td>
+                                 <input type="number" name="antigenico-costo" min="0" step="0.5">
+                              </td>
+                              <td>
+                                 <input type="checkbox" name="antigenico-effettua">
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>Sierologico</td>
+                              <td>
+                                 <input type="number" name="sierologico-ore" min="0">
+                                 <select name="sierologico-minuti">
+                                    <option value="0">0</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                 </select>
+                              </td>
+                              <td>
+                                 <input type="number" name="sierologico-costo" min="0" step="0.5">
+                              </td>
+                              <td>
+                                 <input type="checkbox" name="sierologico-effettua">
+                              </td>
+                           </tr>
+                        </table>
+                     </div>
                      <br><br><input id="submit-laboratorio" type="submit">
                   </form>
                </div>
