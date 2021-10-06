@@ -184,23 +184,3 @@ function submitPrivato(){
         return false;
     }
 }
-
-function aggiungiSelectPrefissi(userType){
-    let pref=JSON.parse(prefissi);
-    let refnode=document.getElementById("civico-".concat(userType));
-    let select=document.createElement("select");
-    select.name="Prefisso";
-    select.id="prefisso-".concat(userType);
-    for(let i=0; i<pref.countries.length; i++){
-        let option=document.createElement("option");
-        option.value=pref.countries[i].code;
-        option.text=pref.countries[i].code.concat(" -- ", pref.countries[i].name);
-        select.appendChild(option);
-    }
-    let br=document.createElement("br");
-    let label=document.createElement("label")
-    label.textContent="Prefisso: ";
-    label.style.display="inline";
-    label.style.fontWeight="normal";
-    refnode.after(br, label, select);
-}
