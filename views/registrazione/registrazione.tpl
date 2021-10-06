@@ -49,7 +49,7 @@
                      <input type="text" name="laboratorio" hidden>
                      {{.FormLaboratorio | renderform}}
                      <div>
-                        <table id="table-orari-apertura">
+                        <table id="table-orari-apertura" id="div-orari-apertura">
                            <tr>
                               <th>Orario apertura</th>
                               <th>Orario chiusura</th>
@@ -78,8 +78,8 @@
                         <button onclick="return aggiungiRiga()">Aggiungi</button>
                         <script src="js/registrazione/orari_apertura.js"></script>
                      </div>
-                     <div>
-                        <table>
+                     <div id="div-info-test">
+                        <table id="table-info-test">
                            <tr>
                               <th>Tipologia test</th>
                               <th>Tempo necessario all'analisi</th>

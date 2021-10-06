@@ -7,6 +7,8 @@ var civicoLaboratorio;
 var telefonoLaboratorio;
 var emailLaboratorio;
 var passwordLaboratorio;
+var tableOrariApertura;
+var tableInfoTest;
 
 function initElementsLaboratorio(){
     nomeLaboratorio=document.getElementById("nome-laboratorio");
@@ -19,6 +21,8 @@ function initElementsLaboratorio(){
     emailLaboratorio=document.getElementById("email-laboratorio");
     passwordLaboratorio=document.getElementById("password-laboratorio");
     confermaPasswordLaboratorio=document.getElementById("conferma-password-laboratorio");
+    tableOrariApertura=document.getElementById("table-orari-apertura");
+    tableInfoTest=document.getElementById("table-info-test");
 
     aggiungiSelectPrefissi("laboratorio");
 
@@ -143,8 +147,94 @@ function checkCodiceRegionale(){
     }
 }
 
+function checkOrariApertura(){
+    eraseErrorDivs();
+    let orariApertura=[];
+    let orariChiusura=[];
+    let giorni=[];
+    for(let i=1; i<tableOrariApertura.rows.length; i++){
+        let oa=tableOrariApertura.rows[i].cells[0].childNodes[1].valueAsDate;
+        let oc=tableOrariApertura.rows[i].cells[1].childNodes[1].valueAsDate;
+        let giorno=tableOrariApertura.rows[i].cells[2].childNodes[1].value;
+
+        if(oa==null || oc==null || oa.getTime() >= oc.getTime()){
+            mostraMessaggioErroreOrari();
+            return false;
+        }
+
+        for(let j=0; j<orariApertura.length; j+=2){
+            let oatemp=orariApertura[j];
+            let octemp=orariChiusura[j+1];
+            let gtemp=giorni[j];
+            if(oa.getTime()>oatemp.getTime() && oa.getTime()<octemp.getTime() && gtemp===giorno || oc.getTime()>oatemp.getTime() && oc.getTime()>octemp.getTime() && gtemp===giorno){
+                mostraMessaggioErroreOrari();
+                return false;
+            }
+        }
+
+        orariApertura.push(oa);
+        orariChiusura.push(oc);
+    }
+    return true;
+}
+
+function mostraMessaggioErroreOrari(){
+    console.log("bla");
+    let div=document.createElement("div");
+    div.className="div-errore";
+    let p=document.createElement("p");
+    p.className="p-errore";
+    let messaggio="Sembra che qualcosa non vada con gli orari inseriti. Controlla che siano corretti e riprova.";
+    p.innerText=messaggio;
+    div.appendChild(p);
+    tableOrariApertura.before(div);
+}
+
+function eraseErrorDivs(){
+    let errorDivs=document.getElementsByClassName("div-errore");
+    for(let i=0; i<errorDivs.length; i++){
+        errorDivs[i].parentNode.removeChild(errorDivs[i]);
+    }
+}
+
+function checkInfoTest(){
+    eraseErrorDivs();
+    let ore=[];
+    let minuti=[];
+    let costo=[];
+    let effettua=[];
+
+    for(let i=0; i<3; i++){
+        effettua[i]=tableInfoTest.rows[i+1].cells[3].childNodes[1].checked;
+        if(effettua[i]==true){
+            ore[i]=tableInfoTest.rows[i+1].cells[1].childNodes[1].value;
+            minuti[i]=tableInfoTest.rows[i+1].cells[1].childNodes[3].value;
+            costo[i]=tableInfoTest.rows[i+1].cells[2].childNodes[1].value;
+        }
+    }
+
+    for(let i=0; i<3; i++){
+        if(ore[i]<0 || (minuti[i]!=0 && minuti[i]!=15 && minuti[i]!=30 && minuti[i]!=45) || costo[i]<0 || costo[i]>9999.99){
+            mostraMessaggioErroreInfoTest();
+            return false;
+        }
+    }
+    return true;
+}
+
+function mostraMessaggioErroreInfoTest(){
+    let div=document.createElement("div");
+    div.className="div-errore";
+    let p=document.createElement("p");
+    p.className="p-errore";
+    let messaggio="Sembra che qualcosa non vada con le info sui test diagnostici effettuati. Controlla che i dati siano corretti e riprova.";
+    p.innerText=messaggio;
+    div.appendChild(p);
+    tableInfoTest.before(div);
+}
+
 function submitLaboratorio(){
-    if(!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkCittaLaboratorio() && checkCapLaboratorio() && checkViaLaboratorio() && checkCivicoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio())){
+    if(!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkCittaLaboratorio() && checkCapLaboratorio() && checkViaLaboratorio() && checkCivicoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkOrariApertura() && checkInfoTest())){
         event.preventDefault();
         return false;
     }
