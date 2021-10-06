@@ -48,6 +48,34 @@
                   <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST" onsubmit="return submitLaboratorio()">
                      <input type="text" name="laboratorio" hidden>
                      {{.FormLaboratorio | renderform}}
+                     <table id="table-orari-apertura">
+                        <tr>
+                           <th>Orario apertura</th>
+                           <th>Orario chiusura</th>
+                           <th>Giorno</th>
+                        </tr>
+                        <tr>
+                           <td>
+                              <input name="orario-apertura-1" type="time">
+                           </td>
+                           <td>
+                              <input name="orario-chiusura-1" type="time">
+                           </td>
+                           <td>
+                              <select name="giorno-1">
+                                 <option value="lunedi">Lunedì</option>
+                                 <option value="martedi">Martedì</option>
+                                 <option value="mercoledi">Mercoledì</option>
+                                 <option value="giovedi">Giovedì</option>
+                                 <option value="venerdi">Venerdì</option>
+                                 <option value="sabato">Sabato</option>
+                                 <option value="domenica">Domenica</option>
+                              </select>
+                           </td>
+                        </tr>
+                     </table>
+                     <button onclick="return aggiungiRiga()">Aggiungi</button>
+                     <script src="js/registrazione/orari_apertura.js"></script>
                      <br><br><input id="submit-laboratorio" type="submit">
                   </form>
                </div>
