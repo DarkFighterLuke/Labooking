@@ -14,10 +14,10 @@ type InfoTest struct {
 	Tempi         int          `orm:""` // Tempo espresso in secondi
 }
 
-func (it *InfoTest) Aggiungi() error {
+func (it *InfoTest) Aggiungi() (int64, error) {
 	o := orm.NewOrm()
-	_, err := o.Insert(it)
-	return err
+	newId, err := o.Insert(it)
+	return newId, err
 }
 
 func (it *InfoTest) Seleziona(cols ...string) error {

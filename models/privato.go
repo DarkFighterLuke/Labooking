@@ -31,7 +31,7 @@ type Privato struct {
 	Medico                 *Medico   `orm:"rel(fk);null;on_delete(set_null);column(medico)" form:"-"`
 }
 
-func (p *Privato) Aggiungi() error {
+func (p *Privato) Aggiungi() (int64, error) {
 	var found = false
 	ptemp := *p
 	err := ptemp.Seleziona("numero_tessera_sanitaria")
@@ -48,16 +48,17 @@ func (p *Privato) Aggiungi() error {
 
 	p.Psw, err = utils.CryptSHA1(p.Psw)
 	if err != nil {
-		return err
+		return -1, err
 	}
 
 	o := orm.NewOrm()
 	if found {
 		_, err = o.Update(p)
+		return int64(p.IdPrivato), err
 	} else {
-		_, err = o.Insert(p)
+		newId, err := o.Insert(p)
+		return newId, err
 	}
-	return err
 }
 
 func (p *Privato) Seleziona(cols ...string) error {

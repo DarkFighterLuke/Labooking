@@ -28,16 +28,16 @@ type Laboratorio struct {
 	Orari           []*OrariApertura `orm:"reverse(many)" form:"-"`
 }
 
-func (l *Laboratorio) Aggiungi() error {
+func (l *Laboratorio) Aggiungi() (int64, error) {
 	var err error
 	l.Psw, err = utils.CryptSHA1(l.Psw)
 	if err != nil {
-		return err
+		return -1, err
 	}
 
 	o := orm.NewOrm()
-	_, err = o.Insert(l)
-	return err
+	newId, err := o.Insert(l)
+	return newId, err
 }
 
 func (l *Laboratorio) Seleziona(cols ...string) error {

@@ -28,16 +28,16 @@ type Medico struct {
 	CodiceRegionale string `orm:"size(255)" form:",,Codice regionale: " maxLength:"7" valid:"Required;Length(7)" id:"codice-regionale-medico"`
 }
 
-func (m *Medico) Aggiungi() error {
+func (m *Medico) Aggiungi() (int64, error) {
 	var err error
 	m.Psw, err = utils.CryptSHA1(m.Psw)
 	if err != nil {
-		return err
+		return -1, err
 	}
 
 	o := orm.NewOrm()
-	_, err = o.Insert(m)
-	return err
+	newId, err := o.Insert(m)
+	return newId, err
 }
 
 func (m *Medico) Seleziona(cols ...string) error {

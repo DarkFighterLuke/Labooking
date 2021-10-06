@@ -17,10 +17,10 @@ type OrariApertura struct {
 	Stato           bool         `orm:"type(bool)"`
 }
 
-func (oa *OrariApertura) Aggiungi() error {
+func (oa *OrariApertura) Aggiungi() (int64, error) {
 	o := orm.NewOrm()
-	_, err := o.Insert(oa)
-	return err
+	newId, err := o.Insert(oa)
+	return newId, err
 }
 
 func (oa *OrariApertura) Seleziona(cols ...string) error {
