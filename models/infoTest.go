@@ -10,8 +10,8 @@ type InfoTest struct {
 	IdInfoTest    int64        `orm:"pk;auto"`
 	IdLaboratorio *Laboratorio `orm:"rel(fk)"`
 	TipologiaTest string       `orm:""`
-	Costo         float32      `orm:"digits(4);decimals(2)"`
-	Tempi         int          `orm:""` // Tempo espresso in secondi
+	Costo         float64      `orm:"digits(4);decimals(2)"`
+	Tempi         int64        `orm:""` // Tempo espresso in secondi
 }
 
 func (it *InfoTest) Aggiungi() (int64, error) {
