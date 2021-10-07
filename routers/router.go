@@ -2,10 +2,11 @@ package routers
 
 import (
 	"Labooking/controllers"
-	"github.com/astaxie/beego"
+	"github.com/beego/beego/v2/server/web"
 )
 
 func init() {
-	beego.Router("/", &controllers.LandingPageController{})
-	beego.Router("/dashboard", &controllers.HomepageController{})
+	web.Router("/", &controllers.LandingPageController{})
+	web.Router("/dashboard", &controllers.HomepageController{})
+	web.Router("/signup", &controllers.RegistrazioneController{})
 }
