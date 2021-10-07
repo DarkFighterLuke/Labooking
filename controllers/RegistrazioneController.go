@@ -141,13 +141,10 @@ func (rc *RegistrazioneController) parseAndValidateOrariApertura() ([]models.Ora
 	var orari []models.OrariApertura
 	i := 1
 	var orario models.OrariApertura
-	var orarioApertura = " "
-	var orarioChiusura = " "
-	var giorno = " "
+	var orarioApertura = rc.GetString("orario-apertura-" + strconv.Itoa(i))
+	var orarioChiusura = rc.GetString("orario-chiusura-" + strconv.Itoa(i))
+	var giorno = rc.GetString("giorno-" + strconv.Itoa(i))
 	for orarioApertura != "" || orarioChiusura != "" || giorno != "" {
-		orarioApertura = rc.GetString("orario-apertura-" + strconv.Itoa(i))
-		orarioChiusura = rc.GetString("orario-chiusura-" + strconv.Itoa(i))
-		giorno = rc.GetString("giorno-" + strconv.Itoa(i))
 		if orarioApertura == "" || orarioChiusura == "" || giorno == "" {
 			break
 		} else {
@@ -182,6 +179,9 @@ func (rc *RegistrazioneController) parseAndValidateOrariApertura() ([]models.Ora
 			orario2.Stato = false
 			orari = append(orari, orario2)
 			i++
+			orarioApertura = rc.GetString("orario-apertura-" + strconv.Itoa(i))
+			orarioChiusura = rc.GetString("orario-chiusura-" + strconv.Itoa(i))
+			giorno = rc.GetString("giorno-" + strconv.Itoa(i))
 		}
 	}
 	return orari, nil
