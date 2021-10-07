@@ -89,7 +89,7 @@
                            <tr>
                               <td>Molecolare</td>
                               <td>
-                                 <input type="number" name="molecolare-ore" min="0">
+                                 <input type="number" name="molecolare-ore" min="0" value="0">
                                  <select name="molecolare-minuti">
                                     <option value="0">0</option>
                                     <option value="15">15</option>
@@ -98,7 +98,7 @@
                                  </select>
                               </td>
                               <td>
-                                 <input type="number" name="molecolare-costo" min="0" step="0.5">
+                                 <input type="number" name="molecolare-costo" min="0" step="0.5" value="0">
                               </td>
                               <td>
                                  <input type="checkbox" name="molecolare-effettua">
@@ -107,7 +107,7 @@
                            <tr>
                               <td>Antigenico</td>
                               <td>
-                                 <input type="number" name="antigenico-ore" min="0">
+                                 <input type="number" name="antigenico-ore" min="0" value="0">
                                  <select name="antigenico-minuti">
                                     <option value="0">0</option>
                                     <option value="15">15</option>
@@ -116,7 +116,7 @@
                                  </select>
                               </td>
                               <td>
-                                 <input type="number" name="antigenico-costo" min="0" step="0.5">
+                                 <input type="number" name="antigenico-costo" min="0" step="0.5" value="0">
                               </td>
                               <td>
                                  <input type="checkbox" name="antigenico-effettua">
@@ -125,7 +125,7 @@
                            <tr>
                               <td>Sierologico</td>
                               <td>
-                                 <input type="number" name="sierologico-ore" min="0">
+                                 <input type="number" name="sierologico-ore" min="0" value="0">
                                  <select name="sierologico-minuti">
                                     <option value="0">0</option>
                                     <option value="15">15</option>
@@ -134,7 +134,7 @@
                                  </select>
                               </td>
                               <td>
-                                 <input type="number" name="sierologico-costo" min="0" step="0.5">
+                                 <input type="number" name="sierologico-costo" min="0" step="0.5" value="0">
                               </td>
                               <td>
                                  <input type="checkbox" name="sierologico-effettua">
