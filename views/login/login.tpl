@@ -16,6 +16,7 @@
          <div class="card text-center">
             <div class="card-header">
                <ul class="nav nav-pills">
+                   <p>{{.errmsg}}</p>
                   <li class="nav-item active"><a data-toggle="pill" href="#privato">Privato</a></li>
                   <li class="nav-item"><a data-toggle="pill" href="#organizzazione">Organizzazione</a></li>
                   <li class="nav-item"><a data-toggle="pill" href="#medico">Medico</a></li>
@@ -27,10 +28,10 @@
                   <!-- Form privato -->
                   <form class="form-labooking" id="form-privato" action="/login?idForm=privato" method="POST" onsubmit="return loginPrivato()">
                       Email:
-                      <input id="email" name="Email" type="text" value="">
+                      <input id="email-privato" name="email-privato" type="text" value="">
                       <br>
                       Password:
-                      <input id="password-privato" name="Password" type="password" value="">
+                      <input id="password-privato" name="password-privato" type="password" value="">
                       <br>
                       <a href="#">Hai dimenticato la password?</a>
                       <br>
@@ -45,30 +46,30 @@
                   <!-- Form medico -->
                   <form class="form-labooking" id="form-medico" action="/login?idForm=medico" method="POST" onsubmit="return loginMedico()">
                       Email:
-                      <input id="email" name="Email" type="text" value="">
+                      <input id="email-medico" name="email-medico" type="text" value="">
                       <br>
                       Password:
-                      <input id="password-medico" name="Password" type="password" value="">
+                      <input id="password-medico" name="password-medico" type="password" value="">
                       <br>
                       <a href="#">Hai dimenticato la password?</a>
                       <br>
                       <br>
-                      <input id="submit-privato" type="submit">
+                      <input id="submit-medico" type="submit">
                   </form>
                </div>
                <div id="laboratorio" class="tab-pane fade">
                   <!-- Form laboratorio -->
                   <form class="form-labooking" id="form-laboratorio" action="/login?idForm=laboratorio" method="POST" onsubmit="return loginLaboratorio()">
                       Email:
-                      <input id="email" name="Email" type="text" value="">
+                      <input id="email-laboratorio" name="email-laboratorio" type="text" value="">
                       <br>
                       Password:
-                      <input id="password-laboratorio" name="Password" type="password" value="">
+                      <input id="password-laboratorio" name="password-laboratorio" type="password" value="">
                       <br>
                       <a href="#">Hai dimenticato la password?</a>
                       <br>
                       <br>
-                      <input id="submit-privato" type="submit">
+                      <input id="submit-laboratorio" type="submit">
                   </form>
                </div>
             </div>

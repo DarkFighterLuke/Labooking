@@ -27,7 +27,7 @@
                     <a class="dropdown-item" href="#!">Messaggi<span class="badge badge-danger">{{.NumNotifiche}}</span></a>
                     <a class="dropdown-item" href="#!">I miei pagamenti</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#!">Logout</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
             </li>
         </ul>
@@ -63,7 +63,7 @@
                             <a class="dropdown-item" href="#!">Messaggi<span class="badge badge-danger">{{.NumNotifiche}}</span></a>
                             <a class="dropdown-item" href="#!">I miei pagamenti</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#!">Logout</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
                     </li>
                 </ul>
