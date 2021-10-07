@@ -48,98 +48,104 @@
                   <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST" onsubmit="return submitLaboratorio()">
                      <input type="text" name="laboratorio" hidden>
                      {{.FormLaboratorio | renderform}}
-                     <div>
-                        <table id="table-orari-apertura" id="div-orari-apertura">
-                           <tr>
-                              <th>Orario apertura</th>
-                              <th>Orario chiusura</th>
-                              <th>Giorno</th>
-                           </tr>
-                           <tr>
-                              <td>
-                                 <input name="orario-apertura-1" type="time">
-                              </td>
-                              <td>
-                                 <input name="orario-chiusura-1" type="time">
-                              </td>
-                              <td>
-                                 <select name="giorno-1">
-                                    <option value="lunedi">Lunedì</option>
-                                    <option value="martedi">Martedì</option>
-                                    <option value="mercoledi">Mercoledì</option>
-                                    <option value="giovedi">Giovedì</option>
-                                    <option value="venerdi">Venerdì</option>
-                                    <option value="sabato">Sabato</option>
-                                    <option value="domenica">Domenica</option>
-                                 </select>
-                              </td>
-                           </tr>
+                     <div class="d-flex justify-content-center">
+                        <table id="table-orari-apertura" class="table w-50">
+                            <tbody class="w-100">
+                               <tr>
+                                  <th class="w-33 text-center">Orario apertura</th>
+                                  <th class="w-33 text-center">Orario chiusura</th>
+                                  <th class="w-33 text-center">Giorno</th>
+                               </tr>
+                               <tr>
+                                  <td>
+                                     <input name="orario-apertura-1" type="time">
+                                  </td>
+                                  <td>
+                                     <input name="orario-chiusura-1" type="time">
+                                  </td>
+                                  <td>
+                                     <select name="giorno-1">
+                                        <option value="lunedi">Lunedì</option>
+                                        <option value="martedi">Martedì</option>
+                                        <option value="mercoledi">Mercoledì</option>
+                                        <option value="giovedi">Giovedì</option>
+                                        <option value="venerdi">Venerdì</option>
+                                        <option value="sabato">Sabato</option>
+                                        <option value="domenica">Domenica</option>
+                                     </select>
+                                  </td>
+                               </tr>
+                            </tbody>
                         </table>
-                        <button onclick="return aggiungiRiga()">Aggiungi</button>
-                        <script src="js/registrazione/orari_apertura.js"></script>
                      </div>
-                     <div id="div-info-test">
-                        <table id="table-info-test">
-                           <tr>
-                              <th>Tipologia test</th>
-                              <th>Tempo necessario all'analisi</th>
-                              <th>Costo</th>
-                              <th>Effettua</th>
-                           </tr>
-                           <tr>
-                              <td>Molecolare</td>
-                              <td>
-                                 <input type="number" name="molecolare-ore" min="0" value="0">
-                                 <select name="molecolare-minuti">
-                                    <option value="0">0</option>
-                                    <option value="15">15</option>
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
-                                 </select>
-                              </td>
-                              <td>
-                                 <input type="number" name="molecolare-costo" min="0" step="0.5" value="0">
-                              </td>
-                              <td>
-                                 <input type="checkbox" name="molecolare-effettua">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>Antigenico</td>
-                              <td>
-                                 <input type="number" name="antigenico-ore" min="0" value="0">
-                                 <select name="antigenico-minuti">
-                                    <option value="0">0</option>
-                                    <option value="15">15</option>
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
-                                 </select>
-                              </td>
-                              <td>
-                                 <input type="number" name="antigenico-costo" min="0" step="0.5" value="0">
-                              </td>
-                              <td>
-                                 <input type="checkbox" name="antigenico-effettua">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>Sierologico</td>
-                              <td>
-                                 <input type="number" name="sierologico-ore" min="0" value="0">
-                                 <select name="sierologico-minuti">
-                                    <option value="0">0</option>
-                                    <option value="15">15</option>
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
-                                 </select>
-                              </td>
-                              <td>
-                                 <input type="number" name="sierologico-costo" min="0" step="0.5" value="0">
-                              </td>
-                              <td>
-                                 <input type="checkbox" name="sierologico-effettua">
-                              </td>
-                           </tr>
+                     <div>
+                         <button onclick="return aggiungiRiga()"> + </button>
+                         <script src="js/registrazione/orari_apertura.js"></script>
+                     </div>
+                     <div class="d-flex justify-content-center">
+                        <table id="table-tamponi" class="table w-75">
+                            <tbody class="w-100">
+                               <tr class="row w-100 d-flex align-items-center">
+                                  <th class="w-25 text-center"> Tipologia test</th>
+                                  <th class="w-25 text-center"> Tempo necessario all'analisi</th>
+                                  <th class="w-25 text-center"> Costo</th>
+                                  <th class="w-25 text-center"> Effettua</th>
+                               </tr>
+                               <tr class="row w-100 d-flex align-items-center">
+                                  <td class="w-25 text-center">Molecolare</td>
+                                  <td class="w-25">
+                                     <input type="number" name="molecolare-ore" min="0">
+                                     <select name="molecolare-minuti">
+                                        <option value="0">0</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
+                                     </select>
+                                  </td>
+                                  <td class="w-25">
+                                     <input class= "w-75" type="number" name="molecolare-costo" min="0" step="0.5">
+                                  </td>
+                                  <td class="w-25">
+                                     <input type="checkbox" name="molecolare-effettua">
+                                  </td>
+                               </tr>
+                               <tr class="row w-100 d-flex align-items-center">
+                                  <td class="w-25 text-center">Antigenico</td>
+                                  <td class="w-25">
+                                     <input type="number" name="antigenico-ore" min="0">
+                                     <select name="antigenico-minuti">
+                                        <option value="0">0</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
+                                     </select>
+                                  </td>
+                                  <td class="w-25">
+                                     <input class= "w-75" type="number" name="antigenico-costo" min="0" step="0.5">
+                                  </td>
+                                  <td class="w-25">
+                                     <input type="checkbox" name="antigenico-effettua">
+                                  </td>
+                               </tr>
+                               <tr class="row w-100 d-flex align-items-center">
+                                  <td class="w-25 text-center">Sierologico</td>
+                                  <td class="w-25">
+                                     <input type="number" name="sierologico-ore" min="0">
+                                     <select name="sierologico-minuti">
+                                        <option value="0">0</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                        <option value="45">45</option>
+                                     </select>
+                                  </td>
+                                  <td class="w-25">
+                                     <input class= "w-75" type="number" name="sierologico-costo" min="0" step="0.5">
+                                  </td>
+                                  <td class="w-25">
+                                     <input type="checkbox" name="sierologico-effettua">
+                                  </td>
+                               </tr>
+                            </tbody>
                         </table>
                      </div>
                      <br><br><input id="submit-laboratorio" type="submit">
