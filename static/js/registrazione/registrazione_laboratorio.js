@@ -214,9 +214,11 @@ function checkInfoTest(){
     }
 
     for(let i=0; i<3; i++){
-        if(ore[i]<0 || (minuti[i]!=0 && minuti[i]!=15 && minuti[i]!=30 && minuti[i]!=45) || costo[i]<0 || costo[i]>9999.99){
-            mostraMessaggioErroreInfoTest();
-            return false;
+        if(effettua[i]==true){
+            if(ore[i]<0 || (minuti[i]!=0 && minuti[i]!=15 && minuti[i]!=30 && minuti[i]!=45) || costo[i]<0 || costo[i]>9999.99){
+                mostraMessaggioErroreInfoTest();
+                return false;
+            }
         }
     }
     return true;
