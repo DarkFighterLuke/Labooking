@@ -94,8 +94,8 @@
                                <tr class="row w-100 d-flex align-items-center">
                                   <td class="w-25 text-center">Molecolare</td>
                                   <td class="w-25">
-                                     <input type="number" name="molecolare-ore" min="0">
-                                     <select name="molecolare-minuti">
+                                     <input class="w-25" type="number" name="molecolare-ore" min="0">
+                                     <select class="w-50" name="molecolare-minuti">
                                         <option value="0">0</option>
                                         <option value="15">15</option>
                                         <option value="30">30</option>
@@ -112,8 +112,8 @@
                                <tr class="row w-100 d-flex align-items-center">
                                   <td class="w-25 text-center">Antigenico</td>
                                   <td class="w-25">
-                                     <input type="number" name="antigenico-ore" min="0">
-                                     <select name="antigenico-minuti">
+                                     <input class="w-25" type="number" name="antigenico-ore" min="0">
+                                     <select class="w-50" name="antigenico-minuti">
                                         <option value="0">0</option>
                                         <option value="15">15</option>
                                         <option value="30">30</option>
@@ -130,8 +130,8 @@
                                <tr class="row w-100 d-flex align-items-center">
                                   <td class="w-25 text-center">Sierologico</td>
                                   <td class="w-25">
-                                     <input type="number" name="sierologico-ore" min="0">
-                                     <select name="sierologico-minuti">
+                                     <input class="w-25" type="number" name="sierologico-ore" min="0">
+                                     <select class="w-50" name="sierologico-minuti">
                                         <option value="0">0</option>
                                         <option value="15">15</option>
                                         <option value="30">30</option>
