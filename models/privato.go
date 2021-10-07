@@ -24,7 +24,6 @@ type Privato struct {
 	Prefisso               string    `orm:"size(6)" form:"-" valid:"Required"`
 	Telefono               string    `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-privato"`
 	Email                  string    `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-privato"`
-	EmailConfermata        bool      `form:"-"`
 	Psw                    string    `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-privato"`
 	ConfermaPsw            string    `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-privato"`
 	DataNascita            time.Time `orm:"type(date)" valid:"Required"`

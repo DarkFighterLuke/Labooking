@@ -22,7 +22,6 @@ type Medico struct {
 	Prefisso        string `orm:"size(6)" form:"-" valid:"Required"`
 	Telefono        string `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-medico"`
 	Email           string `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-medico"`
-	EmailConfermata bool   `form:"-"`
 	Psw             string `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-medico"`
 	ConfermaPsw     string `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-medico"`
 	CodiceRegionale string `orm:"size(255)" form:",,Codice regionale: " maxLength:"7" valid:"Required;Length(7)" id:"codice-regionale-medico"`
