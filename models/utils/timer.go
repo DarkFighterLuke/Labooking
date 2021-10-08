@@ -8,7 +8,7 @@ import (
 )
 
 func Timer() {
-	deleteHash := time.NewTicker(60 * time.Second)
+	deleteHash := time.NewTicker(30 * time.Second)
 
 	for {
 		select {
@@ -28,7 +28,9 @@ func deleteHashExpired() error {
 	hour, minute, _ := time.Now().Clock()
 	orario := strconv.Itoa(hour) + ":" + strconv.Itoa(minute) + ":" + "00"
 
-	_, err := qs.Filter("timeout__lt", orario).Delete()
+	x, err := qs.Filter("timeout__lt", orario).Delete()
+	fmt.Printf("[%v:%v:%v] ", time.Now().Hour(), time.Now().Minute(), time.Now().Second())
+	fmt.Println("Timer expired hashcode over, number of deleted hash: ", x)
 	if err != nil {
 		return err
 	} else {

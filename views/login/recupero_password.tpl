@@ -25,7 +25,7 @@
                 <div class="tab-content">
                     <div id="privato" class="tab-pane fade in active">
                         <!-- Form privato -->
-                        <form class="form-labooking" id="form-privato" action="/login?idForm=privato" method="POST" onsubmit="return recuperoPasswordPrivato()">
+                        <form class="form-labooking" id="form-privato" action="/recuperapassword?idForm=privato" method="POST" onsubmit="return recuperoPasswordPrivato()">
                             Email:
                             <input id="email-privato" name="email-privato" type="text" value="">
                             <br>
@@ -38,7 +38,7 @@
                     </div>
                     <div id="medico" class="tab-pane fade">
                         <!-- Form medico -->
-                        <form class="form-labooking" id="form-medico" action="/login?idForm=medico" method="POST" onsubmit="return recuperoPasswordMedico()">
+                        <form class="form-labooking" id="form-medico" action="/recuperapassword?idForm=medico" method="POST" onsubmit="return recuperoPasswordMedico()">
                             Email:
                             <input id="email-medico" name="email-medico" type="text" value="">
                             <br>
@@ -48,7 +48,7 @@
                     </div>
                     <div id="laboratorio" class="tab-pane fade">
                         <!-- Form laboratorio -->
-                        <form class="form-labooking" id="form-laboratorio" action="/login?idForm=laboratorio" method="POST" onsubmit="return recuperoPasswordLaboratorio()">
+                        <form class="form-labooking" id="form-laboratorio" action="/recuperapassword?idForm=laboratorio" method="POST" onsubmit="return recuperoPasswordLaboratorio()">
                             Email:
                             <input id="email-laboratorio" name="email-laboratorio" type="text" value="">
                             <br>

@@ -58,7 +58,7 @@ func init() {
 	}
 	connectionString := mysqluser + ":" + mysqlpsw + "@tcp(" +
 		mysqlurl + ":" + mysqlport + ")/" + mysqldbname +
-		"?charset=utf8"
+		"?charset=utf8&loc=Europe%2FRome"
 	err = orm.RegisterDataBase("default", driver, connectionString)
 	if err != nil {
 		log.Fatalln(err.Error())

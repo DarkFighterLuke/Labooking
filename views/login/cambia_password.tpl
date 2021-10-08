@@ -16,12 +16,12 @@
          <div class="card text-center">
             <div class="tab-content">
                <div class="tab-pane fade in active">
-                  <form class="form-labooking" id="form-cambio-password" action="#" method="POST" onsubmit="return cambioPassword()">
+                  <form class="form-labooking" id="form-cambio-password" action="" method="POST" onsubmit="return cambioPassword()">
                      Password:
-                     <input name="Password" type="password" value="">
+                     <input name="password" type="password" value="">
                      <br>
                      Conferma Passowrd:
-                     <input name="Conferma password" type="password" value="">
+                     <input name="conferma-password" type="password" value="">
                      <br>
                      <br>
                      <input type="submit">

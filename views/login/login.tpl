@@ -32,7 +32,7 @@
                       Password:
                       <input id="password-privato" name="password-privato" type="password" value="">
                       <br>
-                      <a href="#">Hai dimenticato la password?</a>
+                      <a href="/recuperapassword">Hai dimenticato la password?</a>
                       <br>
                       <br>
                       <input id="submit-privato" type="submit">
@@ -50,7 +50,7 @@
                       Password:
                       <input id="password-medico" name="password-medico" type="password" value="">
                       <br>
-                      <a href="#">Hai dimenticato la password?</a>
+                      <a href="/recuperapassword">Hai dimenticato la password?</a>
                       <br>
                       <br>
                       <input id="submit-medico" type="submit">
@@ -65,7 +65,7 @@
                       Password:
                       <input id="password-laboratorio" name="password-laboratorio" type="password" value="">
                       <br>
-                      <a href="#">Hai dimenticato la password?</a>
+                      <a href="/recuperapassword">Hai dimenticato la password?</a>
                       <br>
                       <br>
                       <input id="submit-laboratorio" type="submit">
@@ -79,7 +79,7 @@
               <p>{{.errmsg}}</p>
           </div>
          <div class="row justify-content-center">
-            <a href="#" class="align-self-center">Non sei registrato? Registrati ora</a>
+            <a href="/signup" class="align-self-center">Non sei registrato? Registrati ora</a>
          </div>
       </div>
    </body>
