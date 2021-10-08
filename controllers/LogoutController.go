@@ -15,5 +15,5 @@ func (lo *LogoutController) Get() {
 	if err != nil {
 		lo.Ctx.WriteString("logout: " + err.Error())
 	}
-	lo.Redirect("/login", http.StatusPermanentRedirect)
+	lo.Redirect("/", http.StatusFound)
 }

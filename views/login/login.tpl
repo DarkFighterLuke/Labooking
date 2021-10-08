@@ -16,7 +16,6 @@
          <div class="card text-center">
             <div class="card-header">
                <ul class="nav nav-pills">
-                   <p>{{.errmsg}}</p>
                   <li class="nav-item active"><a data-toggle="pill" href="#privato">Privato</a></li>
                   <li class="nav-item"><a data-toggle="pill" href="#organizzazione">Organizzazione</a></li>
                   <li class="nav-item"><a data-toggle="pill" href="#medico">Medico</a></li>
@@ -76,6 +75,9 @@
          </div>
       </div>
       <div class="container not-registred">
+          <div class="row justify-content-center">
+              <p>{{.errmsg}}</p>
+          </div>
          <div class="row justify-content-center">
             <a href="#" class="align-self-center">Non sei registrato? Registrati ora</a>
          </div>

@@ -70,7 +70,6 @@ func init() {
 		SessionNameInHTTPHeader: "LabookingSession",
 		Gclifetime:              3600,
 		Maxlifetime:             3600,
-		CookieLifeTime:          3600,
 	}
 	web.GlobalSessions, err = session.NewManager("memory", sessionconf)
 	if err != nil {

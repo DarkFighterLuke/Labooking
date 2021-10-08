@@ -20,7 +20,7 @@ func (li *LoginController) Get() {
 	ok, _ := checkUserExistence(email, ruolo)
 
 	if ok {
-		li.Redirect("/dashboard?page=home", http.StatusPermanentRedirect)
+		li.Redirect("/dashboard?page=home", http.StatusFound)
 	} else {
 		li.TplName = "login/login.tpl"
 	}
