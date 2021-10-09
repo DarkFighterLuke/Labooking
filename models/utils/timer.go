@@ -3,7 +3,6 @@ package utils
 import (
 	"fmt"
 	"github.com/beego/beego/v2/client/orm"
-	"strconv"
 	"time"
 )
 
@@ -23,17 +22,13 @@ func Timer() {
 
 func deleteHashExpired() error {
 	o := orm.NewOrm()
-	qs := o.QueryTable("recupero_password")
-
-	hour, minute, _ := time.Now().Clock()
-	orario := strconv.Itoa(hour) + ":" + strconv.Itoa(minute) + ":" + "00"
-
-	x, err := qs.Filter("timeout__lt", orario).Delete()
+	res, err := o.Raw("DELETE FROM recupero_password WHERE timeout < NOW();").Exec()
 	fmt.Printf("[%v:%v:%v] ", time.Now().Hour(), time.Now().Minute(), time.Now().Second())
+	x, _ := res.RowsAffected()
 	fmt.Println("Timer expired hashcode over, number of deleted hash: ", x)
 	if err != nil {
 		return err
-	} else {
-		return nil
 	}
+
+	return nil
 }
