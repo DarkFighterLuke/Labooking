@@ -1,6 +1,8 @@
+initElementsOrganizzazione();
 initElementsPrivato();
 initElementsMedico();
 initElementsLaboratorio();
+
 
 function underAgeValidate(birthday){
     // it will accept two types of format yyyy-mm-dd and yyyy/mm/dd
@@ -20,7 +22,7 @@ function underAgeValidate(birthday){
 
 function aggiungiSelectPrefissi(userType){
     let pref=JSON.parse(prefissi);
-    let refnode=document.getElementById("civico-".concat(userType));
+    let refnode=document.getElementById("indirizzo-".concat(userType));
     let select=document.createElement("select");
     select.name="Prefisso";
     select.id="prefisso-".concat(userType);

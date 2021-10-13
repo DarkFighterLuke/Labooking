@@ -19,6 +19,7 @@ func (rc *RegistrazioneController) Get() {
 	rc.Data["FormPrivato"] = &models.Privato{}
 	rc.Data["FormMedico"] = &models.Medico{}
 	rc.Data["FormLaboratorio"] = &models.Laboratorio{}
+	rc.Data["FormOrganizzazione"] = &models.Organizzazione{}
 	rc.TplName = "registrazione/registrazione.tpl"
 }
 
@@ -49,7 +50,12 @@ func (rc *RegistrazioneController) Post() {
 		rc.Redirect("/login", http.StatusFound)
 		break
 	case "organizzazione":
-		//TODO: implementa logica registrazione organizzazione
+		err := rc.registrazioneOrganizzazione()
+		if err != nil {
+			rc.Ctx.WriteString(err.Error())
+			return
+		}
+		rc.Redirect("/login", http.StatusFound)
 		break
 	default:
 		rc.Abort("400")
@@ -86,6 +92,25 @@ func (rc *RegistrazioneController) registrazioneMedico() error {
 		return err
 	}
 	_, err = m.Aggiungi()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (rc *RegistrazioneController) registrazioneOrganizzazione() error {
+	org := models.Organizzazione{}
+	err := rc.ParseForm(&org)
+	if err != nil {
+		return err
+	}
+	org.Prefisso = rc.GetString("Prefisso")
+	err = rc.validate(&org)
+	if err != nil {
+		return err
+
+	}
+	_, err = org.Aggiungi()
 	if err != nil {
 		return err
 	}

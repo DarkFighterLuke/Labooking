@@ -44,6 +44,10 @@ func (li *LoginController) Post() {
 		email = li.GetString("email-medico")
 		password = li.GetString("password-medico")
 		break
+	case "organizzazione":
+		email = li.GetString("email-organizzazione")
+		password = li.GetString("password-organizzazione")
+		break
 	}
 
 	li.StartSession()
@@ -114,6 +118,16 @@ func checkUserExistence(email, ruolo string) (bool, string) {
 			return false, ""
 		}
 		return true, m.Psw
+		break
+	case "organizzazione":
+		o := new(models.Organizzazione)
+		o.Email = fmt.Sprint(email)
+
+		err := o.Seleziona("email")
+		if err != nil {
+			return false, ""
+		}
+		return true, o.Psw
 		break
 	}
 	return false, ""
