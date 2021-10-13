@@ -11,20 +11,19 @@ func init() {
 }
 
 type Medico struct {
-	IdMedico        int64  `orm:"pk;auto" form:"-"`
-	Nome            string `orm:"size(255)" form:"" valid:"Required" id:"nome-medico"`
-	Cognome         string `orm:"size(255)" form:"" valid:"Required" id:"cognome-medico"`
-	CodiceFiscale   string `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16" valid:"Required;Length(16)" id:"codice-fiscale-medico"`
-	CittaStudio     string `orm:"size(255)" form:",,Città dello studio: " valid:"Required" id:"citta-medico"`
-	CapStudio       string `orm:"size(5)" form:",,CAP dello studio: " maxLength:"5" valid:"Required;Length(5)" id:"cap-medico"`
-	ViaStudio       string `orm:"size(255)" form:",,Via/Piazza dello studio: " valid:"Required" id:"via-medico"`
-	CivicoStudio    int    `orm:"digits(4)" form:",,Civico dello studio: " maxLength:"4" valid:"Required;Range(1, 9999)" id:"civico-medico"`
-	Prefisso        string `orm:"size(6)" form:"-" valid:"Required"`
-	Telefono        string `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-medico"`
-	Email           string `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-medico"`
-	Psw             string `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-medico"`
-	ConfermaPsw     string `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-medico"`
-	CodiceRegionale string `orm:"size(255)" form:",,Codice regionale: " maxLength:"7" valid:"Required;Length(7)" id:"codice-regionale-medico"`
+	IdMedico        int64   `orm:"pk;auto" form:"-"`
+	Nome            string  `orm:"size(255)" form:"" valid:"Required" id:"nome-medico"`
+	Cognome         string  `orm:"size(255)" form:"" valid:"Required" id:"cognome-medico"`
+	CodiceFiscale   string  `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16" valid:"Required;Length(16)" id:"codice-fiscale-medico"`
+	IndirizzoStudio string  `orm:"size(255)" form:",,Indirizzo studio: " valid:"Required" id:"indirizzo-medico"`
+	Lat             float64 `orm:"digits(10);decimals(7)" form:"-"`
+	Long            float64 `orm:"digits(10);decimals(7)" form:"-"`
+	Prefisso        string  `orm:"size(6)" form:"-" valid:"Required"`
+	Telefono        string  `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-medico"`
+	Email           string  `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-medico"`
+	Psw             string  `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-medico"`
+	ConfermaPsw     string  `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-medico"`
+	CodiceRegionale string  `orm:"size(255)" form:",,Codice regionale: " maxLength:"7" valid:"Required;Length(7)" id:"codice-regionale-medico"`
 }
 
 func (m *Medico) Aggiungi() (int64, error) {

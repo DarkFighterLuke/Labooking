@@ -66,11 +66,8 @@ func TestAggiungi(t *testing.T) {
 	p.Cognome = "Caio"
 	p.CodiceFiscale = "123456789qwertyu"
 	p.NumeroTesseraSanitaria = "12345678912345678911"
-	p.Citta = "Roma"
-	p.Cap = "00000"
-	p.Via = "RRRRR"
-	p.Civico = 123
-	p.Prefisso = "39"
+	p.Indirizzo = "Bari Via Sparano, 15"
+	p.Prefisso = "+39"
 	p.Telefono = "234234234"
 	p.Email = "tizio.caio@vvv.it"
 	p.Psw = "qwerty"

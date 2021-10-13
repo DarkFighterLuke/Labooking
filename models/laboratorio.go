@@ -14,10 +14,9 @@ type Laboratorio struct {
 	IdLaboratorio int64            `orm:"pk;auto" form:"-"`
 	Nome          string           `orm:"size(255)" form:"" valid:"Required" id:"nome-laboratorio"`
 	PartitaIva    string           `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-laboratorio"`
-	Citta         string           `orm:"size(255)" form:"" valid:"Required" id:"citta-laboratorio"`
-	Cap           string           `orm:"size(5)" form:",,CAP: " maxLength:"5" valid:"Required;Length(5)" id:"cap-laboratorio"`
-	Via           string           `orm:"size(255)" form:",,Via/Piazza: " valid:"Required" id:"via-laboratorio"`
-	Civico        int              `orm:"digits(4)" form:"" maxLength:"4" valid:"Required;Range(1,9999)" id:"civico-laboratorio"`
+	Indirizzo     string           `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-laboratorio"`
+	Lat           float64          `orm:"digits(10);decimals(7)" form:"-"`
+	Long          float64          `orm:"digits(10);decimals(7)" form:"-"`
 	Prefisso      string           `orm:"size(6)" form:"-" valid:"Required"`
 	Telefono      string           `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-laboratorio"`
 	Email         string           `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-laboratorio"`

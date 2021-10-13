@@ -1,7 +1,7 @@
 var nomeMedico;
 var cognomeMedico;
 var codiceFiscaleMedico;
-var cittaMedico;
+var indirizzoMedico;
 var capMedico;
 var viaMedico;
 var civicoMedico;
@@ -9,30 +9,26 @@ var telefonoMedico;
 var emailMedico;
 var passwordMedico;
 var confermaPasswordMedico;
+var codiceRegionale;
 
 function initElementsMedico(){
     nomeMedico=document.getElementById("nome-medico");
     cognomeMedico=document.getElementById("cognome-medico");
     codiceFiscaleMedico=document.getElementById("codice-fiscale-medico");
-    cittaMedico=document.getElementById("citta-medico");
-    capMedico=document.getElementById("cap-medico");
-    viaMedico=document.getElementById("via-medico");
-    civicoMedico=document.getElementById("civico-medico");
+    indirizzoMedico=document.getElementById("indirizzo-medico");
     telefonoMedico=document.getElementById("telefono-medico");
     emailMedico=document.getElementById("email-medico");
     passwordMedico=document.getElementById("password-medico");
     confermaPasswordMedico=document.getElementById("conferma-password-medico");
     codiceRegionale=document.getElementById("codice-regionale-medico");
 
+    autocomplete(indirizzoMedico);
     aggiungiSelectPrefissi("medico");
 
     nomeMedico.addEventListener("focusout", checkNomeMedico);
     cognomeMedico.addEventListener("focusout", checkCognomeMedico);
     codiceFiscaleMedico.addEventListener("focusout", checkCodiceFiscaleMedico);
-    cittaMedico.addEventListener("focusout", checkCittaMedico);
-    capMedico.addEventListener("focusout", checkCapMedico);
-    viaMedico.addEventListener("focusout", checkViaMedico);
-    civicoMedico.addEventListener("focusout", checkCivicoMedico);
+    indirizzoMedico.addEventListener("focusout", checkIndirizzoMedico);
     telefonoMedico.addEventListener("focusout", checkTelefonoMedico);
     emailMedico.addEventListener("focusout", checkEmailMedico);
     passwordMedico.addEventListener("focusout", checkPasswordMedico);
@@ -73,13 +69,13 @@ function checkCodiceFiscaleMedico(){
     }
 }
 
-function checkCittaMedico(){
-    if(cittaMedico.value.length<1 || cittaMedico.value.length>255 || cittaMedico.value.match(/\d/)){
-        cittaMedico.style.backgroundColor="red";
+function checkIndirizzoMedico(){
+    if(indirizzoMedico.value.length<1 || indirizzoMedico.value.length>255 || indirizzoMedico.value.match(/\d/)){
+        indirizzoMedico.style.backgroundColor="red";
         return false;
     }
     else{
-        cittaMedico.style.backgroundColor="white";
+        indirizzoMedico.style.backgroundColor="white";
         return true;
     }
 }
@@ -160,7 +156,7 @@ function checkCodiceRegionale(){
 }
 
 function submitMedico(){
-    if(!(checkNomeMedico() && checkCognomeMedico() && checkCodiceFiscaleMedico() && checkCittaMedico() && checkCapMedico() && checkViaMedico() && checkCivicoMedico() && checkTelefonoMedico() && checkEmailMedico() && checkPasswordMedico())){
+    if(!(checkNomeMedico() && checkCognomeMedico() && checkCodiceFiscaleMedico() && checkIndirizzoMedico() && checkCapMedico() && checkViaMedico() && checkCivicoMedico() && checkTelefonoMedico() && checkEmailMedico() && checkPasswordMedico())){
         event.preventDefault();
         return false;
     }

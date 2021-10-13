@@ -17,10 +17,9 @@ type Privato struct {
 	Cognome                string            `orm:"size(255)" form:"" valid:"Required" id:"cognome-privato"`
 	CodiceFiscale          string            `orm:"size(16);unique" form:",,Codice Fiscale: " maxLength:"16" valid:"Required;Length(16)" id:"codice-fiscale-privato"`
 	NumeroTesseraSanitaria string            `orm:"size(20);unique" form:",,Numero Tessera Sanitaria: " maxLength:"20" valid:"Required;Length(20)" id:"numero-tessera-sanitaria-privato"`
-	Citta                  string            `orm:"size(255)" form:"" valid:"Required" id:"citta-privato"`
-	Cap                    string            `orm:"size(5)" form:",,CAP: " maxLength:"5" valid:"Required;Length(5)" id:"cap-privato"`
-	Via                    string            `orm:"size(255)" form:",,Via/Piazza: " valid:"Required" id:"via-privato"`
-	Civico                 int               `orm:"digits(4)" form:"" maxLength:"4" valid:"Required;Range(1, 9999)" id:"civico-privato"`
+	Indirizzo              string            `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-privato" class:"autocomplete"`
+	Lat                    float64           `orm:"digits(10);decimals(7)" form:"-"`
+	Long                   float64           `orm:"digits(10);decimals(7)" form:"-"`
 	Prefisso               string            `orm:"size(6)" form:"-" valid:"Required"`
 	Telefono               string            `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-privato"`
 	Email                  string            `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-privato"`

@@ -2,10 +2,7 @@ var nomePrivato;
 var cognomePrivato;
 var codiceFiscalePrivato;
 var numeroTesseraSanitariaPrivato;
-var cittaPrivato;
-var capPrivato;
-var viaPrivato;
-var civicoPrivato;
+var indirizzoPrivato;
 var telefonoPrivato;
 var emailPrivato;
 var passwordPrivato;
@@ -17,26 +14,21 @@ function initElementsPrivato(){
     cognomePrivato=document.getElementById("cognome-privato");
     codiceFiscalePrivato=document.getElementById("codice-fiscale-privato");
     numeroTesseraSanitariaPrivato=document.getElementById("numero-tessera-sanitaria-privato");
-    cittaPrivato=document.getElementById("citta-privato");
-    capPrivato=document.getElementById("cap-privato");
-    viaPrivato=document.getElementById("via-privato");
-    civicoPrivato=document.getElementById("civico-privato");
+    indirizzoPrivato=document.getElementById("indirizzo-privato");
     telefonoPrivato=document.getElementById("telefono-privato");
     emailPrivato=document.getElementById("email-privato");
     passwordPrivato=document.getElementById("password-privato");
     confermaPasswordPrivato=document.getElementById("conferma-password-privato");
     dataNascitaPrivato=document.getElementById("data-nascita-privato");
 
+    autocomplete(indirizzoPrivato);
     aggiungiSelectPrefissi("privato");
 
     nomePrivato.addEventListener("focusout", checkNomePrivato);
     cognomePrivato.addEventListener("focusout", checkCognomePrivato);
     codiceFiscalePrivato.addEventListener("focusout", checkCodiceFiscalePrivato);
     numeroTesseraSanitariaPrivato.addEventListener("focusout", checkNumeroTesseraSanitariaPrivato);
-    cittaPrivato.addEventListener("focusout", checkCittaPrivato);
-    capPrivato.addEventListener("focusout", checkCapPrivato);
-    viaPrivato.addEventListener("focusout", checkViaPrivato);
-    civicoPrivato.addEventListener("focusout", checkCivicoPrivato);
+    indirizzoPrivato.addEventListener("focusout", checkIndirizzoPrivato);
     telefonoPrivato.addEventListener("focusout", checkTelefonoPrivato);
     emailPrivato.addEventListener("focusout", checkEmailPrivato);
     passwordPrivato.addEventListener("focusout", checkPasswordPrivato);
@@ -88,46 +80,13 @@ function checkNumeroTesseraSanitariaPrivato(){
     }
 }
 
-function checkCittaPrivato(){
-    if(cittaPrivato.value.length<1 || cittaPrivato.value.length>255 || cittaPrivato.value.match(/\d/)){
-        cittaPrivato.style.backgroundColor="red";
+function checkIndirizzoPrivato(){
+    if(indirizzoPrivato.value.length<1 || indirizzoPrivato.value.length>255) {
+        indirizzoPrivato.style.backgroundColor="red";
         return false;
     }
     else{
-        cittaPrivato.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkCapPrivato(){
-    if(capPrivato.value.length!==5 || !capPrivato.value.match(/^[0-9]+$/)){
-        capPrivato.style.backgroundColor="red";
-        return false;
-    }
-    else{
-        capPrivato.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkViaPrivato(){
-    if(viaPrivato.value.length<1 || viaPrivato.value.length>255){
-        viaPrivato.style.backgroundColor="red";
-        return false;
-    }
-    else{
-        viaPrivato.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkCivicoPrivato(){
-    if(civicoPrivato.value.length<1 || civicoPrivato.value.length>4 || !civicoPrivato.value.match(/^[0-9]+$/) || civicoPrivato.value==0){
-        civicoPrivato.style.backgroundColor="red";
-        return false;
-    }
-    else{
-        civicoPrivato.style.backgroundColor="white";
+        indirizzoPrivato.style.backgroundColor="white";
         return true;
     }
 }
@@ -179,7 +138,7 @@ function checkDataNascitaPrivato(){
 }
 
 function submitPrivato(){
-    if(!(checkNomePrivato() && checkCognomePrivato() && checkCodiceFiscalePrivato() && checkNumeroTesseraSanitariaPrivato() && checkCittaPrivato() && checkCapPrivato() && checkViaPrivato() && checkCivicoPrivato() && checkTelefonoPrivato() && checkEmailPrivato() && checkPasswordPrivato() && checkDataNascitaPrivato())){
+    if(!(checkNomePrivato() && checkCognomePrivato() && checkCodiceFiscalePrivato() && checkNumeroTesseraSanitariaPrivato() && checkIndirizzoPrivato() && checkCapPrivato() && checkViaPrivato() && checkCivicoPrivato() && checkTelefonoPrivato() && checkEmailPrivato() && checkPasswordPrivato() && checkDataNascitaPrivato())){
         event.preventDefault();
         return false;
     }

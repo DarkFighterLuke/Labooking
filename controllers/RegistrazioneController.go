@@ -73,6 +73,19 @@ func (rc *RegistrazioneController) registrazionePrivato() error {
 	if err != nil {
 		return err
 	}
+	ll := models.LatLong{}
+	err = models.RetrieveLatLong(p.Indirizzo, &ll)
+	if err != nil {
+		return err
+	}
+	p.Lat, err = strconv.ParseFloat(ll.Lat, 64)
+	if err != nil {
+		return err
+	}
+	p.Long, err = strconv.ParseFloat(ll.Long, 64)
+	if err != nil {
+		return err
+	}
 	_, err = p.Aggiungi()
 	if err != nil {
 		return err
@@ -88,6 +101,19 @@ func (rc *RegistrazioneController) registrazioneMedico() error {
 	}
 	m.Prefisso = rc.GetString("Prefisso")
 	err = rc.validate(&m)
+	if err != nil {
+		return err
+	}
+	ll := models.LatLong{}
+	err = models.RetrieveLatLong(m.IndirizzoStudio, &ll)
+	if err != nil {
+		return err
+	}
+	m.Lat, err = strconv.ParseFloat(ll.Lat, 64)
+	if err != nil {
+		return err
+	}
+	m.Long, err = strconv.ParseFloat(ll.Long, 64)
 	if err != nil {
 		return err
 	}
@@ -110,6 +136,19 @@ func (rc *RegistrazioneController) registrazioneOrganizzazione() error {
 		return err
 
 	}
+	ll := models.LatLong{}
+	err = models.RetrieveLatLong(org.Indirizzo, &ll)
+	if err != nil {
+		return err
+	}
+	org.Lat, err = strconv.ParseFloat(ll.Lat, 64)
+	if err != nil {
+		return err
+	}
+	org.Long, err = strconv.ParseFloat(ll.Long, 64)
+	if err != nil {
+		return err
+	}
 	_, err = org.Aggiungi()
 	if err != nil {
 		return err
@@ -130,6 +169,19 @@ func (rc *RegistrazioneController) registrazioneLaboratorio() error {
 	}
 
 	err = rc.validate(&l)
+	if err != nil {
+		return err
+	}
+	ll := models.LatLong{}
+	err = models.RetrieveLatLong(l.Indirizzo, &ll)
+	if err != nil {
+		return err
+	}
+	l.Lat, err = strconv.ParseFloat(ll.Lat, 64)
+	if err != nil {
+		return err
+	}
+	l.Long, err = strconv.ParseFloat(ll.Long, 64)
 	if err != nil {
 		return err
 	}

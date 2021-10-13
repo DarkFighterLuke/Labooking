@@ -25,6 +25,9 @@ func init() {
 	//timer
 	go utils.Timer()
 
+	//timer
+	//go utils.Timer()
+
 	//database config
 	driver, err := web.AppConfig.String("mysqldriver")
 	if err != nil {

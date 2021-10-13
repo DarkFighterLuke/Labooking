@@ -1,22 +1,20 @@
 var nomeLaboratorio;
 var partitaIvaLaboratorio;
-var cittaLaboratorio;
+var indirizzoLaboratorio;
 var capLaboratorio;
 var viaLaboratorio;
 var civicoLaboratorio;
 var telefonoLaboratorio;
 var emailLaboratorio;
 var passwordLaboratorio;
+var confermaPasswordLaboratorio;
 var tableOrariApertura;
 var tableInfoTest;
 
 function initElementsLaboratorio(){
     nomeLaboratorio=document.getElementById("nome-laboratorio");
     partitaIvaLaboratorio=document.getElementById("partita-iva-laboratorio");
-    cittaLaboratorio=document.getElementById("citta-laboratorio");
-    capLaboratorio=document.getElementById("cap-laboratorio");
-    viaLaboratorio=document.getElementById("via-laboratorio");
-    civicoLaboratorio=document.getElementById("civico-laboratorio");
+    indirizzoLaboratorio=document.getElementById("indirizzo-laboratorio");
     telefonoLaboratorio=document.getElementById("telefono-laboratorio");
     emailLaboratorio=document.getElementById("email-laboratorio");
     passwordLaboratorio=document.getElementById("password-laboratorio");
@@ -24,19 +22,16 @@ function initElementsLaboratorio(){
     tableOrariApertura=document.getElementById("table-orari-apertura");
     tableInfoTest=document.getElementById("table-info-test");
 
+    autocomplete(indirizzoLaboratorio);
     aggiungiSelectPrefissi("laboratorio");
 
     nomeLaboratorio.addEventListener("focusout", checkNomeLaboratorio);
     partitaIvaLaboratorio.addEventListener("focusout", checkPartitaIvaLaboratorio);
-    cittaLaboratorio.addEventListener("focusout", checkCittaLaboratorio);
-    capLaboratorio.addEventListener("focusout", checkCapLaboratorio);
-    viaLaboratorio.addEventListener("focusout", checkViaLaboratorio);
-    civicoLaboratorio.addEventListener("focusout", checkCivicoLaboratorio);
+    indirizzoLaboratorio.addEventListener("focusout", checkIndirizzoLaboratorio);
     telefonoLaboratorio.addEventListener("focusout", checkTelefonoLaboratorio);
     emailLaboratorio.addEventListener("focusout", checkEmailLaboratorio);
     passwordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
     confermaPasswordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
-    codiceRegionale.addEventListener("change", checkCodiceRegionale);
 }
 
 function checkNomeLaboratorio(){
@@ -61,13 +56,13 @@ function checkPartitaIvaLaboratorio(){
     }
 }
 
-function checkCittaLaboratorio(){
-    if(cittaLaboratorio.value.length<1 || cittaLaboratorio.value.length>255 || cittaLaboratorio.value.match(/\d/)){
-        cittaLaboratorio.style.backgroundColor="red";
+function checkIndirizzoLaboratorio(){
+    if(indirizzoLaboratorio.value.length<1 || indirizzoLaboratorio.value.length>255 || indirizzoLaboratorio.value.match(/\d/)){
+        indirizzoLaboratorio.style.backgroundColor="red";
         return false;
     }
     else{
-        cittaLaboratorio.style.backgroundColor="white";
+        indirizzoLaboratorio.style.backgroundColor="white";
         return true;
     }
 }
@@ -236,7 +231,7 @@ function mostraMessaggioErroreInfoTest(){
 }
 
 function submitLaboratorio(){
-    if(!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkCittaLaboratorio() && checkCapLaboratorio() && checkViaLaboratorio() && checkCivicoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkOrariApertura() && checkInfoTest())){
+    if(!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkCapLaboratorio() && checkViaLaboratorio() && checkCivicoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkOrariApertura() && checkInfoTest())){
         event.preventDefault();
         return false;
     }
