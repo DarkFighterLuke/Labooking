@@ -39,7 +39,14 @@ func (rp *RecuperoPasswordController) Post() {
 			rp.Ctx.WriteString("errore nell'invio della mail di recupero")
 		}
 		break
-		//TODO: organizzazione
+	case "organizzazione":
+		o := new(models.Organizzazione)
+		o.Email = rp.GetString("email-organizzazione")
+		err := o.InviaLink()
+		if err != nil {
+			rp.Ctx.WriteString("recupero password: " + err.Error())
+		}
+		break
 	}
 	rp.Redirect("/login", http.StatusFound)
 }
@@ -115,12 +122,27 @@ func (cp *CambioPasswordController) Post() {
 		if err != nil {
 			cp.Ctx.WriteString("cambio password:" + err.Error())
 		}
-	} //TODO: organizzazione
+	} else if r.Organizzazione != nil {
+		err := r.Organizzazione.Seleziona("id_organizzazione")
+		if err != nil {
+			cp.Ctx.WriteString("cambio password:" + err.Error())
+		}
+
+		newPsw, err = utils.CryptSHA1(newPsw)
+		if err != nil {
+			cp.Ctx.WriteString("cambio password:" + err.Error())
+		}
+		r.Organizzazione.Psw = newPsw
+		err = r.Organizzazione.Modifica()
+		if err != nil {
+			cp.Ctx.WriteString("cambio password:" + err.Error())
+		}
+	}
 
 	err = r.Elimina()
 	if err != nil {
 		cp.Ctx.WriteString("cambio password:" + err.Error())
 	}
 
-	cp.TplName = "login.tpl"
+	cp.TplName = "login/login.tpl"
 }

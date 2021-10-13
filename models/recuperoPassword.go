@@ -22,8 +22,9 @@ type RecuperoPassword struct {
 	Timeout time.Time `orm:""`
 	Medico  *Medico   `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_medico)"`
 	//IdOganizzazione *Organizzazione `orm:"rel(one);on_delete(do_nothing);on_update(cascade);column(id_organizzazione)"`
-	Privato     *Privato     `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_privato)"`
-	Laboratorio *Laboratorio `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_laboratorio)"`
+	Privato        *Privato        `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_privato)"`
+	Laboratorio    *Laboratorio    `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_laboratorio)"`
+	Organizzazione *Organizzazione `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_organizzazione)"`
 }
 
 func (m *Medico) creaRecupero() (string, error) {
@@ -115,6 +116,38 @@ func (l *Laboratorio) InviaLink() error {
 	}
 
 	err = inviaMail(hashKey, l.Email)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (org *Organizzazione) creaRecupero() (string, error) {
+	err := org.Seleziona("email")
+	if err != nil {
+		return "", err
+	}
+
+	rec := generaHash()
+	rec.Organizzazione = new(Organizzazione)
+	rec.Organizzazione.IdOrganizzazione = org.IdOrganizzazione
+
+	err = insertOrUpdate(&rec, "id_organizzazione")
+	if err != nil {
+		return "", err
+	}
+
+	return rec.HashKey, nil
+}
+
+func (org *Organizzazione) InviaLink() error {
+	hashKey, err := org.creaRecupero()
+	if err != nil {
+		return err
+	}
+
+	err = inviaMail(hashKey, org.Email)
 	if err != nil {
 		return err
 	}

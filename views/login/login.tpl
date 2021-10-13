@@ -39,7 +39,19 @@
                   </form>
                </div>
                <div id="organizzazione" class="tab-pane fade">
-                  <p>ok</p>
+                   <!-- Form organizzazione -->
+                   <form class="form-labooking" id="form-organizzazione" action="/login?idForm=organizzazione" method="POST" onsubmit="return loginOrganizzazione()">
+                       Email:
+                       <input id="email-organizzazione" name="email-organizzazione" type="text" value="">
+                       <br>
+                       Password:
+                       <input id="password-organizzazione" name="password-organizzazione" type="password" value="">
+                       <br>
+                       <a href="/recuperapassword">Hai dimenticato la password?</a>
+                       <br>
+                       <br>
+                       <input id="submit-organizzazione" type="submit">
+                   </form>
                </div>
                <div id="medico" class="tab-pane fade">
                   <!-- Form medico -->

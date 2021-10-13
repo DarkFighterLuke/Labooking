@@ -73,12 +73,11 @@ func TestAggiungi(t *testing.T) {
 	p.Prefisso = "39"
 	p.Telefono = "234234234"
 	p.Email = "tizio.caio@vvv.it"
-	p.EmailConfermata = false
 	p.Psw = "qwerty"
 	p.DataNascita = time.Date(2000, 4, 3, 12, 30, 0, 0, time.UTC)
 	p.Medico = nil
 
-	err := p.Aggiungi()
+	_, err := p.Aggiungi()
 
 	if err != nil {
 		t.Errorf("err is %v; want nil", err)
