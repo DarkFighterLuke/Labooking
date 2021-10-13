@@ -7,14 +7,15 @@ var passwordOrganizzazione;
 var confermaPasswordOrganizzazione;
 
 function initElementsOrganizzazione(){
-    ragioneSocialeOrganizzazione=document.getElementById("ragioneSociale-organizzazione");
-    partitaIvaOrganizzazione=document.getElementById("codice-fiscale-organizzazione");
-    telefonoOrganizzazione=document.getElementById("telefono-organizzazione");
+    ragioneSocialeOrganizzazione=document.getElementById("ragione-sociale-organizzazione");
+    partitaIvaOrganizzazione=document.getElementById("partita-iva-organizzazione");
     indirizzoOrganizzazione=document.getElementById("indirizzo-organizzazione");
+    telefonoOrganizzazione=document.getElementById("telefono-organizzazione");
     emailOrganizzazione=document.getElementById("email-organizzazione");
     passwordOrganizzazione=document.getElementById("password-organizzazione");
     confermaPasswordOrganizzazione=document.getElementById("conferma-password-organizzazione");
 
+    autocomplete(indirizzoOrganizzazione);
     aggiungiSelectPrefissi("organizzazione");
 
     ragioneSocialeOrganizzazione.addEventListener("focusout", checkRagioneSocialeOrganizzazione);

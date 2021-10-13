@@ -12,13 +12,15 @@ func init() {
 
 type Organizzazione struct {
 	IdOrganizzazione int        `orm:"pk;auto" form:"-"`
-	RagioneSociale   string     `orm:"size(255)" form:"" valid:"Required" id:"ragione-sociale"`
+	RagioneSociale   string     `orm:"size(255)" form:"" valid:"Required" id:"ragione-sociale-organizzazione"`
 	PartitaIva       string     `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-organizzazione"`
 	Indirizzo        string     `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-organizzazione"`
+	Lat              float64    `orm:"digits(10);decimals(7)" form:"-"`
+	Long             float64    `orm:"digits(10);decimals(7)" form:"-"`
 	Prefisso         string     `orm:"size(6)" form:"-" valid:"Required"`
-	Telefono         string     `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-organizzazone"`
-	Email            string     `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-organizzazioen"`
-	Psw              string     `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-organizzazioen"`
+	Telefono         string     `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-organizzazione"`
+	Email            string     `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-organizzazione"`
+	Psw              string     `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-organizzazione"`
 	ConfermaPsw      string     `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-organizzazione"`
 	Privato          []*Privato `orm:"rel(m2m);rel_table(dipendente_presso)"`
 }
