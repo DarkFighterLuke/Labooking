@@ -1,0 +1,158 @@
+html, body {
+    height: 100%
+}
+
+h1{
+    font-family:'Open Sans';
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+
+.navbar {
+    padding: 0;
+    border-radius: 0px;
+}
+
+.navbar-brand {
+    font-size:35px;
+    font-family: 'Oleo Script Swash Caps', cursive;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+.card{
+    border-radius: 25px;
+}
+
+
+.card-header:first-child {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+input[type=text], input[type=password], input[type=date] {
+    background-color: #fafafa;
+    border:0;
+    box-shadow:0 0 4px rgba(0,0,0,0.3);
+    transition: .3s box-shadow;
+    width:20%;
+    margin:10px 0;
+    padding:10px;
+    box-sizing: border-box;
+}
+
+button{
+    appearance:none;
+    -webkit-appearance:none;
+    padding:10px;
+    border:none;
+    background-color:#90ee90;
+    color:black;
+    font-weight:600;
+    border-radius:10px;
+    width: 5%;
+}
+
+#table-orari-apertura>tbody>tr {
+    margin-right: -15px;
+    margin-left: -15px;
+    width: 100%!important;
+    align-items: center!important;
+    display: flex!important;
+}
+
+#table-orari-apertura>tbody>tr>td {
+    width: 33%!important;
+    align-items: center!important;
+    display: flex!important;
+    border: 0;
+}
+
+#table-orari-apertura>tbody>tr>td>input {
+    width: 75%!important;
+    height: 50%!important;
+}
+
+#table-orari-apertura>tbody>tr>td>select {
+    width: 100%!important;
+}
+
+#table-tamponi>tbody>tr>td {
+    border: 0;
+}
+
+.w-33{
+    width: 33%!important;
+}
+
+input[type=time], select {
+    background-color: #fafafa;
+    border:0;
+    box-shadow:0 0 4px rgba(0,0,0,0.3);
+    transition: .3s box-shadow;
+}
+
+input[type=number], select {
+    background-color: #fafafa;
+    border:0;
+    box-shadow:0 0 4px rgba(0,0,0,0.3);
+    transition: .3s box-shadow;
+    width: 50%;
+}
+
+
+
+table{
+    border:0;
+    margin:10px 0;
+    padding:10px;
+}
+
+select {
+    background-color: #fafafa;
+    border:0;
+    box-shadow:0 0 4px rgba(0,0,0,0.3);
+    transition: .3s box-shadow;
+    width:20%;
+    margin:10px 0;
+    padding:10px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    appearance:none;
+    -webkit-appearance:none;
+    padding:10px;
+    border:none;
+    background-color:#3F51B5;
+    color:#fff;
+    font-weight:600;
+    border-radius:5px;
+    width:25%;
+}
+
+.border-bottom-input {
+    border:0;
+    border-bottom:1px solid #eee;
+}
+
+.rounded-input {
+    padding:10px;
+    border-radius:10px;
+}
+
+.already-registred{
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.form-labooking{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.bg-primary{
+    background-color: #00A4D3 !important;
+}
