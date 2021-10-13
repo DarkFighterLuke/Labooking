@@ -56,6 +56,7 @@ function checkIndirizzoOrganizzazione(){
     }
     else{
         indirizzoOrganizzazione.style.backgroundColor="white";
+        return true;
     }
 }
 
