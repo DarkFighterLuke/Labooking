@@ -30,7 +30,7 @@ func (rc *RegistrazioneController) Post() {
 			rc.Ctx.WriteString(err.Error())
 			return
 		}
-		rc.Redirect("/dashboard?page=home", http.StatusFound)
+		rc.Redirect("/login", http.StatusFound)
 		break
 	case "medico":
 		err := rc.registrazioneMedico()
@@ -38,7 +38,7 @@ func (rc *RegistrazioneController) Post() {
 			rc.Ctx.WriteString(err.Error())
 			return
 		}
-		rc.Redirect("/dashboard?page=home", http.StatusFound)
+		rc.Redirect("/login", http.StatusFound)
 		break
 	case "laboratorio":
 		err := rc.registrazioneLaboratorio()
@@ -46,7 +46,7 @@ func (rc *RegistrazioneController) Post() {
 			rc.Ctx.WriteString(err.Error())
 			return
 		}
-		rc.Redirect("/dashboard?page=home", http.StatusFound)
+		rc.Redirect("/login", http.StatusFound)
 		break
 	case "organizzazione":
 		//TODO: implementa logica registrazione organizzazione
