@@ -31,7 +31,7 @@
             Calendario</a>
         {{if eq .UserType "laboratorio"}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/pagamenti">
-            <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
+            <img src="/img/icons/credit-cards-svgrepo-com.svg" class="list-group-item-image"/>
             Pagamenti</a>
         {{end}}
         {{if or (eq .UserType "privato") (eq .UserType "medico") (eq .UserType "organizzazione")}}
