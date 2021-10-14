@@ -20,7 +20,7 @@ func (li *LoginController) Get() {
 	ok, _ := checkUserExistence(email, ruolo)
 
 	if ok {
-		li.Redirect("/dashboard?page=home", http.StatusFound)
+		li.Redirect("/dashboard/home", http.StatusFound)
 	} else {
 		li.TplName = "login/login.tpl"
 	}
@@ -84,7 +84,7 @@ func (li *LoginController) Post() {
 		li.Data["errmsg"] = err.Error()
 		return
 	}
-	li.Redirect("/dashboard?page=home", http.StatusFound)
+	li.Redirect("/dashboard/home", http.StatusFound)
 }
 
 func checkUserExistence(email, ruolo string) (bool, string) {
