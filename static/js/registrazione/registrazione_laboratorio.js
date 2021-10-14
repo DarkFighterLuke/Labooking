@@ -57,7 +57,7 @@ function checkPartitaIvaLaboratorio(){
 }
 
 function checkIndirizzoLaboratorio(){
-    if(indirizzoLaboratorio.value.length<1 || indirizzoLaboratorio.value.length>255 || indirizzoLaboratorio.value.match(/\d/)){
+    if(indirizzoLaboratorio.value.length<1 || indirizzoLaboratorio.value.length>255){
         indirizzoLaboratorio.style.backgroundColor="red";
         return false;
     }
