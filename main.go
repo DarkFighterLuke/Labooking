@@ -5,7 +5,6 @@ import (
 	_ "Labooking/routers"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/server/web"
-	"github.com/beego/beego/v2/server/web/context"
 	"github.com/beego/beego/v2/server/web/session"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
@@ -81,16 +80,7 @@ func init() {
 	go web.GlobalSessions.GC()
 
 	//filters
-	web.InsertFilter("/dashboard/*", web.BeforeRouter, filterUser)
-
-}
-
-//filter user configuration
-var filterUser = func(ctx *context.Context) {
-	email := ctx.Input.Session("email")
-	ruolo := ctx.Input.Session("ruolo")
-
-	if email == nil || ruolo == nil {
-		ctx.Redirect(302, "/login")
-	}
+	web.InsertFilter("/dashboard/*", web.BeforeRouter, utils.FilterUser)
+	//TODO: decommentare filtro ruolo
+	//web.InsertFilter("/dashboard/*", web.BeforeRouter, utils.FilterRuolo)
 }
