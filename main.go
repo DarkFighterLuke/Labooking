@@ -1,8 +1,9 @@
 package main
 
 import (
-	"Labooking/models/utils"
+	modelsutils "Labooking/models/utils"
 	_ "Labooking/routers"
+	routersutils "Labooking/routers/utils"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/server/web"
 	"github.com/beego/beego/v2/server/web/session"
@@ -22,7 +23,7 @@ func init() {
 	web.SetStaticPath("/js", "static/js")
 
 	//timer
-	go utils.Timer()
+	go modelsutils.Timer()
 
 	//timer
 	//go utils.Timer()
@@ -80,7 +81,7 @@ func init() {
 	go web.GlobalSessions.GC()
 
 	//filters
-	web.InsertFilter("/dashboard/*", web.BeforeRouter, utils.FilterUser)
+	web.InsertFilter("/dashboard/*", web.BeforeRouter, routersutils.FilterUser)
 	//TODO: decommentare filtro ruolo
 	//web.InsertFilter("/dashboard/*", web.BeforeRouter, utils.FilterRuolo)
 }
