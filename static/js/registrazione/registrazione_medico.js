@@ -33,7 +33,7 @@ function initElementsMedico(){
     emailMedico.addEventListener("focusout", checkEmailMedico);
     passwordMedico.addEventListener("focusout", checkPasswordMedico);
     confermaPasswordMedico.addEventListener("focusout", checkPasswordMedico);
-    codiceRegionale.addEventListener("change", checkCodiceRegionale);
+    codiceRegionale.addEventListener("focusout", checkCodiceRegionale);
 }
 
 function checkNomeMedico(){
@@ -149,9 +149,12 @@ function checkPasswordMedico(){
 }
 
 function checkCodiceRegionale(){
-    if(codiceRegionale.value.length!==6){
-        codiceRegionale.style.backgroundColor="red";
+    if (codiceRegionale.value.length !== 6) {
+        codiceRegionale.style.backgroundColor = "red";
         return false;
+    } else {
+        codiceRegionale.style.backgroundColor = "white";
+        return true;
     }
 }
 

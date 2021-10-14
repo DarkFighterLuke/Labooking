@@ -135,13 +135,6 @@ function checkPasswordLaboratorio(){
     }
 }
 
-function checkCodiceRegionale(){
-    if(codiceRegionale.value.length!==6){
-        codiceRegionale.style.backgroundColor="red";
-        return false;
-    }
-}
-
 function checkOrariApertura(){
     eraseErrorDivs();
     let orariApertura=[];
