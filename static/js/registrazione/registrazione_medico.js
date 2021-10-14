@@ -70,7 +70,7 @@ function checkCodiceFiscaleMedico(){
 }
 
 function checkIndirizzoMedico(){
-    if(indirizzoMedico.value.length<1 || indirizzoMedico.value.length>255 || indirizzoMedico.value.match(/\d/)){
+    if(indirizzoMedico.value.length<1 || indirizzoMedico.value.length>255){
         indirizzoMedico.style.backgroundColor="red";
         return false;
     }
