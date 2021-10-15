@@ -82,6 +82,5 @@ func init() {
 
 	//filters
 	web.InsertFilter("/dashboard/*", web.BeforeRouter, routersutils.FilterUser)
-	//TODO: decommentare filtro ruolo
-	//web.InsertFilter("/dashboard/*", web.BeforeRouter, utils.FilterRuolo)
+	web.InsertFilter("/dashboard/*", web.BeforeRouter, utils.FilterRuolo)
 }
