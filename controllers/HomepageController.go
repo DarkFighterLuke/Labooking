@@ -11,5 +11,6 @@ type HomepageController struct {
 
 func (hc *HomepageController) Get() {
 	utils.RenderLayout(&hc.Controller)
+	hc.Data["Title"] = "Attività recenti"
 	hc.TplName = "dashboard/home/home.tpl"
 }
