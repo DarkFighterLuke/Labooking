@@ -9,6 +9,7 @@ func init() {
 	// pages
 	web.Router("/", &controllers.LandingPageController{})
 	web.Router("/dashboard/home", &controllers.HomepageController{})
+	web.Router("/dashboard/prenota", &controllers.PrenotazioneController{})
 	web.Router("/dashboard/guida", &controllers.GuidaController{})
 
 	// signup
