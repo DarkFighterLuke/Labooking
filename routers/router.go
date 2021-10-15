@@ -2,6 +2,7 @@ package routers
 
 import (
 	"Labooking/controllers"
+	"Labooking/controllers/api"
 	"github.com/beego/beego/v2/server/web"
 )
 
@@ -11,6 +12,8 @@ func init() {
 	web.Router("/dashboard/home", &controllers.HomepageController{})
 	web.Router("/dashboard/prenota", &controllers.PrenotazioneController{})
 	web.Router("/dashboard/guida", &controllers.GuidaController{})
+
+	web.Router("/api/ricerca", &api.RicercaLaboratorio{})
 
 	// signup
 	web.Router("/signup", &controllers.RegistrazioneController{})
