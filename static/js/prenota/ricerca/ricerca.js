@@ -1,7 +1,8 @@
-var accessToken='pk.eyJ1IjoiZGFya2ZpZ2h0ZXJsdWtlIiwiYSI6ImNrdWd6eWtkZTBlazEycW15bWd3dmRpMDUifQ.z-QRPdZnwbHgFsnAbUjVjw';
-var filtersEndpoint=window.location.host.concat(":", window.location.port, "/api/ricerca");
+var accessToken = 'pk.eyJ1IjoiZGFya2ZpZ2h0ZXJsdWtlIiwiYSI6ImNrdWd6eWtkZTBlazEycW15bWd3dmRpMDUifQ.z-QRPdZnwbHgFsnAbUjVjw';
+var filtersEndpoint = "/api/ricerca";
+var visualizzaLaboratorioEndpoint = window.location.host.concat(":", window.location.port, "/laboratorio")
 
-var markers=[];
+var markers = [];
 
 var mymap = L.map('map', {center: [41.951, 13.887], zoom: 6});
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token='.concat(accessToken), {
@@ -46,12 +47,13 @@ async function sendFilters(){
     fetch(request).then(response => setLabMap(response));
 }
 
-function setLabMap(response){
+async function setLabMap(response) {
     removeAllMarkers();
-    let dati=JSON.parse(response.body);
-    for(let i=0; i<dati.length; i++){
-        let marker=L.marker([dati[i].lat, dati[i].long]).addTo(mymap);
-        let popupContent="<b>".concat(dati[i].nome, "</b></br><a href='", dati[i].labLink, "'>Vedi</a>");
+    let dati = JSON.parse(await response.text());
+    for (let i = 0; i < dati.length; i++) {
+        let marker = L.marker([dati[i].lat, dati[i].long]).addTo(mymap);
+        let labLink = visualizzaLaboratorioEndpoint.concat("?idLab=", dati[i].id_laboratorio);
+        let popupContent = "<b>".concat(dati[i].nome, "</b></br><a href='", labLink, "'>Vedi</a>");
         marker.bindPopup(popupContent);
     }
 }
@@ -66,6 +68,9 @@ function removeAllMarkers(){
 function retrieveAllLab(){
     let request=new Request(filtersEndpoint, {
         method: "GET",
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        }
     });
     fetch(request).then(response => setLabMap(response));
 }
