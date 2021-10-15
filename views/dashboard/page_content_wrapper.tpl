@@ -10,6 +10,7 @@
     <link rel="icon" type="image/x-icon" href="static/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet"/>
+    {{.Head}}
 </head>
 <body>
 <div class="d-flex" id="wrapper">
