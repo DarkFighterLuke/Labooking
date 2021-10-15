@@ -15,20 +15,19 @@ var FilterUser = func(ctx *context.Context) {
 	}
 }
 
-//TODO: inserire percorsi accessibili(o non accessibili) all'interno della mappa filtro
 var FilterRuolo = func(ctx *context.Context) {
 	filtro := map[string][]string{
-		"privato":        []string{},
-		"laboratorio":    []string{},
-		"organizzazione": []string{},
-		"medico":         []string{},
+		"privato":        []string{"/dashboard/pagamenti", "/dashboard/pubblica", "/dashboard/prenotazioni", "/dashboard/pazienti", "/dashboard/dipendenti"},
+		"laboratorio":    []string{"/dashboard/prenota", "/dashboard/referti", "/dashboard/guida", "/dashboard/pazienti", "/dashboard/dipendenti"},
+		"organizzazione": []string{"/dashboard/pazienti", "/dashboard/prenotazioni", "/dashboard/pubblica", "/dashboard/pagamenti"},
+		"medico":         []string{"/dashboard/dipendenti", "/dashboard/prenotazioni", "/dashboard/pubblica", "/dashboard/pagamenti"},
 	}
 	ruolo := fmt.Sprint(ctx.Input.Session("ruolo"))
 	path := fmt.Sprint(ctx.Request.URL.Path)
 
 	permission := filtro[ruolo]
 	ok := contains(permission, path)
-	if !ok {
+	if ok {
 		ctx.Abort(http.StatusForbidden, "Non sei autorizzato ad accedere alla seguente pagina")
 	}
 }
