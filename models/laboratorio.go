@@ -2,7 +2,6 @@ package models
 
 import (
 	"Labooking/models/utils"
-	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
 	"strconv"
@@ -15,7 +14,7 @@ func init() {
 
 type Laboratorio struct {
 	IdLaboratorio int64            `orm:"pk;auto" form:"-" json:"id_laboratorio"`
-	Nome          string           `orm:"size(255)" form:"" valid:"Required" id:"nome-laboratorio" json:"link"`
+	Nome          string           `orm:"size(255)" form:"" valid:"Required" id:"nome-laboratorio" json:"nome"`
 	PartitaIva    string           `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-laboratorio"`
 	Indirizzo     string           `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-laboratorio"`
 	Lat           float64          `orm:"digits(10);decimals(7)" form:"-" json:"lat"`
@@ -97,8 +96,14 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi []string, cos
 		"FROM orari_apertura oa " +
 		"WHERE oa.orario >= ? AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
 
-	x, err := o.Raw(query, tempo, costo, orario_inizioQuery, orario_fineQuery).QueryRows(laboratori)
-	fmt.Println(x)
+	_, err := o.Raw(query, tempo, costo, orario_inizioQuery, orario_fineQuery).QueryRows(laboratori)
+	return err
+}
+
+func PrelevaLaboratoriForMap(laboratori *[]Laboratorio) error {
+	o := orm.NewOrm()
+	query := "SELECT l.id_laboratorio, l.nome, l.lat, l.long FROM laboratorio l"
+	_, err := o.Raw(query).QueryRows(laboratori)
 	return err
 }
 

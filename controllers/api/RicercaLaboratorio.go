@@ -12,6 +12,17 @@ type RicercaLaboratorio struct {
 }
 
 func (rl *RicercaLaboratorio) Get() {
+	var l []models.Laboratorio
+	err := models.PrelevaLaboratoriForMap(&l)
+	if err != nil {
+		rl.Ctx.WriteString("ricerca: " + err.Error())
+		return
+	}
+	rl.Data["json"] = &l
+	err = rl.ServeJSON()
+}
+
+func (rl *RicercaLaboratorio) Post() {
 	tempo := rl.GetString("tempo")
 	tempoInt, err := strconv.Atoi(tempo)
 	if err != nil {
