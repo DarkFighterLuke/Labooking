@@ -39,9 +39,6 @@ async function sendFilters(){
 
     let request=new Request(filtersEndpoint, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
         body: filters
     });
     fetch(request).then(response => setLabMap(response));
@@ -50,11 +47,14 @@ async function sendFilters(){
 async function setLabMap(response) {
     removeAllMarkers();
     let dati = JSON.parse(await response.text());
-    for (let i = 0; i < dati.length; i++) {
-        let marker = L.marker([dati[i].lat, dati[i].long]).addTo(mymap);
-        let labLink = visualizzaLaboratorioEndpoint.concat("?idLab=", dati[i].id_laboratorio);
-        let popupContent = "<b>".concat(dati[i].nome, "</b></br><a href='", labLink, "'>Vedi</a>");
-        marker.bindPopup(popupContent);
+    if (dati !== null) {
+        for (let i = 0; i < dati.length; i++) {
+            let marker = L.marker([dati[i].lat, dati[i].long]).addTo(mymap);
+            let labLink = visualizzaLaboratorioEndpoint.concat("?idLab=", dati[i].id_laboratorio);
+            let popupContent = "<b>".concat(dati[i].nome, "</b></br><a href='", labLink, "'>Vedi</a>");
+            marker.bindPopup(popupContent);
+            markers.push(marker);
+        }
     }
 }
 
