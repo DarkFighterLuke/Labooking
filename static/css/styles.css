@@ -348,6 +348,30 @@ select:disabled {
   display: none;
 }
 
+#luogo-autocomplete>#luogoautocomplete-list>div {
+  background-color: #fafafa;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  transition: .3s box-shadow;
+}
+
+#luogo-autocomplete>#luogoautocomplete-list>div:hover {
+  background-color: rgba(0, 164, 211,1);
+
+}
+
+#luogo-autocomplete>#luogoautocomplete-list{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: block;
+  z-index: 999;
+}
+.parent{
+  position: relative;
+  height:200px;
+  weight: 200px;
+}
+
 input[type=button] {
   appearance:none;
   -webkit-appearance:none;
@@ -358,6 +382,7 @@ input[type=button] {
   border-radius:5px;
   width:10%;
   margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 input[type=range] {
