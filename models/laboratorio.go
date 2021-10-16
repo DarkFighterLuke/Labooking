@@ -4,8 +4,6 @@ import (
 	"Labooking/models/utils"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
-	"strconv"
-	"time"
 )
 
 func init() {
@@ -62,41 +60,66 @@ func (l *Laboratorio) Elimina(cols ...string) error {
 	return err
 }
 
-func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi []string, costo float64, orario_inizio time.Time, orario_fine time.Time, giorno string) error {
-	orario_inizioQuery := strconv.Itoa(orario_inizio.Hour()) + ":" + strconv.Itoa(orario_inizio.Minute()) + ":" + strconv.Itoa(orario_inizio.Second())
-	orario_fineQuery := strconv.Itoa(orario_fine.Hour()) + ":" + strconv.Itoa(orario_fine.Minute()) + ":" + strconv.Itoa(orario_fine.Second())
+func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bool, costo float64, orario_inizio string, orario_fine string, giorno string) error {
+	/*orario_inizioQuery := strconv.Itoa(orario_inizio.Hour()) + ":" + strconv.Itoa(orario_inizio.Minute()) + ":" + strconv.Itoa(orario_inizio.Second())
+	orario_fineQuery := strconv.Itoa(orario_fine.Hour()) + ":" + strconv.Itoa(orario_fine.Minute()) + ":" + strconv.Itoa(orario_fine.Second())*/
 	o := orm.NewOrm()
 	tipiQuery := ""
 	giornoQuery := ""
-	for n, val := range tipi {
-		if val != "" {
-			if n == 0 {
+	tipiCounter := 0
+	i := 0
+	for _, val := range tipi {
+		if val {
+			tipiCounter++
+		}
+	}
+	for key, val := range tipi {
+		if val {
+			if i == 0 {
 				tipiQuery = "(it.tipologia_test = '"
 			} else {
 				tipiQuery = tipiQuery + " OR it.tipologia_test = '"
 			}
 
-			if n == (len(tipi) - 1) {
-				tipiQuery = tipiQuery + val + "')"
+			if i == (tipiCounter - 1) {
+				tipiQuery = tipiQuery + key + "') AND"
 			} else {
-				tipiQuery = tipiQuery + val + "'"
+				tipiQuery = tipiQuery + key + "'"
 			}
+
+			i++
 		}
 	}
 	if giorno != "" {
 		giornoQuery = "AND oa.giorno = '" + giorno + "'"
 	}
+
+	var orarioAperturaQuery string
+	if orario_inizio != "" {
+		orarioAperturaQuery = "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
+			"FROM orari_apertura oa " +
+			"WHERE oa.orario >= " + orario_inizio + "AND oa.stato = 1 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + ") "
+	}
+
+	var orarioChiusuraQuery string
+	if orario_fine != "" {
+		orarioChiusuraQuery = "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
+			"FROM orari_apertura oa " +
+			"WHERE oa.orario <= " + orario_fine + "AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
+	}
+
 	query := "SELECT l.id_laboratorio, l.nome, l.lat, l.long " +
 		"FROM laboratorio l, info_test it " +
-		"WHERE l.id_laboratorio = it.id_laboratorio AND " + tipiQuery + " AND it.tempi <= ? AND it.costo <= ? " +
-		"AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
-		"FROM orari_apertura oa " +
-		"WHERE oa.orario <= ? AND oa.stato = 1 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + ") " +
-		"AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
-		"FROM orari_apertura oa " +
-		"WHERE oa.orario >= ? AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
+		"WHERE l.id_laboratorio = it.id_laboratorio AND " + tipiQuery + " it.tempi <= ? AND it.costo <= ? " +
+		orarioAperturaQuery + orarioChiusuraQuery
 
-	_, err := o.Raw(query, tempo, costo, orario_inizioQuery, orario_fineQuery).QueryRows(laboratori)
+	if orarioAperturaQuery == "" && orarioChiusuraQuery == "" && giorno != "" {
+		query = query + "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
+			"FROM orari_apertura oa " +
+			"WHERE oa.giorno = '" + giorno + "') "
+	}
+
+	_, err := o.Raw(query, tempo, costo).QueryRows(laboratori)
 	return err
 }
 
