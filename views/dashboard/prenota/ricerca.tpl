@@ -1,5 +1,5 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
-<div>
+<div class="autocomplete">
     <input type="text" id="luogo" name="luogo" placeholder="Cerca nei dintorni di...">
 </div>
 
@@ -43,4 +43,5 @@
 
 <div id="map" style="height: 650px"></div>
 
+<script src="/js/utils/autocompleteAddress.js"></script>
 <script src="/js/prenota/ricerca/ricerca.js"></script>

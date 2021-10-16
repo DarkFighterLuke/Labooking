@@ -1,8 +1,12 @@
 var accessToken = 'pk.eyJ1IjoiZGFya2ZpZ2h0ZXJsdWtlIiwiYSI6ImNrdWd6eWtkZTBlazEycW15bWd3dmRpMDUifQ.z-QRPdZnwbHgFsnAbUjVjw';
 var filtersEndpoint = "/api/ricerca";
-var visualizzaLaboratorioEndpoint = window.location.host.concat(":", window.location.port, "/laboratorio")
+var visualizzaLaboratorioEndpoint = window.location.host.concat(":", window.location.port, "/laboratorio");
+var nominatimApi = "https://nominatim.openstreetmap.org/search?format=json&q="
 
 var markers = [];
+
+var luogo = document.getElementById("luogo");
+autocomplete(luogo);
 
 var mymap = L.map('map', {center: [41.951, 13.887], zoom: 6});
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token='.concat(accessToken), {
@@ -42,6 +46,7 @@ async function sendFilters(){
         body: filters
     });
     fetch(request).then(response => setLabMap(response));
+    setMapView(luogo);
 }
 
 async function setLabMap(response) {
@@ -58,15 +63,25 @@ async function setLabMap(response) {
     }
 }
 
-function removeAllMarkers(){
-    for(let i=0; i<markers.length; i++){
+function removeAllMarkers() {
+    for (let i = 0; i < markers.length; i++) {
         markers[i].remove();
     }
-    markers=[];
+    markers = [];
 }
 
-function retrieveAllLab(){
-    let request=new Request(filtersEndpoint, {
+async function setMapView(luogo) {
+    let request = new Request(nominatimApi.concat(encodeURIComponent(luogo)), {
+        method: "GET"
+    });
+    fetch(request).then(async function (response) {
+        let jsonData = JSON.parse(await response.text());
+        mymap.setView([jsonData[0].lat, jsonData[0].lon], 15);
+    });
+}
+
+function retrieveAllLab() {
+    let request = new Request(filtersEndpoint, {
         method: "GET",
         headers: {
             "Access-Control-Allow-Origin": "*"
