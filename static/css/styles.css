@@ -348,6 +348,43 @@ select:disabled {
   display: none;
 }
 
+input[type=button] {
+  appearance:none;
+  -webkit-appearance:none;
+  padding:10px;
+  border:none;
+  color:#fff;
+  font-weight:600;
+  border-radius:5px;
+  width:10%;
+  margin-top: 5px;
+}
+
+input[type=range] {
+  border:none;
+  font-weight:600;
+  border-radius:5px;
+  width:10%;
+  background-color: #00A4D3;
+}
+
+input[type=time], input[type=checkbox], select {
+  background-color: #fafafa;
+  border:0;
+  box-shadow:0 0 4px rgba(0,0,0,0.3);
+  transition: .3s box-shadow;
+  margin: 5px;
+}
+
+input[type=text] {
+  background-color: #fafafa;
+  border:0;
+  box-shadow:0 0 4px rgba(0,0,0,0.3);
+  transition: .3s box-shadow;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
 button,
 [type=button],
 [type=reset],
@@ -10977,3 +11014,5 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: 40px;
   }
 }
+
+

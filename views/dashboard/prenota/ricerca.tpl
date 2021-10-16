@@ -37,11 +37,11 @@
         <option value="domenica">Domenica</option>
     </select>
     <br>
-    <input type="button" value="Cerca" onclick="return sendFilters()">
+    <input class="bg-lightblue" type="button" value="Cerca" onclick="return sendFilters()">
     <br>
 </div>
 
-<div id="map" style="height: 650px"></div>
+<div id="map" style="height: 650px; margin-right:20px; margin-top:25px; margin-bottom:15px"></div>
 
 <script src="/js/utils/autocompleteAddress.js"></script>
 <script src="/js/prenota/ricerca/ricerca.js"></script>
