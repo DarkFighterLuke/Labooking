@@ -41,3 +41,31 @@ func (it *InfoTest) Elimina(cols ...string) error {
 	_, err = o.Delete(it)
 	return err
 }
+
+func (it *InfoTest) SelezionaMinCosto() error {
+	o := orm.NewOrm()
+	query := "SELECT MIN(it.costo) AS costo FROM info_test it"
+	err := o.Raw(query).QueryRow(&it)
+	return err
+}
+
+func (it *InfoTest) SelezionaMaxCosto() error {
+	o := orm.NewOrm()
+	query := "SELECT MAX(it.costo) AS costo FROM info_test it"
+	err := o.Raw(query).QueryRow(&it)
+	return err
+}
+
+func (it *InfoTest) SelezionaMinTempi() error {
+	o := orm.NewOrm()
+	query := "SELECT MIN(it.tempi) AS tempi FROM info_test it"
+	err := o.Raw(query).QueryRow(&it)
+	return err
+}
+
+func (it *InfoTest) SelezionaMaxTempi() error {
+	o := orm.NewOrm()
+	query := "SELECT MAX(it.tempi) AS tempi FROM info_test it"
+	err := o.Raw(query).QueryRow(&it)
+	return err
+}
