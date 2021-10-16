@@ -5,10 +5,10 @@
 
 <div>
     <label for="costo">Costo: </label>
-    <input id="costo" name="costo" type="range" min="0" max="100">
+    <input id="costo" name="costo" type="range" min="{{.MinCosto}}" max="{{.MaxCosto}}">
     <br>
     <label for="tempo">Tempo: </label>
-    <input id="tempo" name="tempo" type="range" min="0" max="100">
+    <input id="tempo" name="tempo" type="range" min="{{.MinTempi}}" max="{{.MaxTempi}}">
 </div>
 
 <div>
