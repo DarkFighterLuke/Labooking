@@ -61,8 +61,6 @@ func (l *Laboratorio) Elimina(cols ...string) error {
 }
 
 func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bool, costo float64, orario_inizio string, orario_fine string, giorno string) error {
-	/*orario_inizioQuery := strconv.Itoa(orario_inizio.Hour()) + ":" + strconv.Itoa(orario_inizio.Minute()) + ":" + strconv.Itoa(orario_inizio.Second())
-	orario_fineQuery := strconv.Itoa(orario_fine.Hour()) + ":" + strconv.Itoa(orario_fine.Minute()) + ":" + strconv.Itoa(orario_fine.Second())*/
 	o := orm.NewOrm()
 	tipiQuery := ""
 	giornoQuery := ""
@@ -98,14 +96,14 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bo
 	if orario_inizio != "" {
 		orarioAperturaQuery = "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
 			"FROM orari_apertura oa " +
-			"WHERE oa.orario >= " + orario_inizio + "AND oa.stato = 1 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + ") "
+			"WHERE oa.orario >= " + orario_inizio + " AND oa.stato = 1 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + ") "
 	}
 
 	var orarioChiusuraQuery string
 	if orario_fine != "" {
 		orarioChiusuraQuery = "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
 			"FROM orari_apertura oa " +
-			"WHERE oa.orario <= " + orario_fine + "AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
+			"WHERE oa.orario <= " + orario_fine + " AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
 	}
 
 	query := "SELECT l.id_laboratorio, l.nome, l.lat, l.long " +
