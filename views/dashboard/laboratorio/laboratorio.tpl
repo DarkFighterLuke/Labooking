@@ -50,5 +50,5 @@
     </table>
 </div>
 <div>
-    <a href="#"><button>Prenota</button></a>
+    <a href="/prenota?action=prenotazione"><button>Prenota</button></a>
 </div>
