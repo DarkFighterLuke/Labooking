@@ -28,8 +28,9 @@
             <input type="time" id="inizio-intervallo" name="inizio-intervallo">
             <label for="fine-intervallo">alle </label>
             <input type="time" id="fine-intervallo" name="fine-intervallo">
-            <label for="giorno">il </label>
-            <select id="giorno" name="giorno">
+            <label for="data">del </label>
+            <input type="date" id="data" name="data">
+            <!--<select id="giorno" name="giorno">
                 <option selected value>Tutti</option>
                 <option value="lunedi">Lunedì</option>
                 <option value="martedi">Martedì</option>
@@ -38,7 +39,7 @@
                 <option value="venerdi">Venerdì</option>
                 <option value="sabato">Sabato</option>
                 <option value="domenica">Domenica</option>
-            </select>
+            </select>-->
             <br>
             <input class="bg-lightblue" type="button" value="Cerca" onclick="return sendFilters()">
             <br>

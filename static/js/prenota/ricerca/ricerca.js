@@ -29,7 +29,9 @@ async function sendFilters(){
     let sierologico=document.getElementById("sierologico").checked;
     let inizio=document.getElementById("inizio-intervallo").value;
     let fine=document.getElementById("fine-intervallo").value;
-    let giorno=document.getElementById("giorno").value;
+    let data=document.getElementById("data").value;
+    data=new Date(data)
+    let giorno=parseDayOfWeek(data.getDay())
 
     let filters=new FormData();
     filters.append("costo", costo);
@@ -39,6 +41,7 @@ async function sendFilters(){
     filters.append("sierologico", sierologico);
     filters.append("inizio-intervallo", inizio);
     filters.append("fine-intervallo", fine);
+    // TODO: Inviare data per filtrare anche in base a disponibilità laboratorio
     filters.append("giorno", giorno);
 
     let request=new Request(filtersEndpoint, {
@@ -88,4 +91,23 @@ function retrieveAllLab() {
         }
     });
     fetch(request).then(response => setLabMap(response));
+}
+
+function parseDayOfWeek(number){
+    switch (number){
+        case 1:
+            return 'lunedi'
+        case 2:
+            return 'martedi'
+        case 3:
+            return 'mercoledi'
+        case 4:
+            return 'giovedi'
+        case 5:
+            return 'venerdi'
+        case 6:
+            return 'sabato'
+        case 0:
+            return 'domenica'
+    }
 }
