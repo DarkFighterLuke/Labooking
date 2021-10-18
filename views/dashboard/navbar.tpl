@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg bg-lightblue border-bottom" id="mobile-nav">
     <div class="container-fluid d-flex justify-content-between">
         <div><img src="https://icons.getbootstrap.com/assets/icons/list.svg" class="btn" width=140% id="sidebarToggleMobile"></div>
-        <div><h1 class="title">Labooking</h1></div>
+        <div><h1 class="title"><a id="brand-name" href=/dashboard/home>Labooking</a></h1></div>
         <a href="#" class="notification">
             <img src="/img/icons/bell-svgrepo-com.svg" width=120%>
             <span class="badge">{{.NumNotifiche}}</span>
@@ -42,7 +42,7 @@
 <nav class="navbar navbar-expand-lg bg-lightblue border-bottom" id="normal-nav">
     <div class="container-fluid d-flex justify-content-between">
         <div><img src="https://icons.getbootstrap.com/assets/icons/list.svg" class="btn" width=140% id="sidebarToggle"></div>
-        <div><h1 class="title">Labooking</h1></div>
+        <div><h1 class="title"><a id="brand-name" href=/dashboard/home>Labooking</a></h1></div>
         <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>-->
         <div class="d-flex flex-row">
             <a href="#" class="notification">

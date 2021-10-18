@@ -5,6 +5,8 @@ var nominatimApi = "https://nominatim.openstreetmap.org/search?format=json&q="
 
 var markers = [];
 
+var parametriGet="";
+
 var luogo = document.getElementById("luogo");
 autocomplete(luogo);
 
@@ -29,7 +31,11 @@ async function sendFilters(){
     let sierologico=document.getElementById("sierologico").checked;
     let inizio=document.getElementById("inizio-intervallo").value;
     let fine=document.getElementById("fine-intervallo").value;
-    let giorno=document.getElementById("giorno").value;
+    let data=document.getElementById("data").value;
+    let dataObj=new Date(data)
+    let giorno=parseDayOfWeek(dataObj.getDay())
+    parametriGet="&data=".concat(data, "&ora_inizio=", inizio, "&ora_fine=", fine,
+        "&molecolare=", molecolare, "&antigenico=", antigenico, "&sierologico=", sierologico);
 
     let filters=new FormData();
     filters.append("costo", costo);
@@ -39,6 +45,7 @@ async function sendFilters(){
     filters.append("sierologico", sierologico);
     filters.append("inizio-intervallo", inizio);
     filters.append("fine-intervallo", fine);
+    // TODO: Inviare data per filtrare anche in base a disponibilità laboratorio
     filters.append("giorno", giorno);
 
     let request=new Request(filtersEndpoint, {
@@ -55,7 +62,7 @@ async function setLabMap(response) {
     if (dati !== null) {
         for (let i = 0; i < dati.length; i++) {
             let marker = L.marker([dati[i].lat, dati[i].long]).addTo(mymap);
-            let labLink = visualizzaLaboratorioEndpoint.concat("?idLab=", dati[i].id_laboratorio);
+            let labLink = visualizzaLaboratorioEndpoint.concat("?idLab=", dati[i].id_laboratorio, parametriGet);
             let popupContent = "<b>".concat(dati[i].nome, "</b></br><a href='", labLink, "'>Vedi</a>");
             marker.bindPopup(popupContent);
             markers.push(marker);
@@ -71,13 +78,15 @@ function removeAllMarkers() {
 }
 
 async function setMapView(luogo) {
-    let request = new Request(nominatimApi.concat(encodeURIComponent(luogo)), {
-        method: "GET"
-    });
-    fetch(request).then(async function (response) {
-        let jsonData = JSON.parse(await response.text());
-        mymap.setView([jsonData[0].lat, jsonData[0].lon], 15);
-    });
+    if(luogo!==""){
+        let request = new Request(nominatimApi.concat(encodeURIComponent(luogo)), {
+            method: "GET"
+        });
+        fetch(request).then(async function (response) {
+            let jsonData = JSON.parse(await response.text());
+            mymap.setView([jsonData[0].lat, jsonData[0].lon], 15);
+        });
+    }
 }
 
 function retrieveAllLab() {
@@ -88,4 +97,23 @@ function retrieveAllLab() {
         }
     });
     fetch(request).then(response => setLabMap(response));
+}
+
+function parseDayOfWeek(number){
+    switch (number){
+        case 1:
+            return 'lunedi'
+        case 2:
+            return 'martedi'
+        case 3:
+            return 'mercoledi'
+        case 4:
+            return 'giovedi'
+        case 5:
+            return 'venerdi'
+        case 6:
+            return 'sabato'
+        case 0:
+            return 'domenica'
+    }
 }

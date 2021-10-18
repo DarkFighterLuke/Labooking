@@ -1,24 +1,24 @@
 <div>
-    <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
+    <h2 id="lab-title" class="mt-4 content-tab-title">{{.Title}}</h2>
 </div>
 <div>
     <h3>Orari</h3>
-    <table id="table-orari-apertura" class="table w-50">
+    <table id="table-orari-apertura" class="table w-75">
         <tbody class="w-100">
         <tr>
-            <th class="w-33 text-center">Orario apertura</th>
-            <th class="w-33 text-center">Orario chiusura</th>
-            <th class="w-33 text-center">Giorno</th>
+            <th class="w-25 text-center">Orario apertura</th>
+            <th class="w-25 text-center">Orario chiusura</th>
+            <th class="w-50 text-center">Giorno</th>
         </tr>
         {{range .Orari}}
         <tr>
-            <td>
+            <td class="w-25 text-center">
                 {{.OrarioAperturaStr}}
             </td>
-            <td>
+            <td class="w-25 text-center">
                 {{.OrarioChiusuraStr}}
             </td>
-            <td>
+            <td class="w-50 text-center">
                 {{.Giorno}}
             </td>
         </tr>
@@ -30,18 +30,18 @@
     <h3>Tempi e Costi</h3>
     <table id="table-tamponi" class="table w-75">
         <tbody class="w-100">
-        <tr class="row w-100 d-flex align-items-center">
+        <tr>
             <th class="w-25 text-center"> Tipologia test</th>
             <th class="w-25 text-center"> Costo</th>
-            <th class="w-25 text-center"> Tempo necessario all'analisi</th>
+            <th class="w-50 text-center"> Tempo necessario all'analisi</th>
         </tr>
         {{range .InfoTest}}
-        <tr class="row w-100 d-flex align-items-center">
+        <tr>
             <td class="w-25 text-center">{{.TipologiaTest}}</td>
-            <td class="w-25">
+            <td class="w-25 text-center">
                 {{.Costo}}
             </td>
-            <td class="w-25">
+            <td class="w-50 text-center">
                 {{.TempiStr}}
             </td>
         </tr>
@@ -50,5 +50,11 @@
     </table>
 </div>
 <div>
-    <a href="/dashboard/prenota?action=prenotazione"><button>Prenota</button></a>
+    <button class="bg-lightblue" onclick="return prenota()">Prenota</button>
 </div>
+<script>
+    function prenota(){
+        let urlPrenotazione="/prenota".concat(window.location.search, "&action=prenotazione");
+        window.location.href=urlPrenotazione;
+    }
+</script>
