@@ -156,8 +156,14 @@ func (org *Organizzazione) InviaLink() error {
 }
 
 func inviaMail(hashKey, reciver string) error {
-	from := "labooking.uniba@gmail.com"
-	pass := "Labooking#1!"
+	from, err := web.AppConfig.String("email")
+	if err != nil {
+		return err
+	}
+	pass, err := web.AppConfig.String("passwordemail")
+	if err != nil {
+		return err
+	}
 	to := reciver
 
 	websitelink, err := web.AppConfig.String("websitelink")
