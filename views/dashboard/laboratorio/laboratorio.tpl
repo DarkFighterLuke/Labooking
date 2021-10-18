@@ -50,5 +50,11 @@
     </table>
 </div>
 <div>
-    <a href="/prenota?action=prenotazione"><button>Prenota</button></a>
+    <button onclick="return prenota()">Prenota</button>
 </div>
+<script>
+    function prenota(){
+        let urlPrenotazione="/prenota".concat(window.location.search, "&action=prenotazione");
+        window.location.href=urlPrenotazione;
+    }
+</script>
