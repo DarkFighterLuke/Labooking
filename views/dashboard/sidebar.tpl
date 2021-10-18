@@ -18,7 +18,7 @@
             Dipendenti</a>
         {{end}}
         {{if or (eq .UserType "privato") (eq .UserType "medico") (eq .UserType "organizzazione")}}
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/prenota">
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/prenota?action=ricerca">
             <img src="/img/icons/syringe-svgrepo-com.svg" class="list-group-item-image"/>
             Prenota test</a>
         {{else}}
