@@ -121,7 +121,7 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bo
 	return err
 }
 
-func PrelevaLaboratoriForMap(laboratori *[]Laboratorio) error {
+func GetLaboratoriForMap(laboratori *[]Laboratorio) error {
 	o := orm.NewOrm()
 	query := "SELECT l.id_laboratorio, l.nome, l.lat, l.long FROM laboratorio l"
 	_, err := o.Raw(query).QueryRows(laboratori)

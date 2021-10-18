@@ -12,7 +12,7 @@ type RicercaLaboratorio struct {
 
 func (rl *RicercaLaboratorio) Get() {
 	var labs []models.Laboratorio
-	err := models.PrelevaLaboratoriForMap(&labs)
+	err := models.GetLaboratoriForMap(&labs)
 	if err != nil {
 		rl.Ctx.WriteString("ricerca: " + err.Error())
 		return
