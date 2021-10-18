@@ -161,7 +161,7 @@
       </div>
       <div class="container already-registred">
          <div class="row justify-content-center">
-            <a href="#" class="align-self-center">Sei già registrato? Effettua il login</a>
+            <a href="/login" class="align-self-center">Sei già registrato? Effettua il login</a>
          </div>
       </div>
       <script src="js/utils/autocompleteAddress.js"></script>
