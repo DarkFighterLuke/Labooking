@@ -1,6 +1,6 @@
 var accessToken = 'pk.eyJ1IjoiZGFya2ZpZ2h0ZXJsdWtlIiwiYSI6ImNrdWd6eWtkZTBlazEycW15bWd3dmRpMDUifQ.z-QRPdZnwbHgFsnAbUjVjw';
 var filtersEndpoint = "/api/ricerca";
-var visualizzaLaboratorioEndpoint = window.location.host.concat(":", window.location.port, "/laboratorio");
+var visualizzaLaboratorioEndpoint = "/dashboard/laboratorio";
 var nominatimApi = "https://nominatim.openstreetmap.org/search?format=json&q="
 
 var markers = [];
