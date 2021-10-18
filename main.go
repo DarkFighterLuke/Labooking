@@ -21,6 +21,7 @@ func init() {
 	web.SetStaticPath("/fonts", "static/fonts")
 	web.SetStaticPath("/img", "static/img")
 	web.SetStaticPath("/js", "static/js")
+	web.SetStaticPath("/pdf", "static/pdf")
 
 	//timer
 	go modelsutils.Timer()
