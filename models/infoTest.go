@@ -1,6 +1,8 @@
 package models
 
-import "github.com/beego/beego/v2/client/orm"
+import (
+	"github.com/beego/beego/v2/client/orm"
+)
 
 func init() {
 	orm.RegisterModel(new(InfoTest))
@@ -67,5 +69,12 @@ func (it *InfoTest) SelezionaMaxTempi() error {
 	o := orm.NewOrm()
 	query := "SELECT MAX(it.tempi) AS tempi FROM info_test it"
 	err := o.Raw(query).QueryRow(&it)
+	return err
+}
+
+func SelezionaInfoTestByLabId(l *[]InfoTest, id int) error {
+	o := orm.NewOrm()
+	query := "SELECT * FROM info_test WHERE id_laboratorio=?"
+	_, err := o.Raw(query, id).QueryRows(l)
 	return err
 }
