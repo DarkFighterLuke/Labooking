@@ -44,3 +44,17 @@ func (oa *OrariApertura) Elimina(cols ...string) error {
 	_, err = o.Delete(oa)
 	return err
 }
+
+func SelezionaOrariAperturaById(oa *[]OrariApertura, id int) error {
+	o := orm.NewOrm()
+	query := "SELECT * FROM orari_apertura oa WHERE oa.stato=1 AND oa.id_laboratorio=? ORDER BY oa.id_orari_apertura"
+	_, err := o.Raw(query, id).QueryRows(oa)
+	return err
+}
+
+func SelezionaOrariChiusuraById(oa *[]OrariApertura, id int) error {
+	o := orm.NewOrm()
+	query := "SELECT * FROM orari_apertura oa WHERE oa.stato=0 AND oa.id_laboratorio=? ORDER BY oa.id_orari_apertura"
+	_, err := o.Raw(query, id).QueryRows(oa)
+	return err
+}
