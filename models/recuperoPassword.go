@@ -21,7 +21,6 @@ type RecuperoPassword struct {
 	HashKey        string          `orm:"size(64);pk"`
 	Timeout        time.Time       `orm:""`
 	Medico         *Medico         `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_medico)"`
-	Oganizzazione  *Organizzazione `orm:"rel(one);on_delete(do_nothing);on_update(cascade);column(id_organizzazione)"`
 	Privato        *Privato        `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_privato)"`
 	Laboratorio    *Laboratorio    `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_laboratorio)"`
 	Organizzazione *Organizzazione `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_organizzazione)"`
