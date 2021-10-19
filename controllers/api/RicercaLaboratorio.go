@@ -22,6 +22,10 @@ func (rl *RicercaLaboratorio) Get() {
 }
 
 func (rl *RicercaLaboratorio) Post() {
+	numPersone, err := rl.GetInt("numero-persone")
+	if err != nil || numPersone < 1 {
+		numPersone = 1
+	}
 	tempo := rl.GetString("tempo")
 	tempoInt, err := strconv.Atoi(tempo)
 	if err != nil {
@@ -34,16 +38,15 @@ func (rl *RicercaLaboratorio) Post() {
 	costoFloat, err := strconv.ParseFloat(costo, 64)
 	orarioInizio := rl.GetString("inizio-intervallo")
 	orarioFine := rl.GetString("fine-intervallo")
-	giorno := rl.GetString("giorno")
+	data := rl.GetString("data")
 
-	//tipi := []string{rl.GetString("molecolare"), rl.GetString("antigenico"), rl.GetString("sierologico")}
 	tipi := make(map[string]bool)
 	tipi["molecolare"], _ = rl.GetBool("molecolare")
 	tipi["antigenico"], _ = rl.GetBool("antigenico")
 	tipi["sierologico"], _ = rl.GetBool("sierologico")
 
 	var labs []models.Laboratorio
-	err = models.FiltraLaboratori(&labs, int64(tempoSeconds), tipi, costoFloat, orarioInizio, orarioFine, giorno)
+	err = models.FiltraLaboratori(&labs, int64(tempoSeconds), tipi, costoFloat, orarioInizio, orarioFine, data, numPersone)
 	if err != nil {
 		rl.Ctx.WriteString("ricerca: " + err.Error())
 		return
