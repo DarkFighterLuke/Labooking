@@ -5,6 +5,10 @@ import (
 	"time"
 )
 
+func init() {
+	orm.RegisterModel(new(Referto))
+}
+
 type Referto struct {
 	IdReferto    int       `orm:"pk;auto"`
 	DataRilascio time.Time `orm:"type(date)"`
