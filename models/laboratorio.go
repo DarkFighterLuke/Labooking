@@ -14,6 +14,7 @@ type Laboratorio struct {
 	IdLaboratorio int64            `orm:"pk;auto" form:"-" json:"id_laboratorio"`
 	Nome          string           `orm:"size(255)" form:"" valid:"Required" id:"nome-laboratorio" json:"nome"`
 	PartitaIva    string           `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-laboratorio"`
+	Iban          string           `orm:"size(30)" form:"" maxLength:"30" valid:"Required;Length(30)" id:"iban-laboratorio"`
 	Indirizzo     string           `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-laboratorio"`
 	Lat           float64          `orm:"digits(10);decimals(7)" form:"-" json:"lat"`
 	Long          float64          `orm:"digits(10);decimals(7)" form:"-" json:"long"`
@@ -96,14 +97,14 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bo
 	if orario_inizio != "" {
 		orarioAperturaQuery = "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
 			"FROM orari_apertura oa " +
-			"WHERE oa.orario >= '" + orario_inizio + "' AND oa.stato = 1 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + ") "
+			"WHERE oa.orario <= '" + orario_inizio + "' AND oa.stato = 1 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + ") "
 	}
 
 	var orarioChiusuraQuery string
 	if orario_fine != "" {
 		orarioChiusuraQuery = "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
 			"FROM orari_apertura oa " +
-			"WHERE oa.orario <= '" + orario_fine + "' AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
+			"WHERE oa.orario >= '" + orario_fine + "' AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
 	}
 
 	query := "SELECT l.id_laboratorio, l.nome, l.lat, l.long " +
