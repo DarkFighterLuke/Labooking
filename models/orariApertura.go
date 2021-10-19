@@ -45,16 +45,16 @@ func (oa *OrariApertura) Elimina(cols ...string) error {
 	return err
 }
 
-func SelezionaOrariAperturaById(oa *[]OrariApertura, id int) error {
+func (oa *OrariApertura) SelezionaOrariAperturaByIdLab() (oas []*OrariApertura, err error) {
 	o := orm.NewOrm()
-	query := "SELECT * FROM orari_apertura oa WHERE oa.stato=1 AND oa.id_laboratorio=? ORDER BY oa.id_orari_apertura"
-	_, err := o.Raw(query, id).QueryRows(oa)
-	return err
+	query := "SELECT * FROM orari_apertura oas WHERE oas.stato=1 AND oas.id_laboratorio=? ORDER BY oas.id_orari_apertura"
+	_, err = o.Raw(query, oa.IdLaboratorio).QueryRows(&oas)
+	return oas, err
 }
 
-func SelezionaOrariChiusuraById(oa *[]OrariApertura, id int) error {
+func (oa *OrariApertura) SelezionaOrariChiusuraByIdLab() (oas []*OrariApertura, err error) {
 	o := orm.NewOrm()
-	query := "SELECT * FROM orari_apertura oa WHERE oa.stato=0 AND oa.id_laboratorio=? ORDER BY oa.id_orari_apertura"
-	_, err := o.Raw(query, id).QueryRows(oa)
-	return err
+	query := "SELECT * FROM orari_apertura oas WHERE oas.stato=0 AND oas.id_laboratorio=? ORDER BY oas.id_orari_apertura"
+	_, err = o.Raw(query, oa.IdLaboratorio).QueryRows(&oas)
+	return oas, err
 }
