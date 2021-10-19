@@ -5,6 +5,10 @@ import (
 	"time"
 )
 
+func init() {
+	orm.RegisterModel(new(TestDiagnostico))
+}
+
 type TestDiagnostico struct {
 	IdTestDiagnostico int          `orm:"pk;auto"`
 	DataPrenotazione  time.Time    `orm:"type(date)"`
