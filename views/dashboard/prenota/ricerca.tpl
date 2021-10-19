@@ -6,6 +6,13 @@
     </div>
 
     <div class="area cover">
+        {{if ne .Ruolo "privato"}}
+        <div>
+            <label for="numero-persone">Numero persone: </label>
+            <input type="number" id="numero-persone" name="numero-persone" min="1" placeholder="1">
+        </div>
+        {{end}}
+
         <div>
             <label for="costo">Costo: </label>
             <input id="costo" name="costo" type="range" min="{{.MinCosto}}" max="{{.MaxCosto}}">
@@ -30,16 +37,6 @@
             <input type="time" id="fine-intervallo" name="fine-intervallo">
             <label for="data">del </label>
             <input type="date" id="data" name="data">
-            <!--<select id="giorno" name="giorno">
-                <option selected value>Tutti</option>
-                <option value="lunedi">Lunedì</option>
-                <option value="martedi">Martedì</option>
-                <option value="mercoledi">Mercoledì</option>
-                <option value="giovedi">Giovedì</option>
-                <option value="venerdi">Venerdì</option>
-                <option value="sabato">Sabato</option>
-                <option value="domenica">Domenica</option>
-            </select>-->
             <br>
             <input class="bg-lightblue" type="button" value="Cerca" onclick="return sendFilters()">
             <br>
