@@ -25,10 +25,11 @@ func (lc *LaboratorioController) Get() {
 		return
 	}
 
-	var orariApertura []models.OrariApertura
-	var orariChiusura []models.OrariApertura
-	err = models.SelezionaOrariAperturaById(&orariApertura, idLab)
-	err = models.SelezionaOrariChiusuraById(&orariChiusura, idLab)
+	var orariApertura []*models.OrariApertura
+	var orariChiusura []*models.OrariApertura
+	oa := models.OrariApertura{IdLaboratorio: &l}
+	orariApertura, err = oa.SelezionaOrariAperturaByIdLab()
+	orariChiusura, err = oa.SelezionaOrariChiusuraByIdLab()
 	if err != nil {
 		lc.Abort("500")
 		return
