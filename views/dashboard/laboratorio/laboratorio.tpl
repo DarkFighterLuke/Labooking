@@ -54,7 +54,7 @@
 </div>
 <script>
     function prenota(){
-        let urlPrenotazione="/prenota".concat(window.location.search, "&action=prenotazione");
+        let urlPrenotazione="/dashboard/prenota".concat(window.location.search, "&action=prenotazione");
         window.location.href=urlPrenotazione;
     }
 </script>
