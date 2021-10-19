@@ -2,8 +2,10 @@ package models
 
 import (
 	"Labooking/models/utils"
+	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
+	"time"
 )
 
 func init() {
@@ -23,6 +25,7 @@ type Laboratorio struct {
 	Email         string           `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-laboratorio"`
 	Psw           string           `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-laboratorio"`
 	ConfermaPsw   string           `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-laboratorio"`
+	TestPerOra    int64            `orm:"column(test_per_ora);type(int)" valid:"Required" id:"test-per-ora-laboratorio"`
 	Test          []*InfoTest      `orm:"reverse(many)" form:"-"`
 	Orari         []*OrariApertura `orm:"reverse(many)" form:"-"`
 }
@@ -61,7 +64,7 @@ func (l *Laboratorio) Elimina(cols ...string) error {
 	return err
 }
 
-func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bool, costo float64, orario_inizio string, orario_fine string, giorno string) error {
+func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bool, costo float64, orarioInizioStr string, orarioFineStr string, dataStr string, numPersone int) error {
 	o := orm.NewOrm()
 	tipiQuery := ""
 	giornoQuery := ""
@@ -89,22 +92,33 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bo
 			i++
 		}
 	}
+
+	var data time.Time
+	var giorno string
+	if dataStr != "" {
+		var err error
+		data, err = time.Parse("2006-01-02", dataStr)
+		if err != nil {
+			return err
+		}
+		giorno = parseDayOfWeek(data.Weekday())
+	}
 	if giorno != "" {
 		giornoQuery = "AND oa.giorno = '" + giorno + "'"
 	}
 
 	var orarioAperturaQuery string
-	if orario_inizio != "" {
+	if orarioInizioStr != "" {
 		orarioAperturaQuery = "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
 			"FROM orari_apertura oa " +
-			"WHERE oa.orario <= '" + orario_inizio + "' AND oa.stato = 1 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + ") "
+			"WHERE oa.orario <= '" + orarioInizioStr + "' AND oa.stato = 1 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + ") "
 	}
 
 	var orarioChiusuraQuery string
-	if orario_fine != "" {
+	if orarioFineStr != "" {
 		orarioChiusuraQuery = "AND l.id_laboratorio IN (SELECT oa.id_laboratorio " +
 			"FROM orari_apertura oa " +
-			"WHERE oa.orario >= '" + orario_fine + "' AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
+			"WHERE oa.orario >= '" + orarioFineStr + "' AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
 	}
 
 	query := "SELECT l.id_laboratorio, l.nome, l.lat, l.long " +
@@ -119,7 +133,95 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bo
 	}
 
 	_, err := o.Raw(query, tempo, costo).QueryRows(laboratori)
+	if err != nil {
+		return err
+	}
+
+	var labDisponibili []Laboratorio // laboratori con slot prenotabili nell'intervallo specificato dall'utente
+	for _, l := range *laboratori {
+		isDisponibile, _, _, err := VerificaSlotDisponibili(l.IdLaboratorio, l.TestPerOra, orarioInizioStr, orarioFineStr, giorno, data, numPersone)
+		if err != nil {
+			return err
+		}
+		if isDisponibile {
+			labDisponibili = append(labDisponibili, l)
+		}
+	}
+	laboratori = &labDisponibili
 	return err
+}
+
+func VerificaSlotDisponibili(idLaboratorio, testPerOra int64, orarioInizioStr, orarioFineStr, giorno string, data time.Time, numPersone int) (isDisponibile bool, userSlots, slotsPrenotati []*time.Time, err error) {
+	if testPerOra < 1 {
+		return false, nil, nil, fmt.Errorf("testPerOra non può essere inferiore ad 1")
+	}
+
+	var oa OrariApertura
+	oa.IdLaboratorio = &Laboratorio{IdLaboratorio: int64(idLaboratorio)}
+	orari_apertura, err := oa.SelezionaOrariAperturaByIdLab()
+	if err != nil {
+		return false, nil, nil, err
+	}
+	orari_chiusura, err := oa.SelezionaOrariChiusuraByIdLab()
+	if err != nil {
+		return false, nil, nil, err
+	}
+
+	orarioInizio, err := time.Parse("15:04", orarioInizioStr)
+	if err != nil {
+		return false, nil, nil, err
+	}
+	orarioFine, err := time.Parse("15:04", orarioFineStr)
+	if err != nil {
+		return false, nil, nil, err
+	}
+	for i, _ := range orari_apertura {
+		if orari_apertura[i].Orario.Before(orarioInizio) && orari_chiusura[i].Orario.After(orarioFine) && orari_apertura[i].Giorno == giorno && orari_chiusura[i].Giorno == giorno {
+			intervalloInMinuti := orari_chiusura[i].Orario.Sub(orari_apertura[i].Orario).Minutes()
+			durataSlot := 60 / testPerOra
+			numSlot := testPerOra * int64(intervalloInMinuti) / 60
+			slots := make([]*time.Time, 1) // ogni slot contiene il suo orario di inizio
+			ou := orari_apertura[i].Orario.UTC()
+			slots[0] = &ou
+			for j := 1; j < int(numSlot); j++ {
+				prevSlot := slots[j-1].Add(time.Duration(durataSlot) * time.Minute).UTC()
+				slots = append(slots, &prevSlot)
+			}
+			var startSlotIndex int
+			var endSlotIndex int
+			// cerca l'indice del primo slot all'interno dell'intervallo specificato dell'utente
+			for j, s := range slots {
+				if s.After(orarioInizio.UTC()) {
+					startSlotIndex = j
+					break
+				}
+			}
+			// cerca l'indice dell'ultimo slot all'interno dell'intervallo specificato dell'utente
+			for j, s := range slots[startSlotIndex:] {
+				if s.After(orarioFine) {
+					endSlotIndex = j - 1
+					break
+				}
+			}
+			userSlots = slots[startSlotIndex:endSlotIndex] // sub slice contenente solo gli slot dell'intervallo specificato dall'utente
+
+			var td TestDiagnostico
+			tempLab := Laboratorio{IdLaboratorio: int64(idLaboratorio)}
+			var slotsPrenotati []*time.Time
+			for _, us := range userSlots {
+				td.Laboratorio = &tempLab
+				td.DataPrenotazione = data.Add(time.Duration(us.Hour())*time.Hour + time.Duration(us.Minute())*time.Minute) //?
+				_ = td.Seleziona("id_laboratorio", "data_prenotazione")
+				if td.IdTestDiagnostico != 0 {
+					slotsPrenotati = append(slotsPrenotati, &td.DataPrenotazione)
+				}
+			}
+			if len(userSlots)-len(slotsPrenotati) >= numPersone {
+				return true, userSlots, slotsPrenotati, nil
+			}
+		}
+	}
+	return false, nil, nil, err
 }
 
 func GetLaboratoriForMap(laboratori *[]Laboratorio) error {
@@ -138,4 +240,25 @@ func (l *Laboratorio) Valid(v *validation.Validation) {
 	/*if !utils.IsPswValid(l.Psw) {
 		v.SetError("Psw", "is not strong enough")
 	}*/
+}
+
+func parseDayOfWeek(number time.Weekday) string {
+	switch number {
+	case 1:
+		return "lunedi"
+	case 2:
+		return "martedi"
+	case 3:
+		return "mercoledi"
+	case 4:
+		return "giovedi"
+	case 5:
+		return "venerdi"
+	case 6:
+		return "sabato"
+	case 0:
+		return "domenica"
+	default:
+		return ""
+	}
 }
