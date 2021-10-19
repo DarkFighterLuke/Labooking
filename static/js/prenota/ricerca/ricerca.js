@@ -32,10 +32,6 @@ async function sendFilters(){
     let inizio=document.getElementById("inizio-intervallo").value;
     let fine=document.getElementById("fine-intervallo").value;
     let data=document.getElementById("data").value;
-    let dataObj=new Date(data)
-    let giorno=parseDayOfWeek(dataObj.getDay())
-    parametriGet="&data=".concat(data, "&ora_inizio=", inizio, "&ora_fine=", fine,
-        "&molecolare=", molecolare, "&antigenico=", antigenico, "&sierologico=", sierologico);
 
     let filters=new FormData();
     filters.append("costo", costo);
@@ -46,7 +42,7 @@ async function sendFilters(){
     filters.append("inizio-intervallo", inizio);
     filters.append("fine-intervallo", fine);
     // TODO: Inviare data per filtrare anche in base a disponibilità laboratorio
-    filters.append("giorno", giorno);
+    filters.append("data", data);
 
     let request=new Request(filtersEndpoint, {
         method: "POST",
@@ -97,23 +93,4 @@ function retrieveAllLab() {
         }
     });
     fetch(request).then(response => setLabMap(response));
-}
-
-function parseDayOfWeek(number){
-    switch (number){
-        case 1:
-            return 'lunedi'
-        case 2:
-            return 'martedi'
-        case 3:
-            return 'mercoledi'
-        case 4:
-            return 'giovedi'
-        case 5:
-            return 'venerdi'
-        case 6:
-            return 'sabato'
-        case 0:
-            return 'domenica'
-    }
 }
