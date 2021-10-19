@@ -22,7 +22,7 @@ type Organizzazione struct {
 	Email            string     `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-organizzazione"`
 	Psw              string     `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-organizzazione"`
 	ConfermaPsw      string     `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-organizzazione"`
-	Privato          []*Privato `orm:"rel(m2m);rel_table(dipendente_presso)"`
+	Dipendenti       []*Privato `orm:"rel(m2m);rel_table(dipendente_presso)"`
 }
 
 func (org *Organizzazione) Aggiungi() (int64, error) {
@@ -60,6 +60,16 @@ func (org *Organizzazione) Elimina(cols ...string) error {
 	err := org.Seleziona(cols...)
 	_, err = o.Delete(org)
 	return err
+}
+
+func (org *Organizzazione) GetDipendenti() ([]*Privato, error) {
+	o := orm.NewOrm()
+	_, err := o.LoadRelated(org, "Dipendenti")
+	if err != nil {
+		return nil, err
+	}
+
+	return org.Dipendenti, err
 }
 
 func (org *Organizzazione) Valid(v *validation.Validation) {
