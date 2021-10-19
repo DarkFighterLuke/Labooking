@@ -48,6 +48,8 @@ func (pc *PrenotazioneController) Get() {
 			pc.Data["MaxTempi"] = it.Tempi / 3600
 		}
 
+		pc.Data["Ruolo"] = pc.GetSession("ruolo")
+
 		pc.LayoutSections["Head"] = "dashboard/prenota/head.html"
 		pc.TplName = "dashboard/prenota/ricerca.tpl"
 	} else if pc.GetString("action") == "prenotazione" {
