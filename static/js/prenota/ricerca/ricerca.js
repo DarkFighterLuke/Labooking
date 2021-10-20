@@ -24,7 +24,11 @@ retrieveAllLab();
 
 async function sendFilters(){
     let luogo = document.getElementById("luogo").value;
-    let numeroPersone = document.getElementById("numero-persone").value;
+    let numeroPersoneElement = document.getElementById("numero-persone");
+    let numeroPersone = "";
+    if (numeroPersoneElement != null) {
+        numeroPersone = numeroPersoneElement.value;
+    }
     let costo = document.getElementById("costo").value;
     let tempo = document.getElementById("tempo").value;
     let molecolare = document.getElementById("molecolare").checked;
