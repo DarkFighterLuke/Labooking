@@ -23,17 +23,21 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 retrieveAllLab();
 
 async function sendFilters(){
-    let luogo=document.getElementById("luogo").value;
-    let costo=document.getElementById("costo").value;
-    let tempo=document.getElementById("tempo").value;
-    let molecolare=document.getElementById("molecolare").checked;
-    let antigenico=document.getElementById("antigenico").checked;
-    let sierologico=document.getElementById("sierologico").checked;
-    let inizio=document.getElementById("inizio-intervallo").value;
-    let fine=document.getElementById("fine-intervallo").value;
-    let data=document.getElementById("data").value;
+    let luogo = document.getElementById("luogo").value;
+    let numeroPersone = document.getElementById("numero-persone").value;
+    let costo = document.getElementById("costo").value;
+    let tempo = document.getElementById("tempo").value;
+    let molecolare = document.getElementById("molecolare").checked;
+    let antigenico = document.getElementById("antigenico").checked;
+    let sierologico = document.getElementById("sierologico").checked;
+    let inizio = document.getElementById("inizio-intervallo").value;
+    let fine = document.getElementById("fine-intervallo").value;
+    let data = document.getElementById("data").value;
 
-    let filters=new FormData();
+    parametriGet = "&data=".concat(data, "&inizio=", inizio, "&fine=", fine)
+
+    let filters = new FormData();
+    filters.append("numero-persone", numeroPersone);
     filters.append("costo", costo);
     filters.append("tempo", tempo);
     filters.append("molecolare", molecolare);
