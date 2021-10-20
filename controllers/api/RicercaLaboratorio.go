@@ -22,7 +22,7 @@ func (rl *RicercaLaboratorio) Get() {
 }
 
 func (rl *RicercaLaboratorio) Post() {
-	numPersone, err := rl.GetInt("numero-persone")
+	numPersone, err := strconv.Atoi(rl.GetString("numero-persone"))
 	if err != nil || numPersone < 1 {
 		numPersone = 1
 	}
@@ -46,7 +46,7 @@ func (rl *RicercaLaboratorio) Post() {
 	tipi["sierologico"], _ = rl.GetBool("sierologico")
 
 	var labs []models.Laboratorio
-	err = models.FiltraLaboratori(&labs, int64(tempoSeconds), tipi, costoFloat, orarioInizio, orarioFine, data, numPersone)
+	labs, err = models.FiltraLaboratori(int64(tempoSeconds), tipi, costoFloat, orarioInizio, orarioFine, data, numPersone)
 	if err != nil {
 		rl.Ctx.WriteString("ricerca: " + err.Error())
 		return
