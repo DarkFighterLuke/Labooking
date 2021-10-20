@@ -37,6 +37,9 @@ async function sendFilters(){
     let inizio = document.getElementById("inizio-intervallo").value;
     let fine = document.getElementById("fine-intervallo").value;
     let data = document.getElementById("data").value;
+    if (!checkDateTimeFields(inizio, fine, data)) {
+        return false;
+    }
 
     parametriGet = "&data=".concat(data, "&inizio=", inizio, "&fine=", fine, "&persone=", numeroPersone);
 
@@ -101,4 +104,46 @@ function retrieveAllLab() {
         }
     });
     fetch(request).then(response => setLabMap(response));
+}
+
+function checkDateTimeFields(inizio, fine, data) {
+    eraseErrorDivs();
+    let flag = true;
+    let messaggio = "";
+    if (inizio === "" || fine === "" || data === "") {
+        flag = false;
+        messaggio = "Gli orari di inizio e fine e la data non possono essere vuoti!";
+    } else {
+        let inizioObj = new Date(1, 1, 1, inizio.slice(0, 2), inizio.slice(3));
+        let fineObj = new Date(1, 1, 1, fine.slice(0, 2), fine.slice(3));
+        if (inizioObj.getTime() >= fineObj.getTime()) {
+            flag = false;
+            messaggio = "L'orario di fine non può essere inferiore a quello di inizio!";
+        }
+    }
+    let dataObj = new Date(data);
+    let today = new Date();
+    if (dataObj.getDate() < today.getDate()) {
+        flag = false;
+        messaggio = "La data non può essere precedente a quella odierna!"
+    }
+
+    if (!flag) {
+        let div = document.createElement("div");
+        div.className = "div-errore";
+        let p = document.createElement("p");
+        p.className = "p-errore";
+        p.innerText = messaggio;
+        div.appendChild(p);
+        document.getElementById("div-datetime").after(div);
+    }
+
+    return flag;
+}
+
+function eraseErrorDivs() {
+    let errorDivs = document.getElementsByClassName("div-errore");
+    for (let i = 0; i < errorDivs.length; i++) {
+        errorDivs[i].parentNode.removeChild(errorDivs[i]);
+    }
 }

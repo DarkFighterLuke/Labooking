@@ -30,7 +30,7 @@
             <input type="checkbox" id="sierologico" name="sierologico"><br>
         </div>
 
-        <div>
+        <div id="div-datetime">
             <label for="inizio-intervallo">Dalle </label>
             <input type="time" id="inizio-intervallo" name="inizio-intervallo" value="{{.OraInizio}}">
             <label for="fine-intervallo">alle </label>
