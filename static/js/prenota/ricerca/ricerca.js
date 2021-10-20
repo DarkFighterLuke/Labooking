@@ -34,7 +34,7 @@ async function sendFilters(){
     let fine = document.getElementById("fine-intervallo").value;
     let data = document.getElementById("data").value;
 
-    parametriGet = "&data=".concat(data, "&inizio=", inizio, "&fine=", fine)
+    parametriGet = "&data=".concat(data, "&inizio=", inizio, "&fine=", fine, "&numero-persone=", numeroPersone);
 
     let filters = new FormData();
     filters.append("numero-persone", numeroPersone);
