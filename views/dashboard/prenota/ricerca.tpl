@@ -32,11 +32,11 @@
 
         <div>
             <label for="inizio-intervallo">Dalle </label>
-            <input type="time" id="inizio-intervallo" name="inizio-intervallo">
+            <input type="time" id="inizio-intervallo" name="inizio-intervallo" value="{{.OraInizio}}">
             <label for="fine-intervallo">alle </label>
-            <input type="time" id="fine-intervallo" name="fine-intervallo">
+            <input type="time" id="fine-intervallo" name="fine-intervallo" value="{{.OraFine}}">
             <label for="data">del </label>
-            <input type="date" id="data" name="data">
+            <input type="date" id="data" name="data" value="{{.Data}}">
             <br>
             <input class="bg-lightblue" type="button" value="Cerca" onclick="return sendFilters()">
             <br>

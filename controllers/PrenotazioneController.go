@@ -49,14 +49,15 @@ func (pc *PrenotazioneController) Get() {
 			pc.Data["MaxTempi"] = it.Tempi / 3600
 		}
 
-		pc.Data["Ruolo"] = pc.GetSession("ruolo")
+		pc.Data["Data"] = time.Now().Format("2006-01-02")
+		pc.Data["OraInizio"] = time.Now().Format("15:04")
+		pc.Data["OraFine"] = time.Now().Add(time.Hour).Format("15:04")
 
 		pc.LayoutSections["Head"] = "dashboard/prenota/head.html"
 		pc.TplName = "dashboard/prenota/ricerca.tpl"
 	} else if pc.GetString("action") == "prenotazione" {
 		utils.RenderLayout(&pc.Controller)
 		pc.Data["Title"] = "Prenota test"
-		pc.Data["Ruolo"] = pc.GetSession("ruolo")
 
 		l := models.Laboratorio{}
 		idLab, err := strconv.Atoi(pc.GetString("idLab"))
@@ -87,13 +88,18 @@ func (pc *PrenotazioneController) Get() {
 			}
 		}
 
+		if oraInizioStr == "" || oraFineStr == "" || dataStr == "" {
+			pc.Ctx.WriteString("prenotazione: selezionare ora inizio o ora fine o data")
+			return
+		}
+
 		isDisponibili, slots, slotsPrenotati, err := models.VerificaSlotDisponibili(l, oraInizioStr, oraFineStr, dataStr, numPersone)
 		if err != nil {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
 			return
 		}
 		pc.Data["IsDisponibili"] = isDisponibili
-
+		pc.Data["Slots"] = costruisciSlot(slots, slotsPrenotati)
 		ruolo := fmt.Sprint(pc.GetSession("ruolo"))
 		switch ruolo {
 		case "medico":
@@ -108,7 +114,6 @@ func (pc *PrenotazioneController) Get() {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
 			}
 			pc.Data["Privati"] = pazienti
-			pc.Data["Slots"] = costruisciSlot(slots, slotsPrenotati)
 			break
 		case "organizzazione":
 			org := new(models.Organizzazione)
@@ -122,7 +127,6 @@ func (pc *PrenotazioneController) Get() {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
 			}
 			pc.Data["Privati"] = dipendenti
-			pc.Data["Slots"] = costruisciSlot(slots, slotsPrenotati)
 			break
 		}
 
