@@ -167,7 +167,6 @@ function checkOrariApertura(){
 }
 
 function mostraMessaggioErroreOrari(){
-    console.log("bla");
     let div=document.createElement("div");
     div.className="div-errore";
     let p=document.createElement("p");
