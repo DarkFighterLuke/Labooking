@@ -30,7 +30,27 @@
         {{end}}
 
         <div>
-
+            <table>
+                <tbody>
+                <tr>
+                    <th></th>
+                    <th>Orario</th>
+                    <th>Disponibilità</th>
+                </tr>
+                {{range .Slots}}
+                <tr {{if not .Disponibile}}style="color: darkred" {{end}}>
+                    <td>{{.Orario}}</td>
+                    <td>
+                        {{if .Disponibile}}
+                        Disponibile
+                        {{else}}
+                        Non disponibile
+                        {{end}}
+                    </td>
+                </tr>
+                {{end}}
+                </tbody>
+            </table>
         </div>
 
         <div>
