@@ -64,7 +64,7 @@ func (l *Laboratorio) Elimina(cols ...string) error {
 	return err
 }
 
-func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bool, costo float64, orarioInizioStr string, orarioFineStr string, dataStr string, numPersone int) error {
+func FiltraLaboratori(tempo int64, tipi map[string]bool, costo float64, orarioInizioStr string, orarioFineStr string, dataStr string, numPersone int) (laboratori []Laboratorio, err error) {
 	o := orm.NewOrm()
 	tipiQuery := ""
 	giornoQuery := ""
@@ -99,7 +99,7 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bo
 		var err error
 		data, err = time.Parse("2006-01-02", dataStr)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		giorno = parseDayOfWeek(data.Weekday())
 	}
@@ -121,7 +121,7 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bo
 			"WHERE oa.orario >= '" + orarioFineStr + "' AND oa.stato = 0 AND l.id_laboratorio = oa.id_laboratorio " + giornoQuery + " ) "
 	}
 
-	query := "SELECT l.id_laboratorio, l.nome, l.lat, l.long " +
+	query := "SELECT l.id_laboratorio, l.test_per_ora, l.nome, l.lat, l.long " +
 		"FROM laboratorio l, info_test it " +
 		"WHERE l.id_laboratorio = it.id_laboratorio AND " + tipiQuery + " it.tempi <= ? AND it.costo <= ? " +
 		orarioAperturaQuery + orarioChiusuraQuery
@@ -132,32 +132,35 @@ func FiltraLaboratori(laboratori *[]Laboratorio, tempo int64, tipi map[string]bo
 			"WHERE oa.giorno = '" + giorno + "') "
 	}
 
-	_, err := o.Raw(query, tempo, costo).QueryRows(laboratori)
+	_, err = o.Raw(query, tempo, costo).QueryRows(&laboratori)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	var labDisponibili []Laboratorio // laboratori con slot prenotabili nell'intervallo specificato dall'utente
-	for _, l := range *laboratori {
-		isDisponibile, _, _, err := VerificaSlotDisponibili(l.IdLaboratorio, l.TestPerOra, orarioInizioStr, orarioFineStr, giorno, data, numPersone)
-		if err != nil {
-			return err
+	if orarioInizioStr != "" && orarioFineStr != "" && dataStr != "" {
+		var labDisponibili []Laboratorio // laboratori con slot prenotabili nell'intervallo specificato dall'utente
+		for _, l := range laboratori {
+			isDisponibile, _, _, err := VerificaSlotDisponibili(l, orarioInizioStr, orarioFineStr, giorno, data, numPersone)
+			if err != nil {
+				return nil, err
+			}
+			if isDisponibile {
+				labDisponibili = append(labDisponibili, l)
+			}
 		}
-		if isDisponibile {
-			labDisponibili = append(labDisponibili, l)
-		}
+		laboratori = labDisponibili
 	}
-	laboratori = &labDisponibili
-	return err
+
+	return laboratori, err
 }
 
-func VerificaSlotDisponibili(idLaboratorio, testPerOra int64, orarioInizioStr, orarioFineStr, giorno string, data time.Time, numPersone int) (isDisponibile bool, userSlots, slotsPrenotati []*time.Time, err error) {
-	if testPerOra < 1 {
+func VerificaSlotDisponibili(l Laboratorio, orarioInizioStr, orarioFineStr, giorno string, data time.Time, numPersone int) (isDisponibile bool, userSlots, slotsPrenotati []*time.Time, err error) {
+	if l.TestPerOra < 1 {
 		return false, nil, nil, fmt.Errorf("testPerOra non può essere inferiore ad 1")
 	}
 
 	var oa OrariApertura
-	oa.IdLaboratorio = &Laboratorio{IdLaboratorio: int64(idLaboratorio)}
+	oa.IdLaboratorio = &l
 	orari_apertura, err := oa.SelezionaOrariAperturaByIdLab()
 	if err != nil {
 		return false, nil, nil, err
@@ -167,31 +170,35 @@ func VerificaSlotDisponibili(idLaboratorio, testPerOra int64, orarioInizioStr, o
 		return false, nil, nil, err
 	}
 
-	orarioInizio, err := time.Parse("15:04", orarioInizioStr)
+	orarioInizio, err := time.ParseInLocation("15:04", orarioInizioStr, time.Local)
 	if err != nil {
 		return false, nil, nil, err
 	}
-	orarioFine, err := time.Parse("15:04", orarioFineStr)
+	orarioFine, err := time.ParseInLocation("15:04", orarioFineStr, time.Local)
 	if err != nil {
 		return false, nil, nil, err
 	}
 	for i, _ := range orari_apertura {
+		fmt.Println(orari_apertura[i].Orario.Local(), " apertura")
+		fmt.Println(orarioInizio.Local())
+		fmt.Println(orari_chiusura[i].Orario.Local(), " chiusura")
+		fmt.Println(orarioFine.Local())
 		if orari_apertura[i].Orario.Before(orarioInizio) && orari_chiusura[i].Orario.After(orarioFine) && orari_apertura[i].Giorno == giorno && orari_chiusura[i].Giorno == giorno {
 			intervalloInMinuti := orari_chiusura[i].Orario.Sub(orari_apertura[i].Orario).Minutes()
-			durataSlot := 60 / testPerOra
-			numSlot := testPerOra * int64(intervalloInMinuti) / 60
+			durataSlot := 60 / l.TestPerOra
+			numSlot := l.TestPerOra * int64(intervalloInMinuti) / 60
 			slots := make([]*time.Time, 1) // ogni slot contiene il suo orario di inizio
-			ou := orari_apertura[i].Orario.UTC()
+			ou := orari_apertura[i].Orario.Local()
 			slots[0] = &ou
 			for j := 1; j < int(numSlot); j++ {
-				prevSlot := slots[j-1].Add(time.Duration(durataSlot) * time.Minute).UTC()
+				prevSlot := slots[j-1].Add(time.Duration(durataSlot) * time.Minute).Local()
 				slots = append(slots, &prevSlot)
 			}
 			var startSlotIndex int
 			var endSlotIndex int
 			// cerca l'indice del primo slot all'interno dell'intervallo specificato dell'utente
 			for j, s := range slots {
-				if s.After(orarioInizio.UTC()) {
+				if s.After(orarioInizio.Local()) {
 					startSlotIndex = j
 					break
 				}
@@ -203,13 +210,13 @@ func VerificaSlotDisponibili(idLaboratorio, testPerOra int64, orarioInizioStr, o
 					break
 				}
 			}
-			userSlots = slots[startSlotIndex:endSlotIndex] // sub slice contenente solo gli slot dell'intervallo specificato dall'utente
+			userSlots = slots[startSlotIndex : startSlotIndex+endSlotIndex] // sub slice contenente solo gli slot dell'intervallo specificato dall'utente
 
 			var td TestDiagnostico
-			tempLab := Laboratorio{IdLaboratorio: int64(idLaboratorio)}
 			var slotsPrenotati []*time.Time
 			for _, us := range userSlots {
-				td.Laboratorio = &tempLab
+				td.IdTestDiagnostico = 0
+				td.Laboratorio = &l
 				td.DataPrenotazione = data.Add(time.Duration(us.Hour())*time.Hour + time.Duration(us.Minute())*time.Minute) //?
 				_ = td.Seleziona("id_laboratorio", "data_prenotazione")
 				if td.IdTestDiagnostico != 0 {
