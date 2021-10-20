@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"time"
 )
 
 type PrenotazioneController struct {
@@ -71,6 +72,28 @@ func (pc *PrenotazioneController) Get() {
 		}
 		pc.Data["Iban"] = l.Iban
 
+		oraInizioStr := pc.GetString("inizio")
+		oraFineStr := pc.GetString("fine")
+		dataStr := pc.GetString("data")
+		numPersoneStr := pc.GetString("persone")
+		var numPersone int
+		if numPersoneStr == "" {
+			numPersone = 1
+		} else {
+			numPersone, err = strconv.Atoi(numPersoneStr)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
+		}
+
+		isDisponibili, slots, slotsPrenotati, err := models.VerificaSlotDisponibili(l, oraInizioStr, oraFineStr, dataStr, numPersone)
+		if err != nil {
+			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
+		}
+		pc.Data["IsDisponibili"] = isDisponibili
+
 		ruolo := fmt.Sprint(pc.GetSession("ruolo"))
 		switch ruolo {
 		case "medico":
@@ -85,6 +108,7 @@ func (pc *PrenotazioneController) Get() {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
 			}
 			pc.Data["Privati"] = pazienti
+			pc.Data["Slots"] = costruisciSlot(slots, slotsPrenotati)
 			break
 		case "organizzazione":
 			org := new(models.Organizzazione)
@@ -98,6 +122,7 @@ func (pc *PrenotazioneController) Get() {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
 			}
 			pc.Data["Privati"] = dipendenti
+			pc.Data["Slots"] = costruisciSlot(slots, slotsPrenotati)
 			break
 		}
 
@@ -133,4 +158,25 @@ func (pc *PrenotazioneController) Post() {
 	case "organizzazione":
 		break
 	}
+}
+
+type htmlSlot struct {
+	Orario      string
+	Disponibile bool
+}
+
+func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
+	var complexSlots []htmlSlot
+	for i, _ := range allSlots {
+		for j, _ := range slotsPrenotati {
+			if *allSlots[i] == *slotsPrenotati[j] {
+				complexSlot := htmlSlot{allSlots[i].Format("15:04"), false}
+				complexSlots = append(complexSlots, complexSlot)
+			}
+		}
+		complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
+		complexSlots = append(complexSlots, complexSlot)
+	}
+
+	return complexSlots
 }

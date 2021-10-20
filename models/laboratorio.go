@@ -190,10 +190,6 @@ func VerificaSlotDisponibili(l Laboratorio, orarioInizioStr, orarioFineStr, data
 		return false, nil, nil, err
 	}
 	for i, _ := range orari_apertura {
-		fmt.Println(orari_apertura[i].Orario.Local(), " apertura")
-		fmt.Println(orarioInizio.Local())
-		fmt.Println(orari_chiusura[i].Orario.Local(), " chiusura")
-		fmt.Println(orarioFine.Local())
 		if orari_apertura[i].Orario.Before(orarioInizio) && orari_chiusura[i].Orario.After(orarioFine) && orari_apertura[i].Giorno == giorno && orari_chiusura[i].Giorno == giorno {
 			intervalloInMinuti := orari_chiusura[i].Orario.Sub(orari_apertura[i].Orario).Minutes()
 			durataSlot := 60 / l.TestPerOra

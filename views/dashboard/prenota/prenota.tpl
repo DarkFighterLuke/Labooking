@@ -18,7 +18,7 @@
                 </tr>
                 {{range .Privati}}
                 <tr>
-                    <td><input type="checkbox" name="selezionato" value="{{.IdPrivato}}"></td>
+                    <td><input type="checkbox" name="id-privato" value="{{.IdPrivato}}"></td>
                     <td>{{.CodiceFiscale}}</td>
                     <td>{{.Nome}}</td>
                     <td>{{.Cognome}}</td>
@@ -39,6 +39,14 @@
                 </tr>
                 {{range .Slots}}
                 <tr {{if not .Disponibile}}style="color: darkred" {{end}}>
+                    <td>
+                        {{if ne .Ruolo "privato"}}
+                        <input type="checkbox" name="slot" value="{{.Orario}}">
+                        {{else}}
+                        <input type="radio" name="slot" value="{{.Orario}}">
+                        {{end}}
+
+                    </td>
                     <td>{{.Orario}}</td>
                     <td>
                         {{if .Disponibile}}
