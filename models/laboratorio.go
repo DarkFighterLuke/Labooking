@@ -140,7 +140,7 @@ func FiltraLaboratori(tempo int64, tipi map[string]bool, costo float64, orarioIn
 	if orarioInizioStr != "" && orarioFineStr != "" && dataStr != "" {
 		var labDisponibili []Laboratorio // laboratori con slot prenotabili nell'intervallo specificato dall'utente
 		for _, l := range laboratori {
-			isDisponibile, _, _, err := VerificaSlotDisponibili(l, orarioInizioStr, orarioFineStr, giorno, data, numPersone)
+			isDisponibile, _, _, err := VerificaSlotDisponibili(l, orarioInizioStr, orarioFineStr, dataStr, numPersone)
 			if err != nil {
 				return nil, err
 			}
@@ -154,9 +154,20 @@ func FiltraLaboratori(tempo int64, tipi map[string]bool, costo float64, orarioIn
 	return laboratori, err
 }
 
-func VerificaSlotDisponibili(l Laboratorio, orarioInizioStr, orarioFineStr, giorno string, data time.Time, numPersone int) (isDisponibile bool, userSlots, slotsPrenotati []*time.Time, err error) {
+func VerificaSlotDisponibili(l Laboratorio, orarioInizioStr, orarioFineStr, dataStr string, numPersone int) (isDisponibile bool, userSlots, slotsPrenotati []*time.Time, err error) {
 	if l.TestPerOra < 1 {
 		return false, nil, nil, fmt.Errorf("testPerOra non può essere inferiore ad 1")
+	}
+
+	var data time.Time
+	var giorno string
+	if dataStr != "" {
+		var err error
+		data, err = time.Parse("2006-01-02", dataStr)
+		if err != nil {
+			return false, nil, nil, err
+		}
+		giorno = parseDayOfWeek(data.Weekday())
 	}
 
 	var oa OrariApertura
