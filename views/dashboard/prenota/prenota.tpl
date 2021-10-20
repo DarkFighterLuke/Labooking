@@ -1,8 +1,7 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
 <div class="parent">
     <form action="/dashboard/prenota" method="POST"  enctype="multipart/form-data">
-        {{if eq .Ruolo "privato"}}
-        {{else}}
+        {{if ne .Ruolo "privato"}}
         <div>
             {{if eq .Ruolo "medico"}}
             <h3><label for="privati">Pazienti: </label></h3>
@@ -31,6 +30,10 @@
         {{end}}
 
         <div>
+
+        </div>
+
+        <div>
             <div>
                 <label for="questionario-anamnesi-download">Scarica questionario di anamnesi: </label>
                 <a href="/pdf/questionario-anamnesi.pdf" id="questionario-anamnesi-download" download>Questionario</a>
@@ -39,6 +42,7 @@
                 <label for="questionario-anamnesi-upload">Caricare questionario di anamnesi: </label>
                 <input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload">
             </div>
+        </div>
 
         <div>
             {{if ne .Ruolo "medico"}}
