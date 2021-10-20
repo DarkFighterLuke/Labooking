@@ -44,10 +44,11 @@
                     <th>Orario</th>
                     <th>Disponibilità</th>
                 </tr>
+                {{$ruolo := .Ruolo}}
                 {{range .Slots}}
                 <tr {{if not .Disponibile}}style="color: darkred" {{end}}>
                     <td>
-                        {{if ne .Ruolo "privato"}}
+                        {{if ne $ruolo "privato"}}
                         <input type="checkbox" name="slot" value="{{.Orario}}">
                         {{else}}
                         <input type="radio" name="slot" value="{{.Orario}}">

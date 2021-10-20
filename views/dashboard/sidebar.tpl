@@ -7,17 +7,17 @@
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/home">
             <img src="/img/icons/house-door-fill.svg" class="list-group-item-image"/>
             Home</a>
-        {{if eq .UserType "medico"}}
+        {{if eq .Ruolo "medico"}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/pazienti">
             <img src="/img/icons/people-svgrepo-com.svg" class="list-group-item-image"/>
             Pazienti</a>
         {{end}}
-        {{if eq .UserType "organizzazione"}}
+        {{if eq .Ruolo "organizzazione"}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/dipendenti">
             <img src="/img/icons/people-svgrepo-com.svg" class="list-group-item-image"/>
             Dipendenti</a>
         {{end}}
-        {{if or (eq .UserType "privato") (eq .UserType "medico") (eq .UserType "organizzazione")}}
+        {{if or (eq .Ruolo "privato") (eq .Ruolo "medico") (eq .Ruolo "organizzazione")}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/prenota?action=ricerca">
             <img src="/img/icons/syringe-svgrepo-com.svg" class="list-group-item-image"/>
             Prenota test</a>
@@ -26,12 +26,12 @@
             <img src="/img/icons/syringe-svgrepo-com.svg" class="list-group-item-image"/>
             Gestisci prenotazioni</a>
         {{end}}
-        {{if eq .UserType "laboratorio"}}
+        {{if eq .Ruolo "laboratorio"}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/pubblica">
             <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
             Pubblica esiti</a>
         {{end}}
-        {{if or (eq .UserType "privato") (eq .UserType "medico") (eq .UserType "organizzazione")}}
+        {{if or (eq .Ruolo "privato") (eq .Ruolo "medico") (eq .Ruolo "organizzazione")}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/referti">
             <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
             Referti</a>
@@ -39,12 +39,12 @@
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/calendario">
             <img src="/img/icons/calendar-svgrepo-com.svg" class="list-group-item-image"/>
             Calendario</a>
-        {{if eq .UserType "laboratorio"}}
+        {{if eq .Ruolo "laboratorio"}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/pagamenti">
             <img src="/img/icons/credit-cards-svgrepo-com.svg" class="list-group-item-image"/>
             Pagamenti</a>
         {{end}}
-        {{if or (eq .UserType "privato") (eq .UserType "medico") (eq .UserType "organizzazione")}}
+        {{if or (eq .Ruolo "privato") (eq .Ruolo "medico") (eq .Ruolo "organizzazione")}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/guida">
             <img src="/img/icons/help-svgrepo-com.svg" class="list-group-item-image"/>
             Guida ai test</a>
