@@ -37,26 +37,25 @@
         {{end}}
 
         <div>
-            <table>
-                <tbody>
+            <table id="table-disponibilita-tamponi" class="w-25">
+                <tbody class="w-100">
                 <tr>
-                    <th></th>
-                    <th>Orario</th>
-                    <th>Disponibilità</th>
+                    <th class="w-50 text-center">Orario</th>
+                    <th class="w-50 text-center">Disponibilità</th>
                 </tr>
                 {{$ruolo := .Ruolo}}
                 {{range .Slots}}
                 <tr {{if not .Disponibile}}style="color: darkred" {{end}}>
-                    <td>
+                    <td class="w-50 text-center">
                         {{if ne $ruolo "privato"}}
                         <input type="checkbox" name="slot" value="{{.Orario}}">
                         {{else}}
                         <input type="radio" name="slot" value="{{.Orario}}">
                         {{end}}
-
+                        {{.Orario}}
                     </td>
-                    <td>{{.Orario}}</td>
-                    <td>
+
+                    <td class="w-50 text-center" >
                         {{if .Disponibile}}
                         Disponibile
                         {{else}}

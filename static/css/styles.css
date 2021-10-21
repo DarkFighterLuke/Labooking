@@ -380,6 +380,11 @@ select:disabled {
   margin-top: 10px;
 }
 
+#table-disponibilita-tamponi {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
 #lab-title{
   margin-bottom: 30px;
 }
@@ -413,7 +418,15 @@ input[type=time], input[type=checkbox], select {
   margin: 5px;
 }
 
-input[type=text] {
+input[type=radio] {
+  background-color: #fafafa;
+  border:0;
+  transition: .3s box-shadow;
+  margin: 5px;
+}
+
+
+text] {
   background-color: #fafafa;
   border:0;
   box-shadow:0 0 4px rgba(0,0,0,0.3);
