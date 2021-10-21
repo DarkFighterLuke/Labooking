@@ -10,6 +10,7 @@
             <input type="radio" id="{{.TipologiaTest}}" value="{{.TipologiaTest}}" name="tipologia-test">
             {{end}}
         </div>
+        <br>
 
         {{if ne .Ruolo "privato"}}
         <div>
@@ -37,6 +38,7 @@
                 </tbody>
             </table>
         </div>
+        <br>
         {{end}}
 
         <div>
@@ -72,6 +74,7 @@
                 </tbody>
             </table>
         </div>
+        <br>
 
         <div>
             <h3>Questionario di anamnesi</h3>
@@ -90,8 +93,10 @@
                 {{end}}
             </div>
         </div>
+        <br>
 
         <div>
+            <h3>Pagamento</h3>
             {{if ne .Ruolo "medico"}}
             <div id="div-paga-online">
                 <p>Scegli metodo pagamento</p>
