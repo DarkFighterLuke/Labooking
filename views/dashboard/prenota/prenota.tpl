@@ -52,7 +52,7 @@
                         <select name="privato-{{.Orario}}">
                             <option>---</option>
                             {{range $privati}}
-                            <option value="{{.IdPrivato}}">{{.CodiceFiscale}}-{{.Nome}} {{.Cognome}}</option>
+                            <option value="{{.IdPrivato}}">{{.Nome}} {{.Cognome}} --- {{.CodiceFiscale}}</option>
                             {{end}}
                     </td>
                     <td><input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload-{{.Orario}}"></td>
