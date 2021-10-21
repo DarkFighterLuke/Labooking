@@ -3,11 +3,9 @@ package controllers
 import (
 	"Labooking/controllers/utils"
 	"Labooking/models"
-	utils2 "Labooking/models/utils"
 	"fmt"
 	"github.com/beego/beego/v2/server/web"
-	"io/ioutil"
-	"os"
+	"net/http"
 	"strconv"
 	"time"
 )
@@ -65,6 +63,7 @@ func (pc *PrenotazioneController) Get() {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
 			return
 		}
+		pc.Data["IdLaboratorio"] = idLab
 
 		l.IdLaboratorio = int64(idLab)
 		err = l.Seleziona("id_laboratorio")
@@ -87,6 +86,7 @@ func (pc *PrenotazioneController) Get() {
 		oraInizioStr := pc.GetString("inizio")
 		oraFineStr := pc.GetString("fine")
 		dataStr := pc.GetString("data")
+		pc.Data["DataPrenotazione"] = dataStr
 		numPersoneStr := pc.GetString("persone")
 		var numPersone int
 		if numPersoneStr == "" {
@@ -120,10 +120,12 @@ func (pc *PrenotazioneController) Get() {
 			err := m.Seleziona("email")
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
 			}
 			pazienti, err := m.GetPazienti()
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
 			}
 			pc.Data["Privati"] = pazienti
 			break
@@ -133,10 +135,12 @@ func (pc *PrenotazioneController) Get() {
 			err := org.Seleziona("email")
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
 			}
 			dipendenti, err := org.GetDipendenti()
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
 			}
 			pc.Data["Privati"] = dipendenti
 			break
@@ -251,13 +255,14 @@ func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
 	var complexSlots []htmlSlot
 	for i, _ := range allSlots {
 		for j, _ := range slotsPrenotati {
-			if *allSlots[i] == *slotsPrenotati[j] {
+			if (*allSlots[i]).Hour() == (*slotsPrenotati[j]).Hour() && (*allSlots[i]).Minute() == (*slotsPrenotati[j]).Minute() {
 				complexSlot := htmlSlot{allSlots[i].Format("15:04"), false}
+				complexSlots = append(complexSlots, complexSlot)
+			} else {
+				complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
 				complexSlots = append(complexSlots, complexSlot)
 			}
 		}
-		complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
-		complexSlots = append(complexSlots, complexSlot)
 	}
 
 	return complexSlots
