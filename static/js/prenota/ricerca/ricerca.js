@@ -5,7 +5,8 @@ var nominatimApi = "https://nominatim.openstreetmap.org/search?format=json&q="
 
 var markers = [];
 
-var parametriGet="";
+var parametriGet = "";
+var firstLaunch = true;
 
 var luogo = document.getElementById("luogo");
 autocomplete(luogo);
@@ -60,6 +61,7 @@ async function sendFilters(){
         body: filters
     });
     fetch(request).then(response => setLabMap(response));
+    if (firstLaunch === true) firstLaunch = false;
     setMapView(luogo);
 }
 
@@ -70,7 +72,10 @@ async function setLabMap(response) {
         for (let i = 0; i < dati.length; i++) {
             let marker = L.marker([dati[i].lat, dati[i].long]).addTo(mymap);
             let labLink = visualizzaLaboratorioEndpoint.concat("?idLab=", dati[i].id_laboratorio, parametriGet);
-            let popupContent = "<b>".concat(dati[i].nome, "</b></br><a href='", labLink, "'>Vedi</a>");
+            let popupContent = "<b>".concat(dati[i].nome, "</b></br>");
+            if (!firstLaunch) {
+                popupContent = popupContent.concat("<a href='", labLink, "'>Vedi</a>");
+            }
             marker.bindPopup(popupContent);
             markers.push(marker);
         }
