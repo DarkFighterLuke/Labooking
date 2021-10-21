@@ -126,7 +126,7 @@
             Iban: {{.Iban}}
         </div>
 
-        <input type="submit" class="bg-lightblue" value="Conferma prenotazione">
+        <input id="conferma-prenotazione" type="submit" class="bg-lightblue" value="Conferma prenotazione">
     </form>
 </div>
 <script src="/js/prenota/prenota.js"></script>
