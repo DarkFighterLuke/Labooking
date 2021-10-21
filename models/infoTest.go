@@ -72,9 +72,9 @@ func (it *InfoTest) SelezionaMaxTempi() error {
 	return err
 }
 
-func SelezionaInfoTestByLabId(l *[]InfoTest, id int) error {
+func (it *InfoTest) SelezionaInfoTestByLabId() (its []*InfoTest, err error) {
 	o := orm.NewOrm()
 	query := "SELECT * FROM info_test WHERE id_laboratorio=?"
-	_, err := o.Raw(query, id).QueryRows(l)
-	return err
+	_, err = o.Raw(query, it.IdLaboratorio.IdLaboratorio).QueryRows(&its)
+	return its, err
 }

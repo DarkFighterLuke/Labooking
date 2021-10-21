@@ -52,8 +52,10 @@ func (lc *LaboratorioController) Get() {
 		orariStr[i].Giorno = v.Giorno
 	}
 
-	var it []models.InfoTest
-	err = models.SelezionaInfoTestByLabId(&it, idLab)
+	var it models.InfoTest
+	it.IdLaboratorio = new(models.Laboratorio)
+	it.IdLaboratorio.IdLaboratorio = int64(idLab)
+	its, err := it.SelezionaInfoTestByLabId()
 	if err != nil {
 		lc.Abort("500")
 		return
@@ -66,7 +68,7 @@ func (lc *LaboratorioController) Get() {
 	}
 	var itCustom []infoTestCustom
 
-	for _, v := range it {
+	for _, v := range its {
 		oreStr := strconv.Itoa(int(v.Tempi/3600)) + "h"
 		minutiStr := ""
 		if int(v.Tempi%3600) != 0 {

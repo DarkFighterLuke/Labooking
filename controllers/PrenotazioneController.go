@@ -65,13 +65,24 @@ func (pc *PrenotazioneController) Get() {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
 			return
 		}
+
 		l.IdLaboratorio = int64(idLab)
 		err = l.Seleziona("id_laboratorio")
 		if err != nil {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
 			return
 		}
-		pc.Data["Iban"] = l.Iban
+
+		var it models.InfoTest
+		it.IdLaboratorio = new(models.Laboratorio)
+		it.IdLaboratorio.IdLaboratorio = l.IdLaboratorio
+		infoTest, err := it.SelezionaInfoTestByLabId()
+		if err != nil {
+			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
+		}
+
+		pc.Data["InfoTest"] = infoTest
 
 		oraInizioStr := pc.GetString("inizio")
 		oraFineStr := pc.GetString("fine")
@@ -100,6 +111,7 @@ func (pc *PrenotazioneController) Get() {
 		}
 		pc.Data["IsDisponibili"] = isDisponibili
 		pc.Data["Slots"] = costruisciSlot(slots, slotsPrenotati)
+		pc.Data["Iban"] = l.Iban
 		ruolo := fmt.Sprint(pc.GetSession("ruolo"))
 		switch ruolo {
 		case "medico":

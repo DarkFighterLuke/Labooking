@@ -2,9 +2,9 @@
 <div class="parent">
     <form action="/dashboard/prenota" method="POST" enctype="multipart/form-data">
         <div>
-            {{range .TipologieTest}}
-            <label for="{{.}}">{{.}}</label>
-            <input type="radio" id="{{.}}" name="tipologia-test">
+            {{range .InfoTest}}
+            <label for="{{.TipologiaTest}}">{{.TipologiaTest}}</label>
+            <input type="radio" id="{{.TipologiaTest}}" name="tipologia-test">
             {{end}}
         </div>
 
