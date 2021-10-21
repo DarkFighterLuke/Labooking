@@ -4,6 +4,7 @@ import (
 	"Labooking/controllers/utils"
 	"Labooking/models"
 	"fmt"
+	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/server/web"
 	"net/http"
 	"strconv"
@@ -177,6 +178,13 @@ func (pc *PrenotazioneController) Post() {
 	case "privato":
 		slotStr := pc.GetString("slot")
 		slot, err := time.ParseInLocation("15:04", slotStr, time.Local)
+
+		o := orm.NewOrm()
+		_ = o.Raw("SELECT * FROM test_diagnostico WHERE id_laboratorio=? AND data_esecuzione=?", idLab, dataStr+" "+slotStr).QueryRow(&testDiagnostico)
+		if testDiagnostico.IdTestDiagnostico != 0 {
+			pc.Ctx.WriteString("prenotazione: slot già prenotato!")
+			return
+		}
 
 		testDiagnostico.DataEsecuzione = data.Add(time.Duration(slot.Hour())*time.Hour + time.Duration(slot.Minute())*time.Minute)
 
