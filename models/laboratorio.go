@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
+	"log"
 	"time"
 )
 
@@ -221,13 +222,18 @@ func VerificaSlotDisponibili(l Laboratorio, orarioInizioStr, orarioFineStr, data
 
 			var td TestDiagnostico
 			var slotsPrenotati []*time.Time
+			o := orm.NewOrm()
 			for _, us := range userSlots {
 				td.IdTestDiagnostico = 0
-				td.Laboratorio = &l
-				td.DataPrenotazione = data.Add(time.Duration(us.Hour())*time.Hour + time.Duration(us.Minute())*time.Minute) //?
-				_ = td.Seleziona("id_laboratorio", "data_prenotazione")
+				dataEsecuzione := data.Add(time.Duration(us.Hour())*time.Hour + time.Duration(us.Minute())*time.Minute).Format("2006-01-02 15:04:05")
+
+				err := o.Raw("SELECT * FROM test_diagnostico WHERE id_laboratorio=? AND data_esecuzione=?", l.IdLaboratorio, dataEsecuzione).QueryRow(&td)
+				if err != nil {
+					log.Println(err)
+				}
 				if td.IdTestDiagnostico != 0 {
-					slotsPrenotati = append(slotsPrenotati, &td.DataPrenotazione)
+					tdtemp := td
+					slotsPrenotati = append(slotsPrenotati, &tdtemp.DataEsecuzione)
 				}
 			}
 			if len(userSlots)-len(slotsPrenotati) >= numPersone {
