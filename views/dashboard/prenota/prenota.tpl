@@ -12,7 +12,7 @@
         </div>
         <div>
             <h3>Orari prenotabili</h3>
-            <table class="table-responsive">
+            <table id="table-orari-privati" class="table-responsive">
                 <tbody>
                 {{$ruolo := .Ruolo}}
                 {{$privati := .Privati}}
@@ -21,8 +21,8 @@
                     <th>Orario</th>
                     <th>Disponibilità</th>
                     {{if ne $ruolo "privato"}}
-                        {{if eq $ruolo "organizzazione"}}
-                        <th>Dipendente</th>
+                    {{if eq $ruolo "organizzazione"}}
+                    <th>Dipendente</th>
                         {{else}}
                         <th>Paziente</th>
                         {{end}}
@@ -54,6 +54,7 @@
                             {{range $privati}}
                             <option value="{{.IdPrivato}}">{{.Nome}} {{.Cognome}} --- {{.CodiceFiscale}}</option>
                             {{end}}
+                        </select>
                     </td>
                     <td><input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload-{{.Orario}}"></td>
                     {{end}}
@@ -64,6 +65,7 @@
         </div>
         <br>
 
+        {{if eq .Ruolo "privato"}}
         <div>
             <h3>Questionario di anamnesi</h3>
             <div>
@@ -77,6 +79,7 @@
             </div>
         </div>
         <br>
+        {{end}}
 
         <div>
             <h3>Pagamento</h3>
@@ -91,7 +94,7 @@
 
             <div id="div-paga-presenza">
                 <input type="radio" id="paga-presenza" name="metodo-pagamento" value="false"
-                       onchange="return mostraCampi()">
+                       onchange="return mostraCampi()" {{if eq .Ruolo "medico"}}checked{{end}}>
                 <label for="paga-presenza">Pagamento in presenza</label>
             </div>
         </div>
