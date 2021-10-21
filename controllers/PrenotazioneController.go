@@ -42,9 +42,9 @@ func (pc *PrenotazioneController) Get() {
 
 		err = it.SelezionaMaxTempi()
 		if err != nil || (it.Tempi/3600) == pc.Data["MinTempi"].(int64) {
-			pc.Data["MaxTempi"] = pc.Data["MinTempi"].(int64) + 100
+			pc.Data["MaxTempi"] = pc.Data["MinTempi"].(int64) + 101
 		} else {
-			pc.Data["MaxTempi"] = it.Tempi / 3600
+			pc.Data["MaxTempi"] = it.Tempi/3600 + 1
 		}
 
 		pc.Data["Data"] = time.Now().Format("2006-01-02")
