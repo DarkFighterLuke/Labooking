@@ -179,6 +179,7 @@ func (pc *PrenotazioneController) Post() {
 		slotStr := pc.GetString("slot")
 		slot, err := time.ParseInLocation("15:04", slotStr, time.Local)
 
+		// verifica se lo slot è disponibile
 		o := orm.NewOrm()
 		_ = o.Raw("SELECT * FROM test_diagnostico WHERE id_laboratorio=? AND data_esecuzione=?", idLab, dataStr+" "+slotStr).QueryRow(&testDiagnostico)
 		if testDiagnostico.IdTestDiagnostico != 0 {
@@ -246,15 +247,17 @@ func (pc *PrenotazioneController) Post() {
 			return
 		}
 		break
-	case "medico":
-		break
-	case "organizzazione":
+	case "organizzazione", "medico":
 		//var testDiagnostici []models.TestDiagnostico
 		slots := pc.GetStrings("slot")
+		if len(slots) < 1 {
+			pc.Ctx.WriteString("prenotazione: è necessario selezionare almeno un dipendente o paziente")
+			return
+		}
 
 		pagaOnline, err := pc.GetBool("metodo-pagamento")
 		if err != nil {
-			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			pc.Ctx.WriteString("prenotazione: è necessario selezionare il metodo di pagamento desiderato")
 			return
 		}
 		if pagaOnline {
@@ -269,6 +272,14 @@ func (pc *PrenotazioneController) Post() {
 		testDiagnostico.Stato = "prenotato"
 
 		for _, slot := range slots {
+			// verifica se lo slot è disponibile
+			o := orm.NewOrm()
+			_ = o.Raw("SELECT * FROM test_diagnostico WHERE id_laboratorio=? AND data_esecuzione=?", idLab, dataStr+" "+slot).QueryRow(&testDiagnostico)
+			if testDiagnostico.IdTestDiagnostico != 0 {
+				pc.Ctx.WriteString("prenotazione: slot già prenotato!")
+				return
+			}
+
 			slotTime, err := time.ParseInLocation("15:04", slot, time.Local)
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
@@ -277,11 +288,48 @@ func (pc *PrenotazioneController) Post() {
 			testDiagnostico.DataEsecuzione = data.Add(time.Duration(slotTime.Hour())*time.Hour + time.Duration(slotTime.Minute())*time.Minute)
 
 			testDiagnostico.Privato = new(models.Privato)
-			//privatoStr := pc.GetString("privato-"+slot)
-			//testDiagnostico.Privato.IdPrivato = int64(idDipendente)
+			idPrivatoStr := pc.GetString("privato-" + slot)
+			idPrivato, err := strconv.Atoi(idPrivatoStr)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: dipendente o paziente non valido")
+				return
+			}
 
+			p := &models.Privato{IdPrivato: int64(idPrivato)}
+			testDiagnostico.Privato = p
+			idTestDiagnostico, err := testDiagnostico.Aggiungi()
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
+
+			//creazione questionario
+			file, fileHeaders, err := pc.GetFile("questionario-anamnesi-upload-" + slot)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
+			fn := fileHeaders.Filename
+			if fn[len(fn)-4:] != ".pdf" {
+				pc.Ctx.WriteString("prenotazione: estensione file errata!")
+				return
+			}
+
+			fileName, err := utils.SaveUploadedPdf(file, "pathquestionari")
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
+			qa := new(models.QuestionarioAnamnesi)
+			qa.Nome = fileName
+			qa.TestDiagnostico = new(models.TestDiagnostico)
+			qa.TestDiagnostico.IdTestDiagnostico = int(idTestDiagnostico)
+			_, err = qa.Aggiungi()
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
 		}
-
 		break
 	}
 	pc.Redirect("/dashboard/home", http.StatusFound)
@@ -299,6 +347,7 @@ func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
 			complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
 			complexSlots = append(complexSlots, complexSlot)
 		}
+		return complexSlots
 	}
 	for i, _ := range allSlots {
 		for j, _ := range slotsPrenotati {
@@ -306,10 +355,11 @@ func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
 				complexSlot := htmlSlot{allSlots[i].Format("15:04"), false}
 				complexSlots = append(complexSlots, complexSlot)
 			} else {
-				complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
-				complexSlots = append(complexSlots, complexSlot)
+				continue
 			}
 		}
+		complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
+		complexSlots = append(complexSlots, complexSlot)
 	}
 
 	return complexSlots
