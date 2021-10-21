@@ -15,10 +15,12 @@
 
         <div>
             <label for="costo">Costo: </label>
-            <input id="costo" name="costo" type="range" min="{{.MinCosto}}" max="{{.MaxCosto}}">
+            <input id="costo" name="costo" value="50" type="range" min="{{.MinCosto}}" max="{{.MaxCosto}}" oninput="this.nextElementSibling.value = this.value">
+            <output>50</output>€
             <br>
             <label for="tempo">Tempo: </label>
-            <input id="tempo" name="tempo" type="range" min="{{.MinTempi}}" max="{{.MaxTempi}}">
+            <input id="tempo" name="tempo" value="25" type="range" min="{{.MinTempi}}" max="{{.MaxTempi}}" oninput="this.nextElementSibling.value = this.value">
+            <output>25</output>h
         </div>
 
         <div>
