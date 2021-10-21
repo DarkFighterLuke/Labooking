@@ -170,11 +170,11 @@ func (pc *PrenotazioneController) Post() {
 		pc.Ctx.WriteString("prenotazione: data prenotazione scaduta")
 		return
 	}
+	tipologiaTest := pc.GetString("tipologia-test")
+	testDiagnostico.TipologiaTest = tipologiaTest
 
 	switch fmt.Sprint(pc.GetSession("ruolo")) {
 	case "privato":
-		tipologiaTest := pc.GetString("tipologia-test")
-		testDiagnostico.TipologiaTest = tipologiaTest
 		slotStr := pc.GetString("slot")
 		slot, err := time.ParseInLocation("15:04", slotStr, time.Local)
 
@@ -238,9 +238,42 @@ func (pc *PrenotazioneController) Post() {
 			return
 		}
 		break
-	case "laboratorio":
+	case "medico":
 		break
 	case "organizzazione":
+		//var testDiagnostici []models.TestDiagnostico
+		slots := pc.GetStrings("slot")
+
+		pagaOnline, err := pc.GetBool("metodo-pagamento")
+		if err != nil {
+			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
+		}
+		if pagaOnline {
+			fmt.Println(pc.GetString("numero-carta"),
+				pc.GetString("scadenza"),
+				pc.GetString("cvv"))
+			testDiagnostico.Pagato = true
+		} else {
+			testDiagnostico.Pagato = false
+		}
+
+		testDiagnostico.Stato = "prenotato"
+
+		for _, slot := range slots {
+			slotTime, err := time.ParseInLocation("15:04", slot, time.Local)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
+			testDiagnostico.DataEsecuzione = data.Add(time.Duration(slotTime.Hour())*time.Hour + time.Duration(slotTime.Minute())*time.Minute)
+
+			testDiagnostico.Privato = new(models.Privato)
+			//privatoStr := pc.GetString("privato-"+slot)
+			//testDiagnostico.Privato.IdPrivato = int64(idDipendente)
+
+		}
+
 		break
 	}
 	pc.Redirect("/dashboard/home", http.StatusFound)

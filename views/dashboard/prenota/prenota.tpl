@@ -10,47 +10,25 @@
             <input type="radio" id="{{.TipologiaTest}}" value="{{.TipologiaTest}}" name="tipologia-test">
             {{end}}
         </div>
-        <br>
-
-        {{if ne .Ruolo "privato"}}
-        <div>
-            {{if eq .Ruolo "medico"}}
-            <h3><label for="privati">Pazienti</label></h3>
-            {{else}}
-            <h3><label for="privati">Dipendenti</label></h3>
-            {{end}}
-            <table id="privati" class="table-responsive">
-                <tbody>
-                <tr>
-                    <th></th>
-                    <th>Codice Fiscale</th>
-                    <th>Nome</th>
-                    <th>Cognome</th>
-                </tr>
-                {{range .Privati}}
-                <tr>
-                    <td><input type="checkbox" name="id-privato" value="{{.IdPrivato}}"></td>
-                    <td>{{.CodiceFiscale}}</td>
-                    <td>{{.Nome}}</td>
-                    <td>{{.Cognome}}</td>
-                </tr>
-                {{end}}
-                </tbody>
-            </table>
-        </div>
-        <br>
-        {{end}}
-
         <div>
             <h3>Orari prenotabili</h3>
-            <table>
+            <table class="table-responsive">
                 <tbody>
+                {{$ruolo := .Ruolo}}
+                {{$privati := .Privati}}
                 <tr>
                     <th></th>
                     <th>Orario</th>
                     <th>Disponibilità</th>
+                    {{if ne $ruolo "privato"}}
+                        {{if eq $ruolo "organizzazione"}}
+                        <th>Dipendente</th>
+                        {{else}}
+                        <th>Paziente</th>
+                        {{end}}
+                        <th>Questionario</th>
+                    {{end}}
                 </tr>
-                {{$ruolo := .Ruolo}}
                 {{range .Slots}}
                 <tr {{if not .Disponibile}}style="color: darkred" {{end}}>
                     <td>
@@ -69,6 +47,16 @@
                         Non disponibile
                         {{end}}
                     </td>
+                    {{if ne $ruolo "privato"}}
+                    <td>
+                        <select name="privato-{{.Orario}}">
+                            <option>---</option>
+                            {{range $privati}}
+                            <option value="{{.IdPrivato}}">{{.CodiceFiscale}}-{{.Nome}} {{.Cognome}}</option>
+                            {{end}}
+                    </td>
+                    <td><input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload-{{.Orario}}"></td>
+                    {{end}}
                 </tr>
                 {{end}}
                 </tbody>
@@ -84,13 +72,8 @@
             </div>
 
             <div>
-                {{if eq .Ruolo "privato"}}
                 <label for="questionario-anamnesi-upload">Caricare questionario di anamnesi: </label>
                 <input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload">
-                {{else}}
-                <label for="questionario-anamnesi-upload">Caricare questionario di anamnesi: </label>
-                <input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload" multiple>
-                {{end}}
             </div>
         </div>
         <br>
