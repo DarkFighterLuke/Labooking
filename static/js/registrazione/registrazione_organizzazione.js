@@ -20,7 +20,7 @@ function initElementsOrganizzazione(){
 
     ragioneSocialeOrganizzazione.addEventListener("focusout", checkRagioneSocialeOrganizzazione);
     partitaIvaOrganizzazione.addEventListener("focusout", checkPartitaIvaOrganizzazione);
-    indirizzoOrganizzazione.addEventListener("focusout", checkIndirizzoOrganizzazione());
+    indirizzoOrganizzazione.addEventListener("focusout", checkIndirizzoOrganizzazione);
     telefonoOrganizzazione.addEventListener("focusout", checkTelefonoOrganizzazione);
     emailOrganizzazione.addEventListener("focusout", checkEmailOrganizzazione);
     passwordOrganizzazione.addEventListener("focusout", checkPasswordOrganizzazione);
