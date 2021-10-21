@@ -1,7 +1,10 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
 <div class="parent">
     <form action="/dashboard/prenota" method="POST" enctype="multipart/form-data">
+        <input hidden name="id-laboratorio" value="{{.IdLaboratorio}}">
+        <input hidden name="data" value="{{.DataPrenotazione}}">
         <div>
+            <h3>Tipologie Test</h3>
             {{range .InfoTest}}
             <label for="{{.TipologiaTest}}">{{.TipologiaTest}}</label>
             <input type="radio" id="{{.TipologiaTest}}" value="{{.TipologiaTest}}" name="tipologia-test">
@@ -11,9 +14,9 @@
         {{if ne .Ruolo "privato"}}
         <div>
             {{if eq .Ruolo "medico"}}
-            <h3><label for="privati">Pazienti: </label></h3>
+            <h3><label for="privati">Pazienti</label></h3>
             {{else}}
-            <h3><label for="privati">Dipendenti: </label></h3>
+            <h3><label for="privati">Dipendenti</label></h3>
             {{end}}
             <table id="privati" class="table-responsive">
                 <tbody>
@@ -37,6 +40,7 @@
         {{end}}
 
         <div>
+            <h3>Orari prenotabili</h3>
             <table>
                 <tbody>
                 <tr>
@@ -48,10 +52,10 @@
                 {{range .Slots}}
                 <tr {{if not .Disponibile}}style="color: darkred" {{end}}>
                     <td>
-                        {{if ne $ruolo "privato"}}
-                        <input type="checkbox" name="slot" value="{{.Orario}}">
+                        {{if eq $ruolo "privato"}}
+                        <input type="radio" name="slot" value="{{.Orario}}" {{if not .Disponibile}}disabled{{end}}>
                         {{else}}
-                        <input type="radio" name="slot" value="{{.Orario}}">
+                        <input type="checkbox" name="slot" value="{{.Orario}}" {{if not .Disponibile}}disabled{{end}}>
                         {{end}}
 
                     </td>
@@ -70,6 +74,7 @@
         </div>
 
         <div>
+            <h3>Questionario di anamnesi</h3>
             <div>
                 <label for="questionario-anamnesi-download">Scarica questionario di anamnesi: </label>
                 <a href="/pdf/questionario-anamnesi.pdf" id="questionario-anamnesi-download" download>Questionario</a>
