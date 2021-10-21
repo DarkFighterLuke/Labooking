@@ -253,6 +253,12 @@ type htmlSlot struct {
 
 func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
 	var complexSlots []htmlSlot
+	if len(slotsPrenotati) < 1 {
+		for i, _ := range allSlots {
+			complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
+			complexSlots = append(complexSlots, complexSlot)
+		}
+	}
 	for i, _ := range allSlots {
 		for j, _ := range slotsPrenotati {
 			if (*allSlots[i]).Hour() == (*slotsPrenotati[j]).Hour() && (*allSlots[i]).Minute() == (*slotsPrenotati[j]).Minute() {
