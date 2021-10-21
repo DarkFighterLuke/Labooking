@@ -147,33 +147,99 @@ func (pc *PrenotazioneController) Get() {
 }
 
 func (pc *PrenotazioneController) Post() {
+	testDiagnostico := new(models.TestDiagnostico)
+	idLabStr := pc.GetString("id-laboratorio")
+	idLab, err := strconv.Atoi(idLabStr)
+	if err != nil {
+		pc.Ctx.WriteString("prenotazione: " + err.Error())
+		return
+	}
+	testDiagnostico.Laboratorio = new(models.Laboratorio)
+	testDiagnostico.Laboratorio.IdLaboratorio = int64(idLab)
+	dataStr := pc.GetString("data")
+	data, err := time.ParseInLocation("2006-01-02", dataStr, time.Local)
+	if err != nil {
+		pc.Ctx.WriteString("prenotazione: " + err.Error())
+		return
+	}
+	if data.Before(time.Now()) {
+		pc.Ctx.WriteString("prenotazione: data prenotazione scaduta")
+		return
+	}
+
 	switch fmt.Sprint(pc.GetSession("ruolo")) {
 	case "privato":
-		file, _, err := pc.GetFile("questionario-anamnesi-upload")
+		tipologiaTest := pc.GetString("tipologia-test")
+		testDiagnostico.TipologiaTest = tipologiaTest
+		slotStr := pc.GetString("slot")
+		slot, err := time.ParseInLocation("15:04", slotStr, time.Local)
+
+		testDiagnostico.DataEsecuzione = data.Add(time.Duration(slot.Hour())*time.Hour + time.Duration(slot.Minute())*time.Minute)
+
+		pagaOnline, err := pc.GetBool("metodo-pagamento")
 		if err != nil {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
 		}
-		err = os.MkdirAll("percorso", 0777)
-		if err != nil {
+		if pagaOnline {
+			fmt.Println(pc.GetString("numero-carta"),
+				pc.GetString("scadenza"),
+				pc.GetString("cvv"))
+			testDiagnostico.Pagato = true
+		} else {
+			testDiagnostico.Pagato = false
+		}
 
-		}
-		fileBytes, err := ioutil.ReadAll(file)
+		p := new(models.Privato)
+		p.Email = fmt.Sprint(pc.GetSession("email"))
+		err = p.Seleziona("email")
 		if err != nil {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
 		}
+		testDiagnostico.Privato = p
 
-		fileName := utils2.RandStringRunes(32)
-		err = ioutil.WriteFile(fileName+".pdf", fileBytes, 0655)
+		testDiagnostico.Stato = "prenotato"
+
+		idTestDiagnostico, err := testDiagnostico.Aggiungi()
 		if err != nil {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
 		}
 
+		//creazione questionario
+		file, fileHeaders, err := pc.GetFile("questionario-anamnesi-upload")
+		if err != nil {
+			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
+		}
+		fn := fileHeaders.Filename
+		if fn[len(fn)-4:] != ".pdf" {
+			pc.Ctx.WriteString("prenotazione: estensione file errata!")
+			return
+		}
+
+		fileName, err := utils.SaveUploadedPdf(file, "pathquestionari")
+		if err != nil {
+			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
+		}
+		qa := new(models.QuestionarioAnamnesi)
+		qa.Nome = fileName
+		qa.TestDiagnostico = new(models.TestDiagnostico)
+		qa.TestDiagnostico.IdTestDiagnostico = int(idTestDiagnostico)
+		_, err = qa.Aggiungi()
+		if err != nil {
+			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
+		}
 		break
 	case "laboratorio":
 		break
 	case "organizzazione":
 		break
 	}
+	pc.Redirect("/dashboard/home", http.StatusFound)
 }
 
 type htmlSlot struct {

@@ -4,7 +4,7 @@
         <div>
             {{range .InfoTest}}
             <label for="{{.TipologiaTest}}">{{.TipologiaTest}}</label>
-            <input type="radio" id="{{.TipologiaTest}}" name="tipologia-test">
+            <input type="radio" id="{{.TipologiaTest}}" value="{{.TipologiaTest}}" name="tipologia-test">
             {{end}}
         </div>
 
@@ -74,9 +74,15 @@
                 <label for="questionario-anamnesi-download">Scarica questionario di anamnesi: </label>
                 <a href="/pdf/questionario-anamnesi.pdf" id="questionario-anamnesi-download" download>Questionario</a>
             </div>
+
             <div>
+                {{if eq .Ruolo "privato"}}
                 <label for="questionario-anamnesi-upload">Caricare questionario di anamnesi: </label>
                 <input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload">
+                {{else}}
+                <label for="questionario-anamnesi-upload">Caricare questionario di anamnesi: </label>
+                <input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload" multiple>
+                {{end}}
             </div>
         </div>
 

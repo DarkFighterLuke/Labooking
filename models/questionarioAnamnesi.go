@@ -2,6 +2,10 @@ package models
 
 import "github.com/beego/beego/v2/client/orm"
 
+func init() {
+	orm.RegisterModel(new(QuestionarioAnamnesi))
+}
+
 type QuestionarioAnamnesi struct {
 	IdQuestionarioAnamnesi int              `orm:"pk;auto"`
 	Nome                   string           `orm:"size(32)"`

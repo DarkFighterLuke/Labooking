@@ -17,7 +17,7 @@ type TestDiagnostico struct {
 	TipologiaTest     string       `orm:""`
 	Stato             string       `orm:""`
 	Laboratorio       *Laboratorio `orm:"rel(fk);on_update(cascade);on_delete(do_nothing);column(id_laboratorio)"`
-	Referto           *Referto     `orm:"rel(fk);on_update(cascade);on_delete(cascade);column(id_referto)"`
+	Referto           *Referto     `orm:"rel(fk);on_update(cascade);on_delete(cascade);column(id_referto);null"`
 	Privato           *Privato     `orm:"rel(fk);on_update(cascade);on_delete(cascade);column(id_privato)"`
 }
 
