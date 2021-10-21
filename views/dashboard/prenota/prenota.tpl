@@ -68,7 +68,7 @@
             </table>
         </div>
 
-        <div>
+        <div id="questionario-anamnesi">
             <div>
                 <label for="questionario-anamnesi-download">Scarica questionario di anamnesi: </label>
                 <a href="/pdf/questionario-anamnesi.pdf" id="questionario-anamnesi-download" download>Questionario</a>
@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        <div>
+        <div id="pagamento">
             {{if ne .Ruolo "medico"}}
             <div id="div-paga-online">
             <p>Scegli metodo pagamento</p>
@@ -92,22 +92,22 @@
                 <input type="radio" id="paga-presenza" name="metodo-pagamento" value="false" onchange="return mostraCampi()">
                 <label for="paga-presenza">Pagamento in presenza</label>
             </div>
+
+            <div id="dati-pagamento-online">
+                <label for="numero-carta">Numero di carta: </label>
+                <input id="numero-carta" name="numero-carta" type="text" maxlength="16" >
+                <label for="scadenza">Scadenza: </label>
+                <input id="scadenza" name="scadenza" type="month">
+                <label for="cvv">CVV: </label>
+                <input id="cvv" name="cvv" type="text" maxlength="4">
+            </div>
+
+            <div id="dati-pagamento-presenza">
+                IBAN: {{.Iban}}
+            </div>
         </div>
 
-        <div id="dati-pagamento-online">
-            <label for="numero-carta">Numero di carta: </label>
-            <input id="numero-carta" name="numero-carta" type="text" maxlength="16" >
-            <label for="scadenza">Scadenza: </label>
-            <input id="scadenza" name="scadenza" type="month">
-            <label for="cvv">CVV: </label>
-            <input id="cvv" name="cvv" type="text" maxlength="4">
-        </div>
-
-        <div id="dati-pagamento-presenza">
-            Iban: {{.Iban}}
-        </div>
-
-        <input type="submit" class="bg-lightblue" value="Conferma prenotazione">
+        <input id="conferma-prenotazione" type="submit" class="bg-lightblue" value="Conferma prenotazione">
     </form>
 </div>
 <script src="/js/prenota/prenota.js"></script>

@@ -304,7 +304,7 @@ th {
 }
 
 tr {
-  border-color: inherit;
+  border-color: #D3D3D3;
   border-style: solid;
   border-width: 0.5px;
 }
@@ -425,8 +425,7 @@ input[type=radio] {
   margin: 5px;
 }
 
-
-text] {
+input[type=text], input[type=month] {
   background-color: #fafafa;
   border:0;
   box-shadow:0 0 4px rgba(0,0,0,0.3);
@@ -440,6 +439,10 @@ button,
 [type=reset],
 [type=submit] {
   -webkit-appearance: button;
+}
+
+#conferma-prenotazione{
+  width:15%;
 }
 
 button:not(:disabled),
@@ -457,6 +460,26 @@ button:not(:disabled),
   width:10%;
   margin-top: 5px;
   margin-bottom: 15px;
+}
+
+#questionario-anamnesi{
+  margin-bottom: 10px;
+}
+
+#questionario-anamnesi>div{
+  margin-bottom: 5px;
+}
+
+#pagamento{
+  margin-bottom: 10px;
+  border-color: #D3D3D3	;
+  border-style: solid;
+  border-width: 0.5px;
+  padding: 5px;
+}
+
+#dati-pagamento-online>input{
+  margin-right: 15px;
 }
 
 ::-moz-focus-inner {
