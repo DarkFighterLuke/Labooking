@@ -57,3 +57,9 @@ func (td *TestDiagnostico) Seleziona(cols ...string) error {
 	}
 	return nil
 }
+
+func (td *TestDiagnostico) SelezionaByDataStr(dataStr, slot string) error {
+	o := orm.NewOrm()
+	err := o.Raw("SELECT * FROM test_diagnostico WHERE id_laboratorio=? AND data_esecuzione=?", td.Laboratorio.IdLaboratorio, dataStr+" "+slot).QueryRow(td)
+	return err
+}
