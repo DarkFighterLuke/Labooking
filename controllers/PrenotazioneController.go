@@ -193,9 +193,12 @@ func (pc *PrenotazioneController) Post() {
 			return
 		}
 		if pagaOnline {
-			fmt.Println(pc.GetString("numero-carta"),
-				pc.GetString("scadenza"),
-				pc.GetString("cvv"))
+			pagc := PagamentoController{}
+			err = pagc.Paga(pc.Controller)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
 			testDiagnostico.Pagato = true
 		} else {
 			testDiagnostico.Pagato = false
@@ -247,7 +250,6 @@ func (pc *PrenotazioneController) Post() {
 		testDiagnostico.IdTestDiagnostico = 0
 		break
 	case "organizzazione", "medico":
-		//var testDiagnostici []models.TestDiagnostico
 		slots := pc.GetStrings("slot")
 		if len(slots) < 1 {
 			pc.Ctx.WriteString("prenotazione: è necessario selezionare almeno un dipendente o paziente")
@@ -260,9 +262,12 @@ func (pc *PrenotazioneController) Post() {
 			return
 		}
 		if pagaOnline {
-			fmt.Println(pc.GetString("numero-carta"),
-				pc.GetString("scadenza"),
-				pc.GetString("cvv"))
+			pagc := PagamentoController{}
+			err = pagc.Paga(pc.Controller)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
 			testDiagnostico.Pagato = true
 		} else {
 			testDiagnostico.Pagato = false
