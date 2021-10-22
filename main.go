@@ -84,4 +84,5 @@ func init() {
 	//filters
 	web.InsertFilter("/dashboard/*", web.BeforeRouter, routersutils.FilterUser)
 	web.InsertFilter("/dashboard/*", web.BeforeRouter, routersutils.FilterRuolo)
+	web.InsertFilter("/api/ricerca", web.BeforeRouter, routersutils.FilterUser)
 }
