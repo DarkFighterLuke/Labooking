@@ -54,14 +54,14 @@ func (li *LoginController) Post() {
 
 	if email == "" || ruolo == "" || password == "" {
 		li.TplName = "login/login.tpl"
-		li.Data["errmsg"] = "login failed: inserire nome utente o password"
+		li.Data["errmsg"] = "Login fallito: inserire nome utente o password"
 		return
 	}
 
 	ok, psw := checkUserExistence(email, ruolo)
 	if !ok {
 		li.TplName = "login/login.tpl"
-		li.Data["errmsg"] = "login failed: utente non trovato"
+		li.Data["errmsg"] = "Login fallito: utente non trovato"
 		return
 	}
 
@@ -73,7 +73,7 @@ func (li *LoginController) Post() {
 
 	if passwordSha1 != psw {
 		li.TplName = "login/login.tpl"
-		li.Data["errmsg"] = "login failed: wrong password"
+		li.Data["errmsg"] = "Login fallito: password errata"
 		return
 	}
 

@@ -38,7 +38,7 @@ function initElementsPrivato(){
 
 function checkNomePrivato(){
     if(nomePrivato.value.length<1 || nomePrivato.value.length>255 || nomePrivato.value.match(/\d/)){
-        nomePrivato.style.backgroundColor="red";
+        nomePrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -49,7 +49,7 @@ function checkNomePrivato(){
 
 function checkCognomePrivato(){
     if(cognomePrivato.value.length<1 || cognomePrivato.value.length>255 || cognomePrivato.value.match(/\d/)){
-        cognomePrivato.style.backgroundColor="red";
+        cognomePrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -60,7 +60,7 @@ function checkCognomePrivato(){
 
 function checkCodiceFiscalePrivato(){
     if(codiceFiscalePrivato.value.length!==16){
-        codiceFiscalePrivato.style.backgroundColor="red";
+        codiceFiscalePrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -71,7 +71,7 @@ function checkCodiceFiscalePrivato(){
 
 function checkNumeroTesseraSanitariaPrivato(){
     if(numeroTesseraSanitariaPrivato.value.length!==20 || !numeroTesseraSanitariaPrivato.value.match(/^[0-9]+$/)){
-        numeroTesseraSanitariaPrivato.style.backgroundColor="red";
+        numeroTesseraSanitariaPrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -82,7 +82,7 @@ function checkNumeroTesseraSanitariaPrivato(){
 
 function checkIndirizzoPrivato(){
     if(indirizzoPrivato.value.length<1 || indirizzoPrivato.value.length>255) {
-        indirizzoPrivato.style.backgroundColor="red";
+        indirizzoPrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -93,7 +93,7 @@ function checkIndirizzoPrivato(){
 
 function checkTelefonoPrivato(){
     if(telefonoPrivato.value.length!==10 || !telefonoPrivato.value.match(/^[0-9]+$/)){
-        telefonoPrivato.style.backgroundColor="red";
+        telefonoPrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -104,7 +104,7 @@ function checkTelefonoPrivato(){
 
 function checkEmailPrivato(){
     if(emailPrivato.value.length<1 || emailPrivato.value.length>255 || !emailPrivato.value.match("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])")){
-        emailPrivato.style.backgroundColor="red";
+        emailPrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -115,8 +115,8 @@ function checkEmailPrivato(){
 
 function checkPasswordPrivato(){
     if(passwordPrivato.value.length<1 || passwordPrivato.value.length>255 || passwordPrivato.value!==confermaPasswordPrivato.value){
-        passwordPrivato.style.backgroundColor="red";
-        confermaPasswordPrivato.style.backgroundColor="red";
+        passwordPrivato.style.backgroundColor="#ff7b5a";
+        confermaPasswordPrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -128,7 +128,7 @@ function checkPasswordPrivato(){
 
 function checkDataNascitaPrivato(){
     if(dataNascitaPrivato.value==="" || !underAgeValidate(dataNascitaPrivato.value)){
-        dataNascitaPrivato.style.backgroundColor="red";
+        dataNascitaPrivato.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
