@@ -44,7 +44,7 @@
             <br>
         </div>
 
-        <div id="map" style="height: 650px; margin-right:20px; margin-top:25px; margin-bottom:15px"></div>
+        <div id="map"></div>
     </div>
 </div>
 <script src="/js/utils/autocompleteAddress.js"></script>

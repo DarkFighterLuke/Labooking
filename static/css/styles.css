@@ -389,6 +389,12 @@ select:disabled {
   margin-bottom: 30px;
 }
 
+#map{
+  height: 650px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
 input[type=button] {
   appearance:none;
   -webkit-appearance:none;
@@ -410,7 +416,11 @@ input[type=range] {
   background-color: #00A4D3;
 }
 
-input[type=time], input[type=checkbox], select {
+#numero-persone{
+  width: 10%;
+}
+
+input[type=time], input[type=checkbox], input[type=number], select {
   background-color: #fafafa;
   border:0;
   box-shadow:0 0 4px rgba(0,0,0,0.3);
@@ -425,7 +435,7 @@ input[type=radio] {
   margin: 5px;
 }
 
-input[type=text], input[type=month] {
+input[type=text], input[type=month], input[type=date]{
   background-color: #fafafa;
   border:0;
   box-shadow:0 0 4px rgba(0,0,0,0.3);
