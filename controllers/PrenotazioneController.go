@@ -4,7 +4,6 @@ import (
 	"Labooking/controllers/utils"
 	"Labooking/models"
 	"fmt"
-	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/server/web"
 	"net/http"
 	"strconv"
@@ -180,8 +179,7 @@ func (pc *PrenotazioneController) Post() {
 		slot, err := time.ParseInLocation("15:04", slotStr, time.Local)
 
 		// verifica se lo slot è disponibile
-		o := orm.NewOrm()
-		_ = o.Raw("SELECT * FROM test_diagnostico WHERE id_laboratorio=? AND data_esecuzione=?", idLab, dataStr+" "+slotStr).QueryRow(&testDiagnostico)
+		_ = testDiagnostico.SelezionaByDataStr(dataStr, slotStr)
 		if testDiagnostico.IdTestDiagnostico != 0 {
 			pc.Ctx.WriteString("prenotazione: slot già prenotato!")
 			return
@@ -246,6 +244,7 @@ func (pc *PrenotazioneController) Post() {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
 			return
 		}
+		testDiagnostico.IdTestDiagnostico = 0
 		break
 	case "organizzazione", "medico":
 		//var testDiagnostici []models.TestDiagnostico
@@ -273,8 +272,7 @@ func (pc *PrenotazioneController) Post() {
 
 		for _, slot := range slots {
 			// verifica se lo slot è disponibile
-			o := orm.NewOrm()
-			_ = o.Raw("SELECT * FROM test_diagnostico WHERE id_laboratorio=? AND data_esecuzione=?", idLab, dataStr+" "+slot).QueryRow(&testDiagnostico)
+			_ = testDiagnostico.SelezionaByDataStr(dataStr, slot)
 			if testDiagnostico.IdTestDiagnostico != 0 {
 				pc.Ctx.WriteString("prenotazione: slot già prenotato!")
 				return
@@ -329,6 +327,8 @@ func (pc *PrenotazioneController) Post() {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
 				return
 			}
+
+			testDiagnostico.IdTestDiagnostico = 0
 		}
 		break
 	}
@@ -349,17 +349,21 @@ func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
 		}
 		return complexSlots
 	}
+
 	for i, _ := range allSlots {
+		flag := false
 		for j, _ := range slotsPrenotati {
-			if (*allSlots[i]).Hour() == (*slotsPrenotati[j]).Hour() && (*allSlots[i]).Minute() == (*slotsPrenotati[j]).Minute() {
+			if (*allSlots[i]).Local().Hour() == (*slotsPrenotati[j]).Hour() && (*allSlots[i]).Local().Minute() == (*slotsPrenotati[j]).Minute() {
 				complexSlot := htmlSlot{allSlots[i].Format("15:04"), false}
 				complexSlots = append(complexSlots, complexSlot)
-			} else {
-				continue
+				flag = true
+				break
 			}
 		}
-		complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
-		complexSlots = append(complexSlots, complexSlot)
+		if flag == false {
+			complexSlot := htmlSlot{allSlots[i].Format("15:04"), true}
+			complexSlots = append(complexSlots, complexSlot)
+		}
 	}
 
 	return complexSlots
