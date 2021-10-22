@@ -11,39 +11,97 @@ function mostraCampi() {
 
 document.getElementById("dati-pagamento-presenza").style = "display: none";
 
+
 function checkDatiInseriti() {
+    let errMap=new Map();
+    eraseErrorDivs();
     let tipologiaTest = document.getElementsByName("tipologia-test");
     let numTipologiaTest = 0;
+    if(tipologiaTest==null){
+        errMap.set("tipologia-test", false);
+    }
     for (let i = 0; i < tipologiaTest.length; i++) {
         if (tipologiaTest[i].checked) {
             numTipologiaTest++;
         }
     }
     if (numTipologiaTest !== 1) {
-        // TODO: Stampare messaggio di errore
-        return false;
+        showErrorDiv(document.getElementById("div-tipologia-test").children[0], true, "È necessario selezionare una tipologia di test!");
+        errMap.set("tipologia-test", false);
     }
-    if (document.getElementById("table-orari-privati").rows[0].cells === 4) {
-        for (let i = 1; i < document.getElementById("table-orari-privati").rows.length; i++) {
-            if (document.getElementById("table-orari-privati").rows[1].cells[0].children[0].checked) {
-                let isPrivatoOk = /^[0-9]+$/.test(document.getElementById("table-orari-privati").rows[1].cells[3].children[0].value);
+    let tableOrariPrivati=document.getElementById("table-orari-privati");
+    if (tableOrariPrivati != null && tableOrariPrivati.rows[1].cells.length === 5) {
+        let numChecked=0;
+        for (let i = 1; i < tableOrariPrivati.rows.length; i++) {
+            if (tableOrariPrivati.rows[i].cells[0].children[0].checked) {
+                numChecked++;
+                let isPrivatoOk = /^[0-9]+$/.test(tableOrariPrivati.rows[i].cells[3].children[0].value);
                 let isQuestionarioOk = false;
-                if (document.getElementById("table-orari-privati").rows[2].cells[4].children[0].files[0] != null) {
-                    let fileName = document.getElementById("table-orari-privati").rows[2].cells[4].children[0].files[0].name;
-                    if (fileName.substring(fileName.length - 4) === ".pdf") {
+                if (tableOrariPrivati.rows[i].cells[4].children[0].files[0] != null) {
+                    let file=tableOrariPrivati.rows[i].cells[4].children[0].files[0];
+                    if (file!=null && file.name.substring(file.name.length - 4) === ".pdf") {
                         isQuestionarioOk = true;
                     }
                 }
                 if (!isPrivatoOk || !isQuestionarioOk) {
-                    // TODO: Stampare messaggio di errore
-                    return false;
+                    showErrorDiv(document.getElementById("div-orari-privati").children[0], true, "Controlla che i dati di prenotazione siano stati inseriti correttamente.");
+                    errMap.set("prenotazioni", false);
+                    break;
                 }
             }
         }
-    } else if (document.getElementById("table-orari") != null) {
+        if(numChecked<1){
+            showErrorDiv(document.getElementById("div-orari-privati").children[0], true, "È necessario selezionare almeno uno slot!");
+            errMap.set("prenotazioni", false);
+        }
+    } else if (document.getElementById("table-orari-privati") != null && tableOrariPrivati.rows[0].cells.length===3) {
+        let numChecked=0;
+        for(let i=1; i<tableOrariPrivati.rows.length; i++){
+            if(tableOrariPrivati.rows[i].cells[0].children[0].checked){
+                numChecked++;
+            }
+        }
+        if(numChecked!==1){
+            showErrorDiv(document.getElementById("div-orari-privati").children[0], true, "È necessario prenotare 1 slot!");
+            errMap.set("prenotazioni", false);
+        }
 
+        let isQuestionarioOk=false;
+        let file = document.getElementById("questionario-anamnesi-upload").files[0];
+        if (file!=null && file.name.substring(file.name.length - 4) === ".pdf") {
+            isQuestionarioOk = true;
+        }
+        if(!isQuestionarioOk){
+            showErrorDiv(document.getElementById("div-questionario").children[0], true, "È necessario caricare il questionario di anamnesi!");
+            errMap.set("prenotazioni", false);
+        }
+    }
+    else{
+        errMap.set("generic", false);
     }
 
+    let pagaOnline=document.getElementById("paga-online");
+    let pagaPresenza=document.getElementById("paga-presenza");
+    if(pagaOnline!=null && pagaOnline.checked){
+        let numeroCarta=document.getElementById("numero-carta");
+        let scadenza=document.getElementById("scadenza");
+        let cvv=document.getElementById("cvv");
+        if(numeroCarta==null || numeroCarta.value.length!==16 || !/^[0-9]+$/.test(numeroCarta.value) ||scadenza==null || scadenza.value=="" || cvv==null || cvv.value==""){
+            showErrorDiv(document.getElementById("div-pagamenti").children[0], true, "Controllare i dati di pagamento inseriti e riprovare.");
+            errMap.set("pagamenti", false);
+        }
+    }
+    else if(pagaPresenza==null || !pagaPresenza.checked){
+        showErrorDiv(document.getElementById("div-pagamenti").children[0], true, "Scegliere una modalità di pagamento.");
+        errMap.set("pagamenti", false);
+    }
+    let isAllFine=true;
+    errMap.forEach(function(value){
+        if(value===false){
+            isAllFine=false;
+        }
+    })
+    return isAllFine;
 }
 
 function showErrorDiv(parentNode, isBefore, errMessage) {
@@ -54,15 +112,16 @@ function showErrorDiv(parentNode, isBefore, errMessage) {
     p.innerText = errMessage;
     div.appendChild(p);
     if (isBefore) {
-        document.getElementById("div-datetime").before(div);
+        parentNode.before(div);
     } else {
-        document.getElementById("div-datetime").after(div);
+        parentNode.after(div);
     }
 }
 
 function eraseErrorDivs() {
     let errorDivs = document.getElementsByClassName("div-errore");
-    for (let i = 0; i < errorDivs.length; i++) {
-        errorDivs[i].parentNode.removeChild(errorDivs[i]);
+    let errorDivsLength=errorDivs.length;
+    for (let i = 0; i < errorDivsLength; i++) {
+        errorDivs[0].parentNode.removeChild(errorDivs[0]);
     }
 }
