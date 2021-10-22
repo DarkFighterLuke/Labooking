@@ -25,7 +25,7 @@ type Laboratorio struct {
 	Email         string           `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-laboratorio"`
 	Psw           string           `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-laboratorio"`
 	ConfermaPsw   string           `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-laboratorio"`
-	TestPerOra    int64            `orm:"column(test_per_ora);type(int)" valid:"Required" id:"test-per-ora-laboratorio"`
+	TestPerOra    int64            `orm:"column(test_per_ora);type(int)" valid:"Required;Min(1)" id:"test-per-ora-laboratorio"`
 	Test          []*InfoTest      `orm:"reverse(many)" form:"-"`
 	Orari         []*OrariApertura `orm:"reverse(many)" form:"-"`
 }

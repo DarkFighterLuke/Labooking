@@ -3,7 +3,7 @@
     <form action="/dashboard/prenota" method="POST" enctype="multipart/form-data">
         <input hidden name="id-laboratorio" value="{{.IdLaboratorio}}">
         <input hidden name="data" value="{{.DataPrenotazione}}">
-        <div>
+        <div id="div-tipologia-test">
             <h3>Tipologie Test</h3>
             {{range .InfoTest}}
             <label for="{{.TipologiaTest}}">{{.TipologiaTest}}</label>
@@ -18,7 +18,7 @@
         </div>
         {{end}}
 
-        <div>
+        <div id="div-orari-privati">
             <h3>Orari prenotabili</h3>
             <table id="table-orari-privati" class="table-responsive">
                 <tbody>
@@ -74,7 +74,7 @@
         <br>
 
         {{if eq .Ruolo "privato"}}
-        <div>
+        <div id="div-questionario">
             <h3>Questionario di anamnesi</h3>
             <div>
                 <label for="questionario-anamnesi-download">Scarica qui il questionario di anamnesi: </label>
@@ -89,7 +89,7 @@
         <br>
         {{end}}
 
-        <div>
+        <div id="div-pagamenti">
             <h3>Pagamento</h3>
             {{if ne .Ruolo "medico"}}
             <div id="div-paga-online">
@@ -113,14 +113,14 @@
             <label for="scadenza">Scadenza: </label>
             <input id="scadenza" name="scadenza" type="month">
             <label for="cvv">CVV: </label>
-            <input id="cvv" name="cvv" type="text" maxlength="4">
+            <input id="cvv" name="cvv" type="text" maxlength="3">
         </div>
 
         <div id="dati-pagamento-presenza">
             Iban: {{.Iban}}
         </div>
 
-        <input id="conferma-prenotazione" type="submit" class="bg-lightblue" value="Conferma prenotazione">
+        <input id="conferma-prenotazione" type="submit" class="bg-lightblue" value="Conferma prenotazione" onclick="return checkDatiInseriti()">
     </form>
 </div>
 <script src="/js/prenota/prenota.js"></script>
