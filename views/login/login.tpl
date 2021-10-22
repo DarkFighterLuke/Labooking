@@ -86,9 +86,13 @@
             </div>
          </div>
       </div>
+
+      {{if .errmsg}}
       <div id="div-errore" class="row justify-content-center">
         <p id="p-errore">&#10060 {{.errmsg}}</p>
       </div>
+      {{end}}
+      
       <div class="container not-registred">
          <div class="row justify-content-center">
             <a href="/signup" class="align-self-center">Non sei registrato? Registrati ora</a>
