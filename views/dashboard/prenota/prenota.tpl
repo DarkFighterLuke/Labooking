@@ -113,7 +113,7 @@
             <label for="scadenza">Scadenza: </label>
             <input id="scadenza" name="scadenza" type="month">
             <label for="cvv">CVV: </label>
-            <input id="cvv" name="cvv" type="text" maxlength="4">
+            <input id="cvv" name="cvv" type="text" maxlength="3">
         </div>
 
         <div id="dati-pagamento-presenza">
