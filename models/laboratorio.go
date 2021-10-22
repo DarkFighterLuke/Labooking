@@ -101,7 +101,7 @@ func FiltraLaboratori(tempo int64, tipi map[string]bool, costo float64, orarioIn
 		if err != nil {
 			return nil, err
 		}
-		giorno = parseDayOfWeek(data.Weekday())
+		giorno = utils.ParseDayOfWeek(data.Weekday())
 	}
 	if giorno != "" {
 		giornoQuery = "AND oa.giorno = '" + giorno + "'"
@@ -167,7 +167,7 @@ func VerificaSlotDisponibili(l Laboratorio, orarioInizioStr, orarioFineStr, data
 		if err != nil {
 			return false, nil, nil, err
 		}
-		giorno = parseDayOfWeek(data.Weekday())
+		giorno = utils.ParseDayOfWeek(data.Weekday())
 	}
 
 	var oa OrariApertura
@@ -256,25 +256,4 @@ func (l *Laboratorio) Valid(v *validation.Validation) {
 	/*if !utils.IsPswValid(l.Psw) {
 		v.SetError("Psw", "is not strong enough")
 	}*/
-}
-
-func parseDayOfWeek(number time.Weekday) string {
-	switch number {
-	case 1:
-		return "lunedi"
-	case 2:
-		return "martedi"
-	case 3:
-		return "mercoledi"
-	case 4:
-		return "giovedi"
-	case 5:
-		return "venerdi"
-	case 6:
-		return "sabato"
-	case 0:
-		return "domenica"
-	default:
-		return ""
-	}
 }
