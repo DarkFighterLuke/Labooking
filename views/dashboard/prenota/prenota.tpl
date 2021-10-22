@@ -10,6 +10,14 @@
             <input type="radio" id="{{.TipologiaTest}}" value="{{.TipologiaTest}}" name="tipologia-test">
             {{end}}
         </div>
+        {{if ne .Ruolo "privato"}}
+        <div>
+            <h4>Modello questionario di anamnesi</h4>
+            <label for="questionario-anamnesi-download">Scarica qui il questionario di anamnesi: </label>
+            <a href="/pdf/questionario-anamnesi.pdf" id="questionario-anamnesi-download" download>Questionario</a>
+        </div>
+        {{end}}
+
         <div>
             <h3>Orari prenotabili</h3>
             <table id="table-orari-privati" class="table-responsive">
@@ -69,12 +77,12 @@
         <div>
             <h3>Questionario di anamnesi</h3>
             <div>
-                <label for="questionario-anamnesi-download">Scarica questionario di anamnesi: </label>
+                <label for="questionario-anamnesi-download">Scarica qui il questionario di anamnesi: </label>
                 <a href="/pdf/questionario-anamnesi.pdf" id="questionario-anamnesi-download" download>Questionario</a>
             </div>
 
             <div>
-                <label for="questionario-anamnesi-upload">Caricare questionario di anamnesi: </label>
+                <label for="questionario-anamnesi-upload">Caricare qui il questionario di anamnesi: </label>
                 <input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload">
             </div>
         </div>
