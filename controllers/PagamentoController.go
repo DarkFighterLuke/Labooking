@@ -1,17 +1,23 @@
 package controllers
 
 import (
+	"Labooking/models"
 	"fmt"
 	"github.com/beego/beego/v2/server/web"
 )
 
 type PagamentoController struct{}
 
-func (pc *PagamentoController) Paga(prenotazioneController web.Controller) error {
+func (pc *PagamentoController) Paga(prenotazioneController web.Controller, td *models.TestDiagnostico) error {
 	numeroCartaStr := prenotazioneController.GetString("numero-carta")
 	scadenzaStr := prenotazioneController.GetString("scadenza")
 	cvvStr := prenotazioneController.GetString("cvv")
 	err := pc.VerificaDatiPagamento(numeroCartaStr, scadenzaStr, cvvStr)
+	if err != nil {
+		td.Pagato = false
+	} else {
+		td.Pagato = true
+	}
 	return err
 }
 

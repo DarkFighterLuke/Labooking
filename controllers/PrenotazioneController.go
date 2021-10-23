@@ -194,14 +194,11 @@ func (pc *PrenotazioneController) Post() {
 		}
 		if pagaOnline {
 			pagc := PagamentoController{}
-			err = pagc.Paga(pc.Controller)
+			err = pagc.Paga(pc.Controller, testDiagnostico)
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
 				return
 			}
-			testDiagnostico.Pagato = true
-		} else {
-			testDiagnostico.Pagato = false
 		}
 
 		p := new(models.Privato)
@@ -263,14 +260,11 @@ func (pc *PrenotazioneController) Post() {
 		}
 		if pagaOnline {
 			pagc := PagamentoController{}
-			err = pagc.Paga(pc.Controller)
+			err = pagc.Paga(pc.Controller, testDiagnostico)
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
 				return
 			}
-			testDiagnostico.Pagato = true
-		} else {
-			testDiagnostico.Pagato = false
 		}
 
 		testDiagnostico.Stato = "prenotato"
