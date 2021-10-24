@@ -49,6 +49,11 @@
   }
 }
 
+#body-feedback{
+  text-align: center;
+  padding: 40px 0;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-font-sans-serif);
@@ -71,6 +76,13 @@ hr {
 
 hr:not([size]) {
   height: 1px;
+}
+
+#h1-feedback {
+  color: #88B04B;
+  font-weight: 900;
+  font-size: 40px;
+  margin: 10px;
 }
 
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
@@ -395,6 +407,13 @@ select:disabled {
   margin-top: 20px;
 }
 
+i {
+  color: #9ABC66;
+  font-size: 100px;
+  line-height: 200px;
+  margin-left:-15px;
+}
+
 input[type=button] {
   appearance:none;
   -webkit-appearance:none;
@@ -453,6 +472,14 @@ button,
 
 #conferma-prenotazione{
   width:15%;
+}
+
+#button-feedback {
+  width:40%;
+  height: 10%;
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 button:not(:disabled),
@@ -4466,6 +4493,21 @@ textarea.form-control-lg {
   #normal-nav {
     display: block;
   }
+}
+
+#card-feedback {
+  padding: 50px;
+  box-shadow: 0 2px 3px #C8D0D8;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30px;
+}
+
+#p-feedback {
+  color: #404F5E;
+  font-size:20px;
+  margin: 0;
 }
 
 .card {
