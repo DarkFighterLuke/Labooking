@@ -12,7 +12,7 @@ func (pc *PagamentoController) Paga(prenotazioneController web.Controller, td *m
 	numeroCartaStr := prenotazioneController.GetString("numero-carta")
 	scadenzaStr := prenotazioneController.GetString("scadenza")
 	cvvStr := prenotazioneController.GetString("cvv")
-	err := pc.VerificaDatiPagamento(numeroCartaStr, scadenzaStr, cvvStr)
+	err := pc.verificaDatiPagamento(numeroCartaStr, scadenzaStr, cvvStr)
 	if err != nil {
 		td.Pagato = false
 	} else {
@@ -21,7 +21,7 @@ func (pc *PagamentoController) Paga(prenotazioneController web.Controller, td *m
 	return err
 }
 
-func (pc *PagamentoController) VerificaDatiPagamento(numeroCarta, scadenza, cvv string) (err error) {
+func (pc *PagamentoController) verificaDatiPagamento(numeroCarta, scadenza, cvv string) (err error) {
 	if len(numeroCarta) != 16 {
 		return fmt.Errorf("formato numero carta errato")
 	}
