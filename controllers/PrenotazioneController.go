@@ -5,7 +5,6 @@ import (
 	"Labooking/models"
 	"fmt"
 	"github.com/beego/beego/v2/server/web"
-	"net/http"
 	"strconv"
 	"time"
 )
@@ -330,8 +329,12 @@ func (pc *PrenotazioneController) Post() {
 			testDiagnostico.IdTestDiagnostico = 0
 		}
 		break
+	default:
+		pc.Ctx.WriteString("prenotazione: ruolo sconosciuto")
+		return
 	}
-	pc.Redirect("/dashboard/home", http.StatusFound)
+
+	pc.TplName = "dashboard/prenota/feedback.html"
 }
 
 type htmlSlot struct {
