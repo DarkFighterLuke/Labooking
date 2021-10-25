@@ -3,20 +3,20 @@
     <div>
         <table id="table-orari-privati" class="table-responsive">
             <tbody>
-            {{range .TestDiagnostici}}
             <tr>
-                <th>ID Referto</th>
+                <th>ID Test</th>
                 <th>Data Esecuzione</th>
                 <th>Pagato</th>
                 <th>Tipologia Test</th>
                 <th>Stato</th>
                 <th>Privato</th>
                 <th>Referto</th>
-                <th>Qestionario Anamnesi</th>
+                <th>Questionario Anamnesi</th>
             </tr>
+            {{range .TestDiagnostici}}
             <tr>
                 <td>
-                    {{.IdReferto}}
+                    {{.IdTestDiagnostico}}
                 </td>
                 <td>
                     {{.DataEsecuzione}}
@@ -38,10 +38,12 @@
                     {{.Privato.Nome}} {{.Privato.Cognome}} -- {{.Privato.CodiceFiscale}}
                 </td>
                 <td>
-                   <a href="#"><button></button></a> <!--TODO: inserire immagine-->
+                    {{if .Referto}}
+                   <a href="{{.Referto.IdReferto}}"><button></button></a> <!--TODO: inserire immagine-->
+                    {{end}}
                 </td>
                 <td>
-                    <a href="#"><button></button></a> <!-- TODO: creare link di download-->
+                    <a href="/dashboard/questionari/{{.Questionario.Nome}}.pdf" download><button></button></a> <!-- TODO: creare link di download-->
                 </td>
             </tr>
             {{end}}

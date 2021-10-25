@@ -9,7 +9,7 @@ func init() {
 type QuestionarioAnamnesi struct {
 	IdQuestionarioAnamnesi int              `orm:"pk;auto"`
 	Nome                   string           `orm:"size(32)"`
-	TestDiagnostico        *TestDiagnostico `orm:"rel(fk);on_update(cascade);on_delete(cascade);column(id_test_diagnostico)"`
+	TestDiagnostico        *TestDiagnostico `orm:"rel(one);on_update(cascade);on_delete(cascade);column(id_test_diagnostico)"`
 }
 
 func (qa *QuestionarioAnamnesi) Aggiungi() (int64, error) {
@@ -19,4 +19,13 @@ func (qa *QuestionarioAnamnesi) Aggiungi() (int64, error) {
 		return newId, err
 	}
 	return newId, err
+}
+
+func (qa *QuestionarioAnamnesi) Seleziona(cols ...string) error {
+	o := orm.NewOrm()
+	err := o.Read(qa, cols...)
+	if err != nil {
+		return err
+	}
+	return nil
 }
