@@ -1,5 +1,5 @@
 function mostraCampi() {
-    if (document.getElementById("paga-online").checked) {
+    if (document.getElementById("paga-online")!=null && document.getElementById("paga-online").checked) {
         document.getElementById("dati-pagamento-online").style = "display: block";
         document.getElementById("dati-pagamento-presenza").style = "display: none";
     } else {
@@ -10,6 +10,7 @@ function mostraCampi() {
 
 
 document.getElementById("dati-pagamento-presenza").style = "display: none";
+mostraCampi();
 
 
 function checkDatiInseriti() {
