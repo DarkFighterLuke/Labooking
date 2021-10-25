@@ -19,7 +19,7 @@
                     {{.IdTestDiagnostico}}
                 </td>
                 <td>
-                    {{.DataEsecuzione.Format "2006-02-03 15:04"}}
+                    {{.DataEsecuzione.Format "2006-01-02 15:04"}}
                 </td>
                 <td>
                     {{if .Pagato}}
@@ -39,11 +39,14 @@
                 </td>
                 <td>
                     {{if .Referto}}
-                   <a href="{{.Referto.IdReferto}}"><button></button></a> <!--TODO: inserire immagine-->
+                    <a href="{{.Referto.IdReferto}}">
+                        <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
+                        Referto
+                    </a>
                     {{end}}
                 </td>
                 <td>
-                    <a href="/dashboard/questionari/{{.Questionario.Nome}}.pdf" download><button></button></a>
+                    <a href="/dashboard/questionari/{{.Questionario.Nome}}.pdf" download><img src="/img/icons/contact-form-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
                 </td>
             </tr>
             {{end}}
