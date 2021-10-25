@@ -87,6 +87,8 @@ function cercaPrenotazioni(){
 function showSearchResults(){
     document.getElementById("table-orari-privati").remove();
     let resultsTable=document.createElement("table");
+    resultsTable.className="table-responsive";
+    resultsTable.id="table-orari-privati";
     let parentDiv=document.getElementById("div-tabella");
     resultsTable.insertRow(0);
     resultsTable.rows[0].insertCell(0).outerHTML="<th>Id test</th>";
