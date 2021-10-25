@@ -38,7 +38,7 @@ function initElementsMedico(){
 
 function checkNomeMedico(){
     if(nomeMedico.value.length<1 || nomeMedico.value.length>255 || nomeMedico.value.match(/\d/)){
-        nomeMedico.style.backgroundColor="red";
+        nomeMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -49,7 +49,7 @@ function checkNomeMedico(){
 
 function checkCognomeMedico(){
     if(cognomeMedico.value.length<1 || cognomeMedico.value.length>255 || cognomeMedico.value.match(/\d/)){
-        cognomeMedico.style.backgroundColor="red";
+        cognomeMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -60,7 +60,7 @@ function checkCognomeMedico(){
 
 function checkCodiceFiscaleMedico(){
     if(codiceFiscaleMedico.value.length!==16){
-        codiceFiscaleMedico.style.backgroundColor="red";
+        codiceFiscaleMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -71,7 +71,7 @@ function checkCodiceFiscaleMedico(){
 
 function checkIndirizzoMedico(){
     if(indirizzoMedico.value.length<1 || indirizzoMedico.value.length>255){
-        indirizzoMedico.style.backgroundColor="red";
+        indirizzoMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -82,7 +82,7 @@ function checkIndirizzoMedico(){
 
 function checkCapMedico(){
     if(capMedico.value.length!==5 || !capMedico.value.match(/^[0-9]+$/)){
-        capMedico.style.backgroundColor="red";
+        capMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -93,7 +93,7 @@ function checkCapMedico(){
 
 function checkViaMedico(){
     if(viaMedico.value.length<1 || viaMedico.value.length>255){
-        viaMedico.style.backgroundColor="red";
+        viaMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -104,7 +104,7 @@ function checkViaMedico(){
 
 function checkCivicoMedico(){
     if(civicoMedico.value.length<1 || civicoMedico.value.length>4 || !civicoMedico.value.match(/^[0-9]+$/) || civicoMedico.value==0){
-        civicoMedico.style.backgroundColor="red";
+        civicoMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -115,7 +115,7 @@ function checkCivicoMedico(){
 
 function checkTelefonoMedico(){
     if(telefonoMedico.value.length!==10 || !telefonoMedico.value.match(/^[0-9]+$/)){
-        telefonoMedico.style.backgroundColor="red";
+        telefonoMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -126,7 +126,7 @@ function checkTelefonoMedico(){
 
 function checkEmailMedico(){
     if(emailMedico.value.length<1 || emailMedico.value.length>255 || !emailMedico.value.match("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])")){
-        emailMedico.style.backgroundColor="red";
+        emailMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -137,8 +137,8 @@ function checkEmailMedico(){
 
 function checkPasswordMedico(){
     if(passwordMedico.value.length<1 || passwordMedico.value.length>255 || passwordMedico.value!==confermaPasswordMedico.value){
-        passwordMedico.style.backgroundColor="red";
-        confermaPasswordMedico.style.backgroundColor="red";
+        passwordMedico.style.backgroundColor="#ff7b5a";
+        confermaPasswordMedico.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -150,7 +150,7 @@ function checkPasswordMedico(){
 
 function checkCodiceRegionale(){
     if (codiceRegionale.value.length !== 6) {
-        codiceRegionale.style.backgroundColor = "red";
+        codiceRegionale.style.backgroundColor = "#ff7b5a";
         return false;
     } else {
         codiceRegionale.style.backgroundColor = "white";

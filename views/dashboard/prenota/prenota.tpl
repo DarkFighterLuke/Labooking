@@ -11,7 +11,7 @@
             {{end}}
         </div>
         {{if ne .Ruolo "privato"}}
-        <div>
+        <div id="div-modello-questionario-anamnesi">
             <h4>Modello questionario di anamnesi</h4>
             <label for="questionario-anamnesi-download">Scarica qui il questionario di anamnesi: </label>
             <a href="/pdf/questionario-anamnesi.pdf" id="questionario-anamnesi-download" download>Questionario</a>
@@ -25,8 +25,7 @@
                 {{$ruolo := .Ruolo}}
                 {{$privati := .Privati}}
                 <tr>
-                    <th></th>
-                    <th>Orario</th>
+                    <th colspan="2">Orario</th>
                     <th>Disponibilità</th>
                     {{if ne $ruolo "privato"}}
                     {{if eq $ruolo "organizzazione"}}
@@ -89,7 +88,7 @@
         <br>
         {{end}}
 
-        <div id="div-pagamenti">
+        <div id="div-pagamento">
             <h3>Pagamento</h3>
             {{if ne .Ruolo "medico"}}
             <div id="div-paga-online">
@@ -105,19 +104,20 @@
                        onchange="return mostraCampi()" {{if eq .Ruolo "medico"}}checked{{end}}>
                 <label for="paga-presenza">Pagamento in presenza</label>
             </div>
-        </div>
 
-        <div id="dati-pagamento-online">
-            <label for="numero-carta">Numero di carta: </label>
-            <input id="numero-carta" name="numero-carta" type="text" maxlength="16">
-            <label for="scadenza">Scadenza: </label>
-            <input id="scadenza" name="scadenza" type="month">
-            <label for="cvv">CVV: </label>
-            <input id="cvv" name="cvv" type="text" maxlength="3">
-        </div>
+            
+            <div id="dati-pagamento-online">
+                <label for="numero-carta">Numero di carta: </label>
+                <input id="numero-carta" name="numero-carta" type="text" maxlength="16">
+                <label for="scadenza">Scadenza: </label>
+                <input id="scadenza" name="scadenza" type="month">
+                <label for="cvv">CVV: </label>
+                <input id="cvv" name="cvv" type="text" maxlength="3">
+            </div>
 
-        <div id="dati-pagamento-presenza">
-            Iban: {{.Iban}}
+            <div id="dati-pagamento-presenza">
+                Iban: {{.Iban}}
+            </div>
         </div>
 
         <input id="conferma-prenotazione" type="submit" class="bg-lightblue" value="Conferma prenotazione" onclick="return checkDatiInseriti()">
