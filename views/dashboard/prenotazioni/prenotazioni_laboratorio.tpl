@@ -36,7 +36,7 @@
                 <td>
                     <input type="text" id="cerca-privato">
                 </td>
-                <td><button id="cerca" onclick="return cercaPrenotazioni()">Cerca</button></td>
+                <td><button class="bg-lightblue" id="cerca" onclick="return cercaPrenotazioni()">Cerca</button></td>
             </tr>
             <tr>
                 <th>ID test</th>
