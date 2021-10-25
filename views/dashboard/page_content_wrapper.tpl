@@ -9,16 +9,23 @@
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="static/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet"/>
+    {{.Head}}
 </head>
 <body>
-    <div class="d-flex" id="wrapper">
-        {{template "dashboard/sidebar.html"}}
-        <!-- Page content wrapper-->
-        <div id="page-content-wrapper">
-            {{template "dashboard/navbar.tpl" .}}
-            {{template "dashboard/page_content.tpl" .}}
+<div class="d-flex" id="wrapper">
+    {{.Sidebar}}
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        {{.Navbar}}
+        <div class="container-fluid">
+            <!--<h2 class="mt-4 content-tab-title">{{.Title}}</h2>-->
+            {{.LayoutContent}}
         </div>
-        {{template "dashboard/scripts.tpl"}}
     </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="/js/scripts.js"></script>
+</div>
 </body>

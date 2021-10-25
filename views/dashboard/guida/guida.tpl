@@ -1,3 +1,4 @@
+<h2 class="mt-4 content-tab-title">{{.Title}}</h2>
 <div class="tab-guida" style="margin-top: 20px">
     <h3>Labooking</h3>
     <p class="tab-guida">

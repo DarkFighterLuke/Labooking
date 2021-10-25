@@ -57,7 +57,7 @@ function checkPartitaIvaLaboratorio(){
 }
 
 function checkIndirizzoLaboratorio(){
-    if(indirizzoLaboratorio.value.length<1 || indirizzoLaboratorio.value.length>255 || indirizzoLaboratorio.value.match(/\d/)){
+    if(indirizzoLaboratorio.value.length<1 || indirizzoLaboratorio.value.length>255){
         indirizzoLaboratorio.style.backgroundColor="red";
         return false;
     }
@@ -132,13 +132,6 @@ function checkPasswordLaboratorio(){
         passwordLaboratorio.style.backgroundColor="white";
         confermaPasswordLaboratorio.style.backgroundColor="white";
         return true;
-    }
-}
-
-function checkCodiceRegionale(){
-    if(codiceRegionale.value.length!==6){
-        codiceRegionale.style.backgroundColor="red";
-        return false;
     }
 }
 

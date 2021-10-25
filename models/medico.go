@@ -23,7 +23,7 @@ type Medico struct {
 	Email           string  `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-medico"`
 	Psw             string  `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-medico"`
 	ConfermaPsw     string  `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-medico"`
-	CodiceRegionale string  `orm:"size(255)" form:",,Codice regionale: " maxLength:"7" valid:"Required;Length(7)" id:"codice-regionale-medico"`
+	CodiceRegionale string  `orm:"size(255)" form:",,Codice regionale: " maxLength:"6" valid:"Required;Length(6)" id:"codice-regionale-medico"`
 }
 
 func (m *Medico) Aggiungi() (int64, error) {
