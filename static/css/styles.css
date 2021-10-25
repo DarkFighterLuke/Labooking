@@ -387,6 +387,10 @@ select:disabled {
   weight: 200px;
 }
 
+.table-container{
+  overflow-x:auto;
+}
+
 #table-orari-apertura, #table-tamponi {
   margin-bottom: 30px;
   margin-top: 10px;
@@ -476,10 +480,12 @@ button,
 
 td{
   text-align: center;
+  padding: 5px;
 }
 
 th{
   text-align: center;
+  padding: 5px;
 }
 
 #button-feedback {

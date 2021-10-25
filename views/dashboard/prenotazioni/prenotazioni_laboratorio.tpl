@@ -1,6 +1,6 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
 <div class="parent">
-    <div id="div-tabella">
+    <div id="div-tabella" class="table-container">
         <table id="table-orari-privati" class="table-responsive">
             <tbody>
             <tr>
