@@ -25,8 +25,7 @@
                 {{$ruolo := .Ruolo}}
                 {{$privati := .Privati}}
                 <tr>
-                    <th></th>
-                    <th>Orario</th>
+                    <th colspan="2">Orario</th>
                     <th>Disponibilità</th>
                     {{if ne $ruolo "privato"}}
                     {{if eq $ruolo "organizzazione"}}
