@@ -3,7 +3,7 @@
     <div id="div-tabella" class="table-container">
         <table id="table-orari-privati" class="table-responsive">
             <tbody>
-            <tr>
+            <tr id="first-tr">
                 <td>
                     <input type="number" min="1" id="cerca-id">
                 </td>
@@ -36,7 +36,7 @@
                 <td>
                     <input type="text" id="cerca-privato">
                 </td>
-                <td><button class="bg-lightblue" id="cerca" onclick="return cercaPrenotazioni()">Cerca</button></td>
+                <td colspan="2"><button class="bg-lightblue w-100" id="cerca" onclick="return cercaPrenotazioni()">Cerca</button></td>
             </tr>
             <tr>
                 <th>ID test</th>

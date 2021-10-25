@@ -458,6 +458,20 @@ input[type=radio] {
   margin: 5px;
 }
 
+td>input[type=text], td>input[type=number], td>input[type=date], td>select, td>button:not(:disabled){
+  margin: 0;
+  vertical-align: middle;
+}
+
+#first-tr{
+  border-width: 0;
+  padding: 5px;
+}
+
+#table-orari-privati{
+  margin-bottom: 15px;
+}
+
 input[type=text], input[type=month], input[type=date]{
   background-color: #fafafa;
   border:0;
@@ -481,6 +495,7 @@ button,
 td{
   text-align: center;
   padding: 5px;
+  vertical-align:middle;
 }
 
 th{
