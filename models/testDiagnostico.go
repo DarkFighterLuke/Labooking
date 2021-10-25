@@ -70,12 +70,12 @@ func SelezionaTestAll() (testDiagnostici []*TestDiagnostico, err error) {
 
 	_, err = o.QueryTable("test_diagnostico").RelatedSel().All(&testDiagnostici)
 	for _, v := range testDiagnostici {
-		v.LoadRelated()
+		v.LoadRelatedQuestionari()
 	}
 	return testDiagnostici, err
 }
 
-func (td *TestDiagnostico) LoadRelated() {
+func (td *TestDiagnostico) LoadRelatedQuestionari() {
 	qa := new(QuestionarioAnamnesi)
 	qa.TestDiagnostico = new(TestDiagnostico)
 
