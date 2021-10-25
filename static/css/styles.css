@@ -499,7 +499,16 @@ button:not(:disabled),
   margin-bottom: 15px;
 }
 
+#div-tipologia-test{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 #questionario-anamnesi{
+  margin-bottom: 10px;
+}
+
+#div-modello-questionario-anamnesi{
   margin-bottom: 10px;
 }
 
@@ -507,7 +516,7 @@ button:not(:disabled),
   margin-bottom: 5px;
 }
 
-#pagamento{
+#div-pagamento{
   margin-bottom: 10px;
   border-color: #D3D3D3	;
   border-style: solid;
