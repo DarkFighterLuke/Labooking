@@ -375,6 +375,7 @@ func (pc *PrenotazioneController) VisualizzaPrenotazioni() {
 		return
 	}
 	utils.RenderLayout(&pc.Controller)
+	pc.Data["Title"] = "Prenotazioni"
 	pc.Data["TestDiagnostici"] = testDiagnostici
 	pc.TplName = "dashboard/prenotazioni/prenotazioni_laboratorio.tpl"
 }
