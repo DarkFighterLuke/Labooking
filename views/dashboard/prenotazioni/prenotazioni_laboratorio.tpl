@@ -43,7 +43,7 @@
                     {{end}}
                 </td>
                 <td>
-                    <a href="/dashboard/questionari/{{.Questionario.Nome}}.pdf" download><button></button></a> <!-- TODO: creare link di download-->
+                    <a href="/dashboard/questionari/{{.Questionario.Nome}}.pdf" download><button></button></a>
                 </td>
             </tr>
             {{end}}
