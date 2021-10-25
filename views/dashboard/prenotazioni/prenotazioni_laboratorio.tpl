@@ -1,17 +1,52 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
 <div class="parent">
-    <div>
+    <div id="div-tabella">
         <table id="table-orari-privati" class="table-responsive">
             <tbody>
             <tr>
-                <th>ID Test</th>
-                <th>Data Esecuzione</th>
+                <td>
+                    <input type="number" min="1" id="cerca-id">
+                </td>
+                <td>
+                    <input type="date" id="cerca-data-esecuzione">
+                </td>
+                <td>
+                    <select id="cerca-pagato">
+                        <option value=""></option>
+                        <option value="No">No</option>
+                        <option value="Sì">Sì</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="cerca-tipologia-test">
+                        <option value=""></option>
+                        <option value="molecolare">Molecolare</option>
+                        <option value="antigenico">Antigenico</option>
+                        <option value="sierologico">Sierologico</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="cerca-stato">
+                        <option value=""></option>
+                        <option value="prenotato">Prenotato</option>
+                        <option value="eseguito">Eseguito</option>
+                        <option value="notificato">Notificato</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" id="cerca-privato"> <!--TODO: autocomplete-->
+                </td>
+                <td><button id="cerca" onclick="return cercaPrenotazioni()">Cerca</button></td>
+            </tr>
+            <tr>
+                <th>ID test</th>
+                <th>Data esecuzione</th>
                 <th>Pagato</th>
-                <th>Tipologia Test</th>
+                <th>Tipologia test</th>
                 <th>Stato</th>
                 <th>Privato</th>
                 <th>Referto</th>
-                <th>Questionario Anamnesi</th>
+                <th>Questionario anamnesi</th>
             </tr>
             {{range .TestDiagnostici}}
             <tr>
@@ -54,3 +89,4 @@
         </table>
     </div>
 </div>
+<script src="/js/prenotazioni/ricerca_prenotazioni.js"></script>
