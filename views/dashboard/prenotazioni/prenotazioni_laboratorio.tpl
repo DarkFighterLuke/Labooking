@@ -19,7 +19,7 @@
                     {{.IdTestDiagnostico}}
                 </td>
                 <td>
-                    {{.DataEsecuzione}}
+                    {{.DataEsecuzione.Format "2006-02-03 15:04"}}
                 </td>
                 <td>
                     {{if .Pagato}}
