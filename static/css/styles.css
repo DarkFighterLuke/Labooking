@@ -49,6 +49,11 @@
   }
 }
 
+#body-feedback{
+  text-align: center;
+  padding: 40px 0;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-font-sans-serif);
@@ -71,6 +76,13 @@ hr {
 
 hr:not([size]) {
   height: 1px;
+}
+
+#h1-feedback {
+  color: #88B04B;
+  font-weight: 900;
+  font-size: 40px;
+  margin: 10px;
 }
 
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
@@ -218,6 +230,15 @@ a:hover {
   color: #0a58ca;
 }
 
+#brand-name{
+  color: white;
+  text-decoration: none;
+}
+
+#brand-name:hover{
+  color:white;
+}
+
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none;
@@ -294,15 +315,10 @@ th {
   text-align: -webkit-match-parent;
 }
 
-thead,
-tbody,
-tfoot,
-tr,
-td,
-th {
-  border-color: inherit;
+tr {
+  border-color: #D3D3D3;
   border-style: solid;
-  border-width: 0;
+  border-width: 0.5px;
 }
 
 label {
@@ -348,17 +364,176 @@ select:disabled {
   display: none;
 }
 
+#luogo-autocomplete>#luogoautocomplete-list>div {
+  background-color: #fafafa;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  transition: .3s box-shadow;
+}
+
+#luogo-autocomplete>#luogoautocomplete-list>div:hover {
+  background-color: rgba(0, 164, 211,1);
+}
+
+#luogo-autocomplete>#luogoautocomplete-list{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: block;
+  z-index: 999;
+}
+.parent{
+  position: relative;
+  height:200px;
+  weight: 200px;
+}
+
+#table-orari-apertura, #table-tamponi {
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+
+#table-disponibilita-tamponi {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+#lab-title{
+  margin-bottom: 30px;
+}
+
+#map{
+  height: 650px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+i {
+  color: #9ABC66;
+  font-size: 100px;
+  line-height: 200px;
+  margin-left:-15px;
+}
+
+input[type=button] {
+  appearance:none;
+  -webkit-appearance:none;
+  padding:10px;
+  border:none;
+  color:#fff;
+  font-weight:600;
+  border-radius:5px;
+  width:10%;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+input[type=range] {
+  border:none;
+  font-weight:600;
+  border-radius:5px;
+  width:10%;
+  background-color: #00A4D3;
+}
+
+#numero-persone{
+  width: 10%;
+}
+
+input[type=time], input[type=checkbox], input[type=number], select {
+  background-color: #fafafa;
+  border:0;
+  box-shadow:0 0 4px rgba(0,0,0,0.3);
+  transition: .3s box-shadow;
+  margin: 5px;
+}
+
+input[type=radio] {
+  background-color: #fafafa;
+  border:0;
+  transition: .3s box-shadow;
+  margin: 5px;
+}
+
+input[type=text], input[type=month], input[type=date]{
+  background-color: #fafafa;
+  border:0;
+  box-shadow:0 0 4px rgba(0,0,0,0.3);
+  transition: .3s box-shadow;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
 button,
 [type=button],
 [type=reset],
 [type=submit] {
   -webkit-appearance: button;
 }
+
+#conferma-prenotazione{
+  width:15%;
+}
+
+td{
+  text-align: center;
+}
+
+th{
+  text-align: center;
+}
+
+#button-feedback {
+  width:40%;
+  height: 10%;
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 button:not(:disabled),
 [type=button]:not(:disabled),
 [type=reset]:not(:disabled),
 [type=submit]:not(:disabled) {
   cursor: pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  padding:10px;
+  border:none;
+  color:#fff;
+  font-weight:600;
+  border-radius:5px;
+  width:10%;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+#div-tipologia-test{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+#questionario-anamnesi{
+  margin-bottom: 10px;
+}
+
+#div-modello-questionario-anamnesi{
+  margin-bottom: 10px;
+}
+
+#questionario-anamnesi>div{
+  margin-bottom: 5px;
+}
+
+#div-pagamento{
+  margin-bottom: 10px;
+  border-color: #D3D3D3	;
+  border-style: solid;
+  border-width: 0.5px;
+  padding: 5px;
+}
+
+#dati-pagamento-online>input{
+  margin-right: 15px;
 }
 
 ::-moz-focus-inner {
@@ -4335,6 +4510,21 @@ textarea.form-control-lg {
   #normal-nav {
     display: block;
   }
+}
+
+#card-feedback {
+  padding: 50px;
+  box-shadow: 0 2px 3px #C8D0D8;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30px;
+}
+
+#p-feedback {
+  color: #404F5E;
+  font-size:20px;
+  margin: 0;
 }
 
 .card {
@@ -10977,3 +11167,5 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: 40px;
   }
 }
+
+

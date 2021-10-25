@@ -60,6 +60,19 @@ func (m *Medico) Elimina(cols ...string) error {
 	return err
 }
 
+func (m *Medico) GetPazienti() ([]Privato, error) {
+	var pazienti []Privato
+	o := orm.NewOrm()
+	qs := o.QueryTable("privato")
+
+	_, err := qs.Filter("medico", m.IdMedico).All(&pazienti)
+	if err != nil {
+		return nil, err
+	}
+
+	return pazienti, err
+}
+
 func (m *Medico) Valid(v *validation.Validation) {
 
 	if m.Psw != m.ConfermaPsw {

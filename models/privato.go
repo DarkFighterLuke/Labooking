@@ -27,7 +27,7 @@ type Privato struct {
 	ConfermaPsw            string            `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-privato"`
 	DataNascita            time.Time         `orm:"type(date)" valid:"Required"`
 	Medico                 *Medico           `orm:"rel(fk);null;on_delete(set_null);column(medico)" form:"-"`
-	Organizzazione         []*Organizzazione `orm:"reverse(many)"`
+	Organizzazioni         []*Organizzazione `orm:"reverse(many)"`
 }
 
 func (p *Privato) Aggiungi() (int64, error) {

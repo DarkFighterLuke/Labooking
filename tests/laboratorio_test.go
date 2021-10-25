@@ -1,19 +1,14 @@
-package main
+package test
 
 import (
-	modelsutils "Labooking/models/utils"
-	_ "Labooking/routers"
-	routersutils "Labooking/routers/utils"
+	"Labooking/models"
+	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/server/web"
-	"github.com/beego/beego/v2/server/web/session"
-	_ "github.com/go-sql-driver/mysql"
 	"log"
+	"testing"
+	"time"
 )
-
-func main() {
-	web.Run()
-}
 
 func init() {
 	//static files
@@ -21,13 +16,6 @@ func init() {
 	web.SetStaticPath("/fonts", "static/fonts")
 	web.SetStaticPath("/img", "static/img")
 	web.SetStaticPath("/js", "static/js")
-	web.SetStaticPath("/pdf", "static/pdf")
-
-	//timer
-	go modelsutils.Timer()
-
-	//timer
-	//go utils.Timer()
 
 	//database config
 	driver, err := web.AppConfig.String("mysqldriver")
@@ -62,27 +50,22 @@ func init() {
 	}
 	connectionString := mysqluser + ":" + mysqlpsw + "@tcp(" +
 		mysqlurl + ":" + mysqlport + ")/" + mysqldbname +
-		"?charset=utf8&loc=Europe%2FRome"
-	err = orm.RegisterDataBase("default", driver, connectionString)
+		"?charset=utf8"
+	err = orm.RegisterDataBase("test", driver, connectionString)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 
-	//Configure session
-	sessionconf := &session.ManagerConfig{
-		CookieName:              "LabookingSession",
-		SessionNameInHTTPHeader: "LabookingSession",
-		Gclifetime:              3600,
-		Maxlifetime:             3600,
-	}
-	web.GlobalSessions, err = session.NewManager("memory", sessionconf)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	go web.GlobalSessions.GC()
+}
 
-	//filters
-	web.InsertFilter("/dashboard/*", web.BeforeRouter, routersutils.FilterUser)
-	web.InsertFilter("/dashboard/*", web.BeforeRouter, routersutils.FilterRuolo)
-	web.InsertFilter("/api/ricerca", web.BeforeRouter, routersutils.FilterUser)
+func TestFiltraLaboratorio(t *testing.T) {
+	var labs []models.Laboratorio
+	tipi := []string{"molecolare", "antigenico"}
+	ora_inizio := time.Date(0, 0, 0, 10, 0, 0, 0, time.UTC)
+	ora_fine := time.Date(0, 0, 0, 11, 0, 0, 0, time.UTC)
+	err := models.FiltraLaboratori(&labs, 173701, tipi, 70, ora_inizio, ora_fine, "lunedi")
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(labs)
 }
