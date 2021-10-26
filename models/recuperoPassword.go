@@ -18,12 +18,12 @@ type GestioneRecupero interface {
 }
 
 type RecuperoPassword struct {
-	HashKey string    `orm:"size(64);pk"`
-	Timeout time.Time `orm:""`
-	Medico  *Medico   `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_medico)"`
-	//IdOganizzazione *Organizzazione `orm:"rel(one);on_delete(do_nothing);on_update(cascade);column(id_organizzazione)"`
-	Privato     *Privato     `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_privato)"`
-	Laboratorio *Laboratorio `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_laboratorio)"`
+	HashKey        string          `orm:"size(64);pk"`
+	Timeout        time.Time       `orm:""`
+	Medico         *Medico         `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_medico)"`
+	Privato        *Privato        `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_privato)"`
+	Laboratorio    *Laboratorio    `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_laboratorio)"`
+	Organizzazione *Organizzazione `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_organizzazione)"`
 }
 
 func (m *Medico) creaRecupero() (string, error) {
@@ -122,9 +122,47 @@ func (l *Laboratorio) InviaLink() error {
 	return nil
 }
 
+func (org *Organizzazione) creaRecupero() (string, error) {
+	err := org.Seleziona("email")
+	if err != nil {
+		return "", err
+	}
+
+	rec := generaHash()
+	rec.Organizzazione = new(Organizzazione)
+	rec.Organizzazione.IdOrganizzazione = org.IdOrganizzazione
+
+	err = insertOrUpdate(&rec, "id_organizzazione")
+	if err != nil {
+		return "", err
+	}
+
+	return rec.HashKey, nil
+}
+
+func (org *Organizzazione) InviaLink() error {
+	hashKey, err := org.creaRecupero()
+	if err != nil {
+		return err
+	}
+
+	err = inviaMail(hashKey, org.Email)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func inviaMail(hashKey, reciver string) error {
-	from := "labooking.uniba@gmail.com"
-	pass := "Labooking#1!"
+	from, err := web.AppConfig.String("email")
+	if err != nil {
+		return err
+	}
+	pass, err := web.AppConfig.String("passwordemail")
+	if err != nil {
+		return err
+	}
 	to := reciver
 
 	websitelink, err := web.AppConfig.String("websitelink")

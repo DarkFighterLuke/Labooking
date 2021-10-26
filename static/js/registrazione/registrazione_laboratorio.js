@@ -1,22 +1,20 @@
 var nomeLaboratorio;
 var partitaIvaLaboratorio;
-var cittaLaboratorio;
+var indirizzoLaboratorio;
 var capLaboratorio;
 var viaLaboratorio;
 var civicoLaboratorio;
 var telefonoLaboratorio;
 var emailLaboratorio;
 var passwordLaboratorio;
+var confermaPasswordLaboratorio;
 var tableOrariApertura;
 var tableInfoTest;
 
 function initElementsLaboratorio(){
     nomeLaboratorio=document.getElementById("nome-laboratorio");
     partitaIvaLaboratorio=document.getElementById("partita-iva-laboratorio");
-    cittaLaboratorio=document.getElementById("citta-laboratorio");
-    capLaboratorio=document.getElementById("cap-laboratorio");
-    viaLaboratorio=document.getElementById("via-laboratorio");
-    civicoLaboratorio=document.getElementById("civico-laboratorio");
+    indirizzoLaboratorio=document.getElementById("indirizzo-laboratorio");
     telefonoLaboratorio=document.getElementById("telefono-laboratorio");
     emailLaboratorio=document.getElementById("email-laboratorio");
     passwordLaboratorio=document.getElementById("password-laboratorio");
@@ -24,24 +22,21 @@ function initElementsLaboratorio(){
     tableOrariApertura=document.getElementById("table-orari-apertura");
     tableInfoTest=document.getElementById("table-info-test");
 
+    autocomplete(indirizzoLaboratorio);
     aggiungiSelectPrefissi("laboratorio");
 
     nomeLaboratorio.addEventListener("focusout", checkNomeLaboratorio);
     partitaIvaLaboratorio.addEventListener("focusout", checkPartitaIvaLaboratorio);
-    cittaLaboratorio.addEventListener("focusout", checkCittaLaboratorio);
-    capLaboratorio.addEventListener("focusout", checkCapLaboratorio);
-    viaLaboratorio.addEventListener("focusout", checkViaLaboratorio);
-    civicoLaboratorio.addEventListener("focusout", checkCivicoLaboratorio);
+    indirizzoLaboratorio.addEventListener("focusout", checkIndirizzoLaboratorio);
     telefonoLaboratorio.addEventListener("focusout", checkTelefonoLaboratorio);
     emailLaboratorio.addEventListener("focusout", checkEmailLaboratorio);
     passwordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
     confermaPasswordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
-    codiceRegionale.addEventListener("change", checkCodiceRegionale);
 }
 
 function checkNomeLaboratorio(){
     if(nomeLaboratorio.value.length<1 || nomeLaboratorio.value.length>255 || nomeLaboratorio.value.match(/\d/)){
-        nomeLaboratorio.style.backgroundColor="red";
+        nomeLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -52,7 +47,7 @@ function checkNomeLaboratorio(){
 
 function checkPartitaIvaLaboratorio(){
     if(partitaIvaLaboratorio.value.length!==11){
-        partitaIvaLaboratorio.style.backgroundColor="red";
+        partitaIvaLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -61,20 +56,20 @@ function checkPartitaIvaLaboratorio(){
     }
 }
 
-function checkCittaLaboratorio(){
-    if(cittaLaboratorio.value.length<1 || cittaLaboratorio.value.length>255 || cittaLaboratorio.value.match(/\d/)){
-        cittaLaboratorio.style.backgroundColor="red";
+function checkIndirizzoLaboratorio(){
+    if(indirizzoLaboratorio.value.length<1 || indirizzoLaboratorio.value.length>255){
+        indirizzoLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
-        cittaLaboratorio.style.backgroundColor="white";
+        indirizzoLaboratorio.style.backgroundColor="white";
         return true;
     }
 }
 
 function checkCapLaboratorio(){
     if(capLaboratorio.value.length!==5 || !capLaboratorio.value.match(/^[0-9]+$/)){
-        capLaboratorio.style.backgroundColor="red";
+        capLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -85,7 +80,7 @@ function checkCapLaboratorio(){
 
 function checkViaLaboratorio(){
     if(viaLaboratorio.value.length<1 || viaLaboratorio.value.length>255){
-        viaLaboratorio.style.backgroundColor="red";
+        viaLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -96,7 +91,7 @@ function checkViaLaboratorio(){
 
 function checkCivicoLaboratorio(){
     if(civicoLaboratorio.value.length<1 || civicoLaboratorio.value.length>4 || !civicoLaboratorio.value.match(/^[0-9]+$/) || civicoLaboratorio.value==0){
-        civicoLaboratorio.style.backgroundColor="red";
+        civicoLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -107,7 +102,7 @@ function checkCivicoLaboratorio(){
 
 function checkTelefonoLaboratorio(){
     if(telefonoLaboratorio.value.length!==10 || !telefonoLaboratorio.value.match(/^[0-9]+$/)){
-        telefonoLaboratorio.style.backgroundColor="red";
+        telefonoLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -118,7 +113,7 @@ function checkTelefonoLaboratorio(){
 
 function checkEmailLaboratorio(){
     if(emailLaboratorio.value.length<1 || emailLaboratorio.value.length>255 || !emailLaboratorio.value.match("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])")){
-        emailLaboratorio.style.backgroundColor="red";
+        emailLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
@@ -129,21 +124,14 @@ function checkEmailLaboratorio(){
 
 function checkPasswordLaboratorio(){
     if(passwordLaboratorio.value.length<1 || passwordLaboratorio.value.length>255 || passwordLaboratorio.value!==confermaPasswordLaboratorio.value){
-        passwordLaboratorio.style.backgroundColor="red";
-        confermaPasswordLaboratorio.style.backgroundColor="red";
+        passwordLaboratorio.style.backgroundColor="#ff7b5a";
+        confermaPasswordLaboratorio.style.backgroundColor="#ff7b5a";
         return false;
     }
     else{
         passwordLaboratorio.style.backgroundColor="white";
         confermaPasswordLaboratorio.style.backgroundColor="white";
         return true;
-    }
-}
-
-function checkCodiceRegionale(){
-    if(codiceRegionale.value.length!==6){
-        codiceRegionale.style.backgroundColor="red";
-        return false;
     }
 }
 
@@ -179,7 +167,6 @@ function checkOrariApertura(){
 }
 
 function mostraMessaggioErroreOrari(){
-    console.log("bla");
     let div=document.createElement("div");
     div.className="div-errore";
     let p=document.createElement("p");
@@ -236,7 +223,7 @@ function mostraMessaggioErroreInfoTest(){
 }
 
 function submitLaboratorio(){
-    if(!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkCittaLaboratorio() && checkCapLaboratorio() && checkViaLaboratorio() && checkCivicoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkOrariApertura() && checkInfoTest())){
+    if(!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkCapLaboratorio() && checkViaLaboratorio() && checkCivicoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkOrariApertura() && checkInfoTest())){
         event.preventDefault();
         return false;
     }

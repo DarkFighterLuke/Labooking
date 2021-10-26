@@ -46,4 +46,6 @@ function aggiungiRiga(){
     cellApertura.appendChild(inputApertura);
     cellChiusura.appendChild(inputChiusura);
     cellGiorno.appendChild(selectGiorno);
+    event.preventDefault();
+    return false;
 }

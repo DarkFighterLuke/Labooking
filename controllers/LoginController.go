@@ -20,7 +20,7 @@ func (li *LoginController) Get() {
 	ok, _ := checkUserExistence(email, ruolo)
 
 	if ok {
-		li.Redirect("/dashboard?page=home", http.StatusFound)
+		li.Redirect("/dashboard/home", http.StatusFound)
 	} else {
 		li.TplName = "login/login.tpl"
 	}
@@ -44,20 +44,24 @@ func (li *LoginController) Post() {
 		email = li.GetString("email-medico")
 		password = li.GetString("password-medico")
 		break
+	case "organizzazione":
+		email = li.GetString("email-organizzazione")
+		password = li.GetString("password-organizzazione")
+		break
 	}
 
 	li.StartSession()
 
 	if email == "" || ruolo == "" || password == "" {
 		li.TplName = "login/login.tpl"
-		li.Data["errmsg"] = "login failed: inserire nome utente o password"
+		li.Data["errmsg"] = "Login fallito: inserire nome utente o password"
 		return
 	}
 
 	ok, psw := checkUserExistence(email, ruolo)
 	if !ok {
 		li.TplName = "login/login.tpl"
-		li.Data["errmsg"] = "login failed: utente non trovato"
+		li.Data["errmsg"] = "Login fallito: utente non trovato"
 		return
 	}
 
@@ -69,7 +73,7 @@ func (li *LoginController) Post() {
 
 	if passwordSha1 != psw {
 		li.TplName = "login/login.tpl"
-		li.Data["errmsg"] = "login failed: wrong password"
+		li.Data["errmsg"] = "Login fallito: password errata"
 		return
 	}
 
@@ -80,7 +84,7 @@ func (li *LoginController) Post() {
 		li.Data["errmsg"] = err.Error()
 		return
 	}
-	li.Redirect("/dashboard?page=home", http.StatusFound)
+	li.Redirect("/dashboard/home", http.StatusFound)
 }
 
 func checkUserExistence(email, ruolo string) (bool, string) {
@@ -114,6 +118,16 @@ func checkUserExistence(email, ruolo string) (bool, string) {
 			return false, ""
 		}
 		return true, m.Psw
+		break
+	case "organizzazione":
+		o := new(models.Organizzazione)
+		o.Email = fmt.Sprint(email)
+
+		err := o.Seleziona("email")
+		if err != nil {
+			return false, ""
+		}
+		return true, o.Psw
 		break
 	}
 	return false, ""

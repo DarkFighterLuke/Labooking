@@ -33,7 +33,12 @@
                   </form>
                </div>
                <div id="organizzazione" class="tab-pane fade">
-                  <p>ok</p>
+                  <!-- Form organizzazione -->
+                  <form class="form-labooking" id="form-organizzazione" action="/signup?idForm=organizzazione" method="POST" onsubmit="return submitOrganizzazione()">
+                     <input type="text" name="organizzazione" hidden>
+                     {{.FormOrganizzazione | renderform}}
+                     <br><br><input id="submit-organizzazione" type="submit">
+                  </form>
                </div>
                <div id="medico" class="tab-pane fade">
                   <!-- Form medico -->
@@ -156,13 +161,15 @@
       </div>
       <div class="container already-registred">
          <div class="row justify-content-center">
-            <a href="#" class="align-self-center">Sei già registrato? Effettua il login</a>
+            <a href="/login" class="align-self-center">Sei già registrato? Effettua il login</a>
          </div>
       </div>
+      <script src="js/utils/autocompleteAddress.js"></script>
       <script src="js/registrazione/prefissi_telefonici.js"></script>
       <script src="js/registrazione/registrazione_privato.js"></script>
       <script src="js/registrazione/registrazione_medico.js"></script>
       <script src="js/registrazione/registrazione_laboratorio.js"></script>
+      <script src="js/registrazione/registrazione_organizzazione.js"></script>
       <script src="js/registrazione/registrazione.js"></script>
    </body>
 </html>

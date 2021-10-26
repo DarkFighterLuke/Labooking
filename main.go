@@ -1,11 +1,11 @@
 package main
 
 import (
-	"Labooking/models/utils"
+	modelsutils "Labooking/models/utils"
 	_ "Labooking/routers"
+	routersutils "Labooking/routers/utils"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/server/web"
-	"github.com/beego/beego/v2/server/web/context"
 	"github.com/beego/beego/v2/server/web/session"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
@@ -21,9 +21,14 @@ func init() {
 	web.SetStaticPath("/fonts", "static/fonts")
 	web.SetStaticPath("/img", "static/img")
 	web.SetStaticPath("/js", "static/js")
+	web.SetStaticPath("/pdf", "static/pdf")
+	web.SetStaticPath("/dashboard/questionari", "static/questionari")
 
 	//timer
-	go utils.Timer()
+	go modelsutils.Timer()
+
+	//timer
+	//go utils.Timer()
 
 	//database config
 	driver, err := web.AppConfig.String("mysqldriver")
@@ -78,16 +83,7 @@ func init() {
 	go web.GlobalSessions.GC()
 
 	//filters
-	web.InsertFilter("/dashboard/*", web.BeforeRouter, filterUser)
-
-}
-
-//filter user configuration
-var filterUser = func(ctx *context.Context) {
-	email := ctx.Input.Session("email")
-	ruolo := ctx.Input.Session("ruolo")
-
-	if email == nil || ruolo == nil {
-		ctx.Redirect(302, "/login")
-	}
+	web.InsertFilter("/dashboard/*", web.BeforeRouter, routersutils.FilterUser)
+	web.InsertFilter("/dashboard/*", web.BeforeRouter, routersutils.FilterRuolo)
+	web.InsertFilter("/api/ricerca", web.BeforeRouter, routersutils.FilterUser)
 }
