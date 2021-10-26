@@ -93,7 +93,7 @@ function showSearchResults(){
     resultsTable.insertRow(0);
     resultsTable.rows[0].insertCell(0).outerHTML="<th>Id test</th>";
     resultsTable.rows[0].insertCell(1).outerHTML="<th>Data esecuzione</th>";
-    resultsTable.rows[0].insertCell(2).outerHTML="<th>Pagato</th>";
+    resultsTable.rows[0].insertCell(2).outerHTML="<th>Pagato online</th>";
     resultsTable.rows[0].insertCell(3).outerHTML="<th>Tipologia test</th>";
     resultsTable.rows[0].insertCell(4).outerHTML="<th>Stato</th>";
     resultsTable.rows[0].insertCell(5).outerHTML="<th>Privato</th>";
