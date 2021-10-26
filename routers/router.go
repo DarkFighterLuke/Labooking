@@ -13,6 +13,7 @@ func init() {
 	web.Router("/dashboard/prenota", &controllers.PrenotazioneController{})
 	web.Router("/dashboard/guida", &controllers.GuidaController{})
 	web.Router("/dashboard/laboratorio", &controllers.LaboratorioController{})
+	web.Router("/dashboard/prenotazioni", &controllers.PrenotazioneController{}, "get:VisualizzaPrenotazioni")
 
 	web.Router("/api/ricerca", &api.RicercaLaboratorio{})
 

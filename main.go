@@ -22,6 +22,7 @@ func init() {
 	web.SetStaticPath("/img", "static/img")
 	web.SetStaticPath("/js", "static/js")
 	web.SetStaticPath("/pdf", "static/pdf")
+	web.SetStaticPath("/dashboard/questionari", "static/questionari")
 
 	//timer
 	go modelsutils.Timer()

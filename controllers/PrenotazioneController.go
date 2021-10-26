@@ -370,3 +370,14 @@ func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
 
 	return complexSlots
 }
+
+func (pc *PrenotazioneController) VisualizzaPrenotazioni() {
+	testDiagnostici, err := models.SelezionaTestAll()
+	if err != nil {
+		return
+	}
+	utils.RenderLayout(&pc.Controller)
+	pc.Data["Title"] = "Prenotazioni"
+	pc.Data["TestDiagnostici"] = testDiagnostici
+	pc.TplName = "dashboard/prenotazioni/prenotazioni_laboratorio.tpl"
+}
