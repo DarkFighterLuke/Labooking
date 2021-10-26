@@ -5,7 +5,6 @@ import (
 	"Labooking/models"
 	"fmt"
 	"github.com/beego/beego/v2/server/web"
-	"net/http"
 	"strconv"
 	"time"
 )
@@ -193,12 +192,12 @@ func (pc *PrenotazioneController) Post() {
 			return
 		}
 		if pagaOnline {
-			fmt.Println(pc.GetString("numero-carta"),
-				pc.GetString("scadenza"),
-				pc.GetString("cvv"))
-			testDiagnostico.Pagato = true
-		} else {
-			testDiagnostico.Pagato = false
+			pagc := PagamentoController{}
+			err = pagc.Paga(pc.Controller, testDiagnostico)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
 		}
 
 		p := new(models.Privato)
@@ -247,7 +246,6 @@ func (pc *PrenotazioneController) Post() {
 		testDiagnostico.IdTestDiagnostico = 0
 		break
 	case "organizzazione", "medico":
-		//var testDiagnostici []models.TestDiagnostico
 		slots := pc.GetStrings("slot")
 		if len(slots) < 1 {
 			pc.Ctx.WriteString("prenotazione: è necessario selezionare almeno un dipendente o paziente")
@@ -260,12 +258,12 @@ func (pc *PrenotazioneController) Post() {
 			return
 		}
 		if pagaOnline {
-			fmt.Println(pc.GetString("numero-carta"),
-				pc.GetString("scadenza"),
-				pc.GetString("cvv"))
-			testDiagnostico.Pagato = true
-		} else {
-			testDiagnostico.Pagato = false
+			pagc := PagamentoController{}
+			err = pagc.Paga(pc.Controller, testDiagnostico)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
 		}
 
 		testDiagnostico.Stato = "prenotato"
@@ -331,8 +329,12 @@ func (pc *PrenotazioneController) Post() {
 			testDiagnostico.IdTestDiagnostico = 0
 		}
 		break
+	default:
+		pc.Ctx.WriteString("prenotazione: ruolo sconosciuto")
+		return
 	}
-	pc.Redirect("/dashboard/home", http.StatusFound)
+
+	pc.TplName = "dashboard/prenota/feedback.html"
 }
 
 type htmlSlot struct {
