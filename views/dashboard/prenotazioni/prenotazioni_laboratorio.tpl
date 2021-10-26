@@ -41,7 +41,7 @@
             <tr>
                 <th>ID test</th>
                 <th>Data esecuzione</th>
-                <th>Pagato</th>
+                <th>Pagato online</th>
                 <th>Tipologia test</th>
                 <th>Stato</th>
                 <th>Privato</th>
