@@ -10,7 +10,7 @@ func init() {
 }
 
 type TestDiagnostico struct {
-	IdTestDiagnostico int                   `orm:"pk;auto"`
+	IdTestDiagnostico int64                 `orm:"pk;auto"`
 	DataPrenotazione  time.Time             `orm:"type(date)"`
 	DataEsecuzione    time.Time             `orm:"type(date)"`
 	Pagato            bool                  `orm:""`

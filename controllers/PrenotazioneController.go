@@ -237,7 +237,7 @@ func (pc *PrenotazioneController) Post() {
 		qa := new(models.QuestionarioAnamnesi)
 		qa.Nome = fileName
 		qa.TestDiagnostico = new(models.TestDiagnostico)
-		qa.TestDiagnostico.IdTestDiagnostico = int(idTestDiagnostico)
+		qa.TestDiagnostico.IdTestDiagnostico = idTestDiagnostico
 		_, err = qa.Aggiungi()
 		if err != nil {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
@@ -319,7 +319,7 @@ func (pc *PrenotazioneController) Post() {
 			qa := new(models.QuestionarioAnamnesi)
 			qa.Nome = fileName
 			qa.TestDiagnostico = new(models.TestDiagnostico)
-			qa.TestDiagnostico.IdTestDiagnostico = int(idTestDiagnostico)
+			qa.TestDiagnostico.IdTestDiagnostico = idTestDiagnostico
 			_, err = qa.Aggiungi()
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
