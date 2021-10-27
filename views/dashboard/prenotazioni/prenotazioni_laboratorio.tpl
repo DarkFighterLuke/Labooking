@@ -76,12 +76,7 @@
                     {{.Privato.Nome}} {{.Privato.Cognome}} -- {{.Privato.CodiceFiscale}}
                 </td>
                 <td>
-                    {{if .Referto}}
-                    <a href="{{.Referto.IdReferto}}">
-                        <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
-                        Referto
-                    </a>
-                    {{else}}
+                    {{if not .Referto}}
                     <input type="file" name="referto-upload-{{$i}}" accept="application/pdf">
                     <br>
                     <label for="esito-{{$i}}">Esito:</label>
@@ -90,6 +85,11 @@
                         <option value="negativo">Negativo</option>
                         <option value="positivo">Positivo</option>
                     </select>
+                    {{else}}
+                    <a href="{{.Referto.IdReferto}}">
+                        <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
+                        Referto
+                    </a>
                     {{end}}
                 </td>
                 <td>

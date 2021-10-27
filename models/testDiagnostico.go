@@ -71,6 +71,7 @@ func SelezionaTestAll() (testDiagnostici []*TestDiagnostico, err error) {
 	_, err = o.QueryTable("test_diagnostico").RelatedSel().All(&testDiagnostici)
 	for _, v := range testDiagnostici {
 		v.LoadRelatedQuestionari()
+		v.LoadRelatedReferto()
 	}
 	return testDiagnostici, err
 }
@@ -85,4 +86,14 @@ func (td *TestDiagnostico) LoadRelatedQuestionari() {
 		return
 	}
 	td.Questionario = qa
+}
+
+func (td *TestDiagnostico) LoadRelatedReferto() {
+	r := new(Referto)
+	r.IdReferto = td.IdTestDiagnostico
+	err := r.Seleziona("id_referto")
+	if err != nil {
+		return
+	}
+	td.Referto = r
 }
