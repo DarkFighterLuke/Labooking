@@ -3,7 +3,9 @@ package controllers
 import (
 	"Labooking/controllers/utils"
 	"Labooking/models"
+	"fmt"
 	"github.com/beego/beego/v2/server/web"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
@@ -11,6 +13,46 @@ import (
 
 type RefertoController struct {
 	web.Controller
+}
+
+func (rc *RefertoController) Get() {
+	if rc.GetSession("ruolo") == "laboratorio" {
+		idRefertoStr := rc.GetString("idReferto")
+		if idRefertoStr == "" {
+			rc.Ctx.WriteString("referto: referto inesistente")
+			return
+		}
+		r := new(models.Referto)
+		idReferto, err := strconv.Atoi(idRefertoStr)
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+		r.IdReferto = int64(idReferto)
+		err = r.Seleziona("id_referto")
+		if err != nil {
+			rc.Ctx.WriteString("referto: referto inesistente")
+			return
+		}
+
+		pathReferti, err := web.AppConfig.String("pathreferti")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+		refertoBytes, err := ioutil.ReadFile(pathReferti + r.Nome + ".pdf")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+
+		rc.Ctx.ResponseWriter.Header().Set("Content-Type", "application/pdf")
+		_, err = rc.Ctx.ResponseWriter.Write(refertoBytes)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	}
 }
 
 func (rc *RefertoController) Post() {

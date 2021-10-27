@@ -86,7 +86,7 @@
                         <option value="positivo">Positivo</option>
                     </select>
                     {{else}}
-                    <a href="{{.Referto.IdReferto}}">
+                    <a href="/dashboard/referti?idReferto={{.Referto.IdReferto}}">
                         <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
                         Referto
                     </a>
