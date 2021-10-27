@@ -10,9 +10,10 @@ func init() {
 }
 
 type Referto struct {
-	IdReferto    int       `orm:"pk;auto"`
+	IdReferto    int64     `orm:"pk"`
 	DataRilascio time.Time `orm:"type(date)"`
 	Risultato    string    `orm:""`
+	Nome         string    `orm:"size(32)"`
 }
 
 func (r *Referto) Aggiungi() (int64, error) {
