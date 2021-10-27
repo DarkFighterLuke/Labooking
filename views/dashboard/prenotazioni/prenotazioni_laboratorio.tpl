@@ -81,7 +81,7 @@
                     {{end}}
                 </td>
                 <td>
-                    <a href="/dashboard/questionari/{{.Questionario.Nome}}.pdf" download><img src="/img/icons/contact-form-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
+                    <a href="/questionari/{{.Questionario.Nome}}.pdf" download><img src="/img/icons/contact-form-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
                 </td>
             </tr>
             {{end}}
