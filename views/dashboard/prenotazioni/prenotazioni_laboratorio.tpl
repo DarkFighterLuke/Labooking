@@ -1,65 +1,68 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
 <div class="parent">
     <div id="div-tabella" class="table-container">
-        <table id="table-orari-privati" class="table-responsive">
-            <tbody>
-            <tr id="first-tr">
-                <td>
-                    <input type="number" min="1" id="cerca-id">
-                </td>
-                <td>
-                    <input type="date" id="cerca-data-esecuzione">
-                </td>
-                <td>
-                    <select id="cerca-pagato">
-                        <option value=""></option>
-                        <option value="No">No</option>
-                        <option value="Sì">Sì</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="cerca-tipologia-test">
-                        <option value=""></option>
-                        <option value="molecolare">Molecolare</option>
-                        <option value="antigenico">Antigenico</option>
-                        <option value="sierologico">Sierologico</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="cerca-stato">
-                        <option value=""></option>
-                        <option value="prenotato">Prenotato</option>
-                        <option value="eseguito">Eseguito</option>
-                        <option value="notificato">Notificato</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" id="cerca-privato">
-                </td>
-                <td colspan="2"><button class="bg-lightblue w-100" id="cerca" onclick="return cercaPrenotazioni()">Cerca</button></td>
-            </tr>
-            <tr>
-                <th>ID test</th>
-                <th>Data esecuzione</th>
-                <th>Pagato online</th>
-                <th>Tipologia test</th>
-                <th>Stato</th>
-                <th>Privato</th>
-                <th>Referto</th>
-                <th>Questionario anamnesi</th>
-            </tr>
-            {{range .TestDiagnostici}}
-            <tr>
-                <td>
-                    {{.IdTestDiagnostico}}
-                </td>
-                <td>
-                    {{.DataEsecuzione.Format "2006-01-02 15:04"}}
-                </td>
-                <td>
-                    {{if .Pagato}}
+        <form method="POST" action="/dashboard/referti" enctype="multipart/form-data">
+            <input type="submit">
+            <table id="table-orari-privati" class="table-responsive">
+                <tbody>
+                <tr id="first-tr">
+                    <td>
+                        <input type="number" min="1" id="cerca-id">
+                    </td>
+                    <td>
+                        <input type="date" id="cerca-data-esecuzione">
+                    </td>
+                    <td>
+                        <select id="cerca-pagato">
+                            <option value=""></option>
+                            <option value="No">No</option>
+                            <option value="Sì">Sì</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="cerca-tipologia-test">
+                            <option value=""></option>
+                            <option value="molecolare">Molecolare</option>
+                            <option value="antigenico">Antigenico</option>
+                            <option value="sierologico">Sierologico</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="cerca-stato">
+                            <option value=""></option>
+                            <option value="prenotato">Prenotato</option>
+                            <option value="eseguito">Eseguito</option>
+                            <option value="notificato">Notificato</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" id="cerca-privato">
+                    </td>
+                    <td colspan="2"><button class="bg-lightblue w-100" id="cerca" onclick="return cercaPrenotazioni()">Cerca</button></td>
+                </tr>
+                <tr>
+                    <th>ID test</th>
+                    <th>Data esecuzione</th>
+                    <th>Pagato online</th>
+                    <th>Tipologia test</th>
+                    <th>Stato</th>
+                    <th>Privato</th>
+                    <th>Referto</th>
+                    <th>Questionario anamnesi</th>
+                </tr>
+                {{range $i, $v := .TestDiagnostici}}
+                <tr>
+                    <td>
+                        <input type="hidden" name="test-diagnostico-{{$i}}" value="{{.IdTestDiagnostico}}">
+                        {{.IdTestDiagnostico}}
+                    </td>
+                    <td>
+                        {{.DataEsecuzione.Format "2006-01-02 15:04"}}
+                    </td>
+                    <td>
+                        {{if .Pagato}}
                         Sì
-                    {{else}}
+                        {{else}}
                         No
                     {{end}}
                 </td>
@@ -78,6 +81,15 @@
                         <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
                         Referto
                     </a>
+                    {{else}}
+                    <input type="file" name="referto-upload-{{$i}}" accept="application/pdf">
+                    <br>
+                    <label for="esito-{{$i}}">Esito:</label>
+                    <select id="esito-{{$i}}" name="esito-{{$i}}">
+                        <option value="nullo">Nullo</option>
+                        <option value="negativo">Negativo</option>
+                        <option value="positivo">Positivo</option>
+                    </select>
                     {{end}}
                 </td>
                 <td>
