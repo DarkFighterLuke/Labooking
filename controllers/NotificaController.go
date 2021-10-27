@@ -3,9 +3,10 @@ package controllers
 import (
 	"github.com/beego/beego/v2/server/web"
 	"net/smtp"
+	"strings"
 )
 
-func InviaMail(msg, reciver string) error {
+func InviaMail(msg string, recivers []string) error {
 	from, err := web.AppConfig.String("email")
 	if err != nil {
 		return err
@@ -14,7 +15,13 @@ func InviaMail(msg, reciver string) error {
 	if err != nil {
 		return err
 	}
-	to := reciver
+
+	var to string
+	if len(recivers) == 1 {
+		to = recivers[len(recivers)-1]
+	} else {
+		to = strings.Join(recivers, ",")
+	}
 
 	msg = "From: " + from + "\n" +
 		"To: " + to + "\n" + msg

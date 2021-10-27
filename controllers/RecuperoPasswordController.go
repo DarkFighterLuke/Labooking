@@ -180,7 +180,9 @@ func inviaLink(hashKey, email string) error {
 	msg := "Subject: Recupero password Labooking\n\n" +
 		"Cliccare il seguente link per recuperare la password:\n" + link
 
-	err = InviaMail(msg, email)
+	var emails []string
+	emails = append(emails, email)
+	err = InviaMail(msg, emails)
 	if err != nil {
 		return err
 	}
