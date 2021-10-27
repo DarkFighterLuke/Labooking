@@ -86,14 +86,11 @@
                         <option value="positivo">Positivo</option>
                     </select>
                     {{else}}
-                    <a href="/dashboard/referti?idReferto={{.Referto.IdReferto}}">
-                        <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
-                        Referto
-                    </a>
+                    <a href="/dashboard/referti?idReferto={{.Referto.IdReferto}}"><img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
                     {{end}}
                 </td>
                 <td>
-                    <a href="/questionari/{{.Questionario.Nome}}.pdf" download><img src="/img/icons/contact-form-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
+                    <a href="/questionari/{{.Questionario.Nome}}.pdf"><img src="/img/icons/contact-form-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
                 </td>
             </tr>
             {{end}}
