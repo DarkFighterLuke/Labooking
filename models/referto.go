@@ -10,7 +10,7 @@ func init() {
 }
 
 type Referto struct {
-	IdReferto    int64     `orm:"pk"`
+	IdReferto    int64     `orm:"pk;auto"`
 	DataRilascio time.Time `orm:"type(date)"`
 	Risultato    string    `orm:""`
 	Nome         string    `orm:"size(32)"`

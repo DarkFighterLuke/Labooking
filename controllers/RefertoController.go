@@ -28,6 +28,7 @@ func (rc *RefertoController) Get() {
 			rc.Ctx.WriteString("referto: " + err.Error())
 			return
 		}
+
 		r.IdReferto = int64(idReferto)
 		err = r.Seleziona("id_referto")
 		if err != nil {
