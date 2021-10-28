@@ -385,7 +385,17 @@ func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
 }
 
 func (pc *PrenotazioneController) VisualizzaPrenotazioni() {
-	testDiagnostici, err := models.SelezionaTestAll()
+	td := new(models.TestDiagnostico)
+	l := new(models.Laboratorio)
+	email := pc.GetSession("email")
+	l.Email = email.(string)
+	err := l.Seleziona("email")
+	if err != nil {
+		pc.Ctx.WriteString("prenotazioni: " + err.Error())
+		return
+	}
+	td.Laboratorio = l
+	testDiagnostici, err := td.SelezionaTestAllByLab()
 	if err != nil {
 		return
 	}

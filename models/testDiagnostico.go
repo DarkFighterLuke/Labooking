@@ -66,10 +66,10 @@ func (td *TestDiagnostico) SelezionaByDataStr(dataStr, slot string) error {
 	return err
 }
 
-func SelezionaTestAll() (testDiagnostici []*TestDiagnostico, err error) {
+func (td *TestDiagnostico) SelezionaTestAllByLab() (testDiagnostici []*TestDiagnostico, err error) {
 	o := orm.NewOrm()
 
-	_, err = o.QueryTable("test_diagnostico").RelatedSel().All(&testDiagnostici)
+	_, err = o.QueryTable("test_diagnostico").Filter("id_laboratorio", td.Laboratorio.IdLaboratorio).RelatedSel().All(&testDiagnostici)
 	for _, v := range testDiagnostici {
 		v.LoadRelatedQuestionari()
 	}
