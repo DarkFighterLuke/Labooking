@@ -1,7 +1,7 @@
 package main
 
 import (
-	modelsutils "Labooking/models/utils"
+	"Labooking/controllers"
 	_ "Labooking/routers"
 	routersutils "Labooking/routers/utils"
 	"github.com/beego/beego/v2/client/orm"
@@ -26,7 +26,7 @@ func init() {
 	web.SetStaticPath("/referti", "static/referti")
 
 	//timer
-	go modelsutils.Timer()
+	go controllers.Timer()
 
 	//timer
 	//go utils.Timer()

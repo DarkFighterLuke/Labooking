@@ -93,6 +93,7 @@ func (rc *RefertoController) Post() {
 			rc.Ctx.WriteString("referto: " + err.Error())
 			return
 		}
+		//TODO: invia mail privato
 	}
 	rc.Redirect("/dashboard/prenotazioni", http.StatusFound)
 }
