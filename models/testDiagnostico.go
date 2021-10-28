@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/beego/beego/v2/client/orm"
+	"strconv"
 	"time"
 )
 
@@ -96,4 +97,31 @@ func (td *TestDiagnostico) LoadRelatedReferto() {
 		return
 	}
 	td.Referto = r
+}
+
+func (td *TestDiagnostico) CheckInviaMailiOrganizzazione() (bool, error) {
+	o := orm.NewOrm()
+	var prenotazioni int
+	var prenotazioniNotificate int
+
+	dataStr := td.DataPrenotazione.Format("2006-01-02")
+	organizzazioneStr := strconv.Itoa(td.Privato.Organizzazione.IdOrganizzazione)
+	queryPrenotazioni := "SELECT COUNT(*) FROM test_diagnostico td, privato p WHERE data_prenotazione = '" + dataStr + "' AND td.id_privato = p.id_privato AND p.organizzazione = '" + organizzazioneStr + "'"
+	err := o.Raw(queryPrenotazioni).QueryRow(&prenotazioni)
+	if err != nil {
+		return false, err
+	}
+
+	queryPrenotazioniNotificate := "SELECT COUNT(*) FROM test_diagnostico td, privato p WHERE data_prenotazione = '" + dataStr + "' AND td.id_privato = p.id_privato AND p.organizzazione = '" + organizzazioneStr + "' AND stato ='notificato'"
+	err = o.Raw(queryPrenotazioniNotificate).QueryRow(&prenotazioniNotificate)
+	if err != nil {
+		return false, err
+	}
+
+	if prenotazioni == prenotazioniNotificate {
+		return true, nil
+	} else {
+		return false, nil
+	}
+
 }
