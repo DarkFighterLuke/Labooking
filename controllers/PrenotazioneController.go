@@ -184,7 +184,13 @@ func (pc *PrenotazioneController) Post() {
 			return
 		}
 		testDiagnostico.DataEsecuzione = data.Add(time.Duration(slot.Hour())*time.Hour + time.Duration(slot.Minute())*time.Minute)
-		testDiagnostico.DataPrenotazione = time.Now()
+		nowStr := time.Now().Format("2006-01-02")
+		now, err := time.ParseInLocation("2006-01-02", nowStr, time.Local)
+		if err != nil {
+			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
+		}
+		testDiagnostico.DataPrenotazione = now
 
 		pagaOnline, err := pc.GetBool("metodo-pagamento")
 		if err != nil {
@@ -282,7 +288,13 @@ func (pc *PrenotazioneController) Post() {
 				return
 			}
 			testDiagnostico.DataEsecuzione = data.Add(time.Duration(slotTime.Hour())*time.Hour + time.Duration(slotTime.Minute())*time.Minute)
-			testDiagnostico.DataPrenotazione = time.Now()
+			nowStr := time.Now().Format("2006-01-02")
+			now, err := time.ParseInLocation("2006-01-02", nowStr, time.Local)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
+			testDiagnostico.DataPrenotazione = now
 
 			testDiagnostico.Privato = new(models.Privato)
 			idPrivatoStr := pc.GetString("privato-" + slot)
