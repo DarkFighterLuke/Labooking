@@ -17,19 +17,32 @@ type RefertoController struct {
 
 func (rc *RefertoController) Get() {
 	if rc.GetSession("ruolo") == "laboratorio" {
-		idRefertoStr := rc.GetString("idReferto")
-		if idRefertoStr == "" {
+		idTestDiagnosticoStr := rc.GetString("idReferto")
+		if idTestDiagnosticoStr == "" {
 			rc.Ctx.WriteString("referto: referto inesistente")
 			return
 		}
-		r := new(models.Referto)
-		idReferto, err := strconv.Atoi(idRefertoStr)
+
+		idTestDiagnostico, err := strconv.Atoi(idTestDiagnosticoStr)
 		if err != nil {
 			rc.Ctx.WriteString("referto: " + err.Error())
 			return
 		}
 
-		r.IdReferto = int64(idReferto)
+		td := new(models.TestDiagnostico)
+		td.IdTestDiagnostico = int64(idTestDiagnostico)
+		err = td.Seleziona("id_test_diagnostico")
+		if err != nil {
+			rc.Ctx.WriteString("referto: test diagnostico inesistente")
+			return
+		}
+		if td.Referto == nil {
+			rc.Ctx.WriteString("referto: referto inesistente")
+			return
+		}
+
+		r := new(models.Referto)
+		r.IdReferto = td.Referto.IdReferto
 		err = r.Seleziona("id_referto")
 		if err != nil {
 			rc.Ctx.WriteString("referto: referto inesistente")
@@ -86,16 +99,14 @@ func (rc *RefertoController) Post() {
 		}
 		r := new(models.Referto)
 		r.Nome = filename
-		r.IdReferto = int64(idTestDiagnostico)
 		r.DataRilascio = time.Now()
 		r.Risultato = esito
-		_, err = r.Aggiungi()
+		idReferto, err := r.Aggiungi()
 		if err != nil {
 			rc.Ctx.WriteString("referto: " + err.Error())
 			return
 		}
 
-		//componi mail privato
 		testDiagnostico := new(models.TestDiagnostico)
 		testDiagnostico.IdTestDiagnostico = int64(idTestDiagnostico)
 		err = testDiagnostico.Seleziona("id_test_diagnostico")
@@ -103,6 +114,21 @@ func (rc *RefertoController) Post() {
 			rc.Ctx.WriteString("referto: " + err.Error())
 			return
 		}
+		testDiagnostico.Stato = "notificato"
+		testDiagnostico.Referto = &models.Referto{IdReferto: idReferto}
+		err = testDiagnostico.Modifica()
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+
+		//componi mail privato
+		err = testDiagnostico.Seleziona("id_test_diagnostico")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+
 		privato := new(models.Privato)
 		privato.IdPrivato = testDiagnostico.Privato.IdPrivato
 		err = privato.Seleziona("id_privato")
