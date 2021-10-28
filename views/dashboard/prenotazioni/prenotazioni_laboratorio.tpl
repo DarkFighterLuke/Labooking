@@ -2,7 +2,7 @@
 <div class="parent">
     <div id="div-tabella" class="table-container">
         <form method="POST" action="/dashboard/referti" enctype="multipart/form-data">
-            <input type="submit">
+            <input type="submit" value="Salva modifiche">
             <table id="table-orari-privati" class="table-responsive">
                 <tbody>
                 <tr id="first-tr">
