@@ -125,3 +125,8 @@ func (td *TestDiagnostico) CheckInviaMailiOrganizzazione() (bool, error) {
 	}
 
 }
+func (td *TestDiagnostico) SelezionaAllTestsByPrivatoStato() (testDiagnostici []*TestDiagnostico, err error) {
+	o := orm.NewOrm()
+	_, err = o.QueryTable("test_diagnostico").Filter("id_privato", td.Privato.IdPrivato).Filter("stato", td.Stato).All(&testDiagnostici)
+	return testDiagnostici, err
+}
