@@ -196,10 +196,12 @@ func (rc *RefertoController) Post() {
 			return
 		}
 
-		err = InviaMail(msgOrganizzazione, []string{organizzazione.Email})
-		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
-			return
+		if ok {
+			err = InviaMail(msgOrganizzazione, []string{organizzazione.Email})
+			if err != nil {
+				rc.Ctx.WriteString("referto: " + err.Error())
+				return
+			}
 		}
 
 	}
