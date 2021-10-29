@@ -92,17 +92,17 @@
                          <script src="js/registrazione/orari_apertura.js"></script>
                      </div>
                      <div class="d-flex justify-content-center">
-                        <table id="table-tamponi" class="table w-75">
-                            <tbody class="w-100">
-                               <tr class="row w-100 d-flex align-items-center">
-                                  <th class="w-25 text-center"> Tipologia test</th>
-                                  <th class="w-25 text-center"> Tempo necessario all'analisi</th>
-                                  <th class="w-25 text-center"> Costo</th>
-                                  <th class="w-25 text-center"> Effettua</th>
-                               </tr>
-                               <tr class="row w-100 d-flex align-items-center">
-                                  <td class="w-25 text-center">Molecolare</td>
-                                  <td class="w-25">
+                        <table id="table-info-test" class="table w-75">
+                           <tbody class="w-100">
+                           <tr class="row w-100 d-flex align-items-center">
+                              <th class="w-25 text-center"> Tipologia test</th>
+                              <th class="w-25 text-center"> Tempo necessario all'analisi</th>
+                              <th class="w-25 text-center"> Costo</th>
+                              <th class="w-25 text-center"> Effettua</th>
+                           </tr>
+                           <tr class="row w-100 d-flex align-items-center">
+                              <td class="w-25 text-center">Molecolare</td>
+                              <td class="w-25">
                                      <input class="w-25" type="number" name="molecolare-ore" min="0">
                                      <select class="w-50" name="molecolare-minuti">
                                         <option value="0">0</option>

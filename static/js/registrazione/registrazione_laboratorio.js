@@ -128,20 +128,20 @@ function checkOrariApertura() {
     let orariChiusura = [];
     let giorni = [];
     for (let i = 1; i < tableOrariApertura.rows.length; i++) {
-        let oa = tableOrariApertura.rows[i].cells[0].childNodes[1].valueAsDate;
-        let oc = tableOrariApertura.rows[i].cells[1].childNodes[1].valueAsDate;
-        let giorno = tableOrariApertura.rows[i].cells[2].childNodes[1].value;
+        let oa = tableOrariApertura.rows[i].cells[0].children[0].valueAsDate;
+        let oc = tableOrariApertura.rows[i].cells[1].children[0].valueAsDate;
+        let giorno = tableOrariApertura.rows[i].cells[2].children[0].value;
 
-        if(oa==null || oc==null || oa.getTime() >= oc.getTime()){
+        if (oa == null || oc == null || oa.getTime() >= oc.getTime()) {
             mostraMessaggioErroreOrari();
             return false;
         }
 
-        for(let j=0; j<orariApertura.length; j+=2){
-            let oatemp=orariApertura[j];
-            let octemp=orariChiusura[j+1];
-            let gtemp=giorni[j];
-            if(oa.getTime()>oatemp.getTime() && oa.getTime()<octemp.getTime() && gtemp===giorno || oc.getTime()>oatemp.getTime() && oc.getTime()>octemp.getTime() && gtemp===giorno){
+        for (let j = 0; j < orariApertura.length; j += 2) {
+            let oatemp = orariApertura[j];
+            let octemp = orariChiusura[j];
+            let gtemp = giorni[j];
+            if (oa.getTime() > oatemp.getTime() && oa.getTime() < octemp.getTime() && gtemp === giorno || oc.getTime() > oatemp.getTime() && oc.getTime() < octemp.getTime() && gtemp === giorno) {
                 mostraMessaggioErroreOrari();
                 return false;
             }
@@ -149,6 +149,7 @@ function checkOrariApertura() {
 
         orariApertura.push(oa);
         orariChiusura.push(oc);
+        giorni.push(giorno);
     }
     return true;
 }
@@ -178,18 +179,24 @@ function checkInfoTest(){
     let costo=[];
     let effettua=[];
 
-    for(let i=0; i<3; i++){
-        effettua[i]=tableInfoTest.rows[i+1].cells[3].childNodes[1].checked;
-        if(effettua[i]==true){
-            ore[i]=tableInfoTest.rows[i+1].cells[1].childNodes[1].value;
-            minuti[i]=tableInfoTest.rows[i+1].cells[1].childNodes[3].value;
-            costo[i]=tableInfoTest.rows[i+1].cells[2].childNodes[1].value;
+    let checked = 0;
+    for (let i = 0; i < 3; i++) {
+        effettua[i] = tableInfoTest.rows[i + 1].cells[3].children[0].checked;
+        if (effettua[i] == true) {
+            ore[i] = tableInfoTest.rows[i + 1].cells[1].children[0].value;
+            minuti[i] = tableInfoTest.rows[i + 1].cells[1].children[1].value;
+            costo[i] = tableInfoTest.rows[i + 1].cells[2].children[0].value;
+            checked++;
         }
     }
+    if (checked < 1) {
+        mostraMessaggioErroreInfoTest();
+        return false;
+    }
 
-    for(let i=0; i<3; i++){
-        if(effettua[i]==true){
-            if(ore[i]<0 || (minuti[i]!=0 && minuti[i]!=15 && minuti[i]!=30 && minuti[i]!=45) || costo[i]<0 || costo[i]>9999.99){
+    for (let i = 0; i < 3; i++) {
+        if (effettua[i] == true) {
+            if (ore[i] === "" || ore[i] < 0 || (minuti[i] != 0 && minuti[i] != 15 && minuti[i] != 30 && minuti[i] != 45) || costo[i] === "" || costo[i] < 0 || costo[i] > 9999.99) {
                 mostraMessaggioErroreInfoTest();
                 return false;
             }
