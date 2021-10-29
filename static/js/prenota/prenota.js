@@ -55,7 +55,7 @@ function checkDatiInseriti() {
             showErrorDiv(document.getElementById("div-orari-privati").children[0], true, "È necessario selezionare almeno uno slot!");
             errMap.set("prenotazioni", false);
         }
-    } else if (document.getElementById("table-orari-privati") != null && tableOrariPrivati.rows[0].cells.length===3) {
+    } else if (document.getElementById("table-orari-privati") != null && tableOrariPrivati.rows[1].cells.length===3) {
         let numChecked=0;
         for(let i=1; i<tableOrariPrivati.rows.length; i++){
             if(tableOrariPrivati.rows[i].cells[0].children[0].checked){

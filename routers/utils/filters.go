@@ -17,10 +17,10 @@ var FilterUser = func(ctx *context.Context) {
 
 var FilterRuolo = func(ctx *context.Context) {
 	filtro := map[string][]string{
-		"privato":        []string{"/dashboard/pagamenti", "/dashboard/pubblica", "/dashboard/prenotazioni", "/dashboard/pazienti", "/dashboard/dipendenti"},
-		"laboratorio":    []string{"/dashboard/prenota", "/dashboard/referti", "/dashboard/guida", "/dashboard/pazienti", "/dashboard/dipendenti"},
-		"organizzazione": []string{"/dashboard/pazienti", "/dashboard/prenotazioni", "/dashboard/pubblica", "/dashboard/pagamenti"},
-		"medico":         []string{"/dashboard/dipendenti", "/dashboard/prenotazioni", "/dashboard/pubblica", "/dashboard/pagamenti"},
+		"privato":        []string{"/dashboard/pagamenti", "/dashboard/prenotazioni", "/dashboard/pazienti", "/dashboard/dipendenti"},
+		"laboratorio":    []string{"/dashboard/prenota", "/dashboard/guida", "/dashboard/pazienti", "/dashboard/dipendenti"},
+		"organizzazione": []string{"/dashboard/pazienti", "/dashboard/prenotazioni", "/dashboard/pagamenti"},
+		"medico":         []string{"/dashboard/dipendenti", "/dashboard/prenotazioni", "/dashboard/pagamenti"},
 	}
 	ruolo := fmt.Sprint(ctx.Input.Session("ruolo"))
 	path := fmt.Sprint(ctx.Request.URL.Path)

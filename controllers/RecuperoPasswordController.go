@@ -18,33 +18,55 @@ func (rp *RecuperoPasswordController) Post() {
 	case "privato":
 		p := new(models.Privato)
 		p.Email = rp.GetString("email-privato")
-		err := p.InviaLink()
+		hashKey, err := p.CreaRecupero()
 		if err != nil {
 			rp.Ctx.WriteString("invio mail: " + err.Error())
+			return
+		}
+		err = inviaLink(hashKey, p.Email)
+		if err != nil {
+			rp.Ctx.WriteString("invio mail: " + err.Error())
+			return
 		}
 		break
 	case "laboratorio":
 		l := new(models.Laboratorio)
 		l.Email = rp.GetString("email-laboratorio")
-		err := l.InviaLink()
+		hashKey, err := l.CreaRecupero()
 		if err != nil {
 			rp.Ctx.WriteString("errore nell'invio della mail di recupero")
+			return
+		}
+		err = inviaLink(hashKey, l.Email)
+		if err != nil {
+			rp.Ctx.WriteString("errore nell'invio della mail di recupero")
+			return
 		}
 		break
 	case "medico":
 		m := new(models.Medico)
 		m.Email = rp.GetString("email-medico")
-		err := m.InviaLink()
+		hashKey, err := m.CreaRecupero()
 		if err != nil {
 			rp.Ctx.WriteString("errore nell'invio della mail di recupero")
+		}
+		err = inviaLink(hashKey, m.Email)
+		if err != nil {
+			rp.Ctx.WriteString("errore nell'invio della mail di recupero")
+			return
 		}
 		break
 	case "organizzazione":
 		o := new(models.Organizzazione)
 		o.Email = rp.GetString("email-organizzazione")
-		err := o.InviaLink()
+		hashKey, err := o.CreaRecupero()
 		if err != nil {
 			rp.Ctx.WriteString("recupero password: " + err.Error())
+		}
+		err = inviaLink(hashKey, o.Email)
+		if err != nil {
+			rp.Ctx.WriteString("errore nell'invio della mail di recupero")
+			return
 		}
 		break
 	}
@@ -145,4 +167,25 @@ func (cp *CambioPasswordController) Post() {
 	}
 
 	cp.TplName = "login/login.tpl"
+}
+
+func inviaLink(hashKey, email string) error {
+	websitelink, err := web.AppConfig.String("websitelink")
+	if err != nil {
+		return err
+	}
+
+	link := websitelink + "cambiapassword?hash=" + hashKey
+
+	msg := "Subject: Recupero password Labooking\n\n" +
+		"Cliccare il seguente link per recuperare la password:\n" + link
+
+	var emails []string
+	emails = append(emails, email)
+	err = InviaMail(msg, emails)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

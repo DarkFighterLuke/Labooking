@@ -183,8 +183,14 @@ func (pc *PrenotazioneController) Post() {
 			pc.Ctx.WriteString("prenotazione: slot già prenotato!")
 			return
 		}
-
 		testDiagnostico.DataEsecuzione = data.Add(time.Duration(slot.Hour())*time.Hour + time.Duration(slot.Minute())*time.Minute)
+		nowStr := time.Now().Format("2006-01-02")
+		now, err := time.ParseInLocation("2006-01-02", nowStr, time.Local)
+		if err != nil {
+			pc.Ctx.WriteString("prenotazione: " + err.Error())
+			return
+		}
+		testDiagnostico.DataPrenotazione = now
 
 		pagaOnline, err := pc.GetBool("metodo-pagamento")
 		if err != nil {
@@ -237,7 +243,7 @@ func (pc *PrenotazioneController) Post() {
 		qa := new(models.QuestionarioAnamnesi)
 		qa.Nome = fileName
 		qa.TestDiagnostico = new(models.TestDiagnostico)
-		qa.TestDiagnostico.IdTestDiagnostico = int(idTestDiagnostico)
+		qa.TestDiagnostico.IdTestDiagnostico = idTestDiagnostico
 		_, err = qa.Aggiungi()
 		if err != nil {
 			pc.Ctx.WriteString("prenotazione: " + err.Error())
@@ -282,6 +288,13 @@ func (pc *PrenotazioneController) Post() {
 				return
 			}
 			testDiagnostico.DataEsecuzione = data.Add(time.Duration(slotTime.Hour())*time.Hour + time.Duration(slotTime.Minute())*time.Minute)
+			nowStr := time.Now().Format("2006-01-02")
+			now, err := time.ParseInLocation("2006-01-02", nowStr, time.Local)
+			if err != nil {
+				pc.Ctx.WriteString("prenotazione: " + err.Error())
+				return
+			}
+			testDiagnostico.DataPrenotazione = now
 
 			testDiagnostico.Privato = new(models.Privato)
 			idPrivatoStr := pc.GetString("privato-" + slot)
@@ -319,7 +332,7 @@ func (pc *PrenotazioneController) Post() {
 			qa := new(models.QuestionarioAnamnesi)
 			qa.Nome = fileName
 			qa.TestDiagnostico = new(models.TestDiagnostico)
-			qa.TestDiagnostico.IdTestDiagnostico = int(idTestDiagnostico)
+			qa.TestDiagnostico.IdTestDiagnostico = idTestDiagnostico
 			_, err = qa.Aggiungi()
 			if err != nil {
 				pc.Ctx.WriteString("prenotazione: " + err.Error())
@@ -372,7 +385,17 @@ func costruisciSlot(allSlots, slotsPrenotati []*time.Time) []htmlSlot {
 }
 
 func (pc *PrenotazioneController) VisualizzaPrenotazioni() {
-	testDiagnostici, err := models.SelezionaTestAll()
+	td := new(models.TestDiagnostico)
+	l := new(models.Laboratorio)
+	email := pc.GetSession("email")
+	l.Email = email.(string)
+	err := l.Seleziona("email")
+	if err != nil {
+		pc.Ctx.WriteString("prenotazioni: " + err.Error())
+		return
+	}
+	td.Laboratorio = l
+	testDiagnostici, err := td.SelezionaTestAllByLab()
 	if err != nil {
 		return
 	}
