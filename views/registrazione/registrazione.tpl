@@ -168,6 +168,7 @@
             <a href="/login" class="align-self-center">Sei già registrato? Effettua il login</a>
          </div>
       </div>
+      <script src="/js/utils/error_utils.js"></script>
       <script src="js/utils/autocompleteAddress.js"></script>
       <script src="js/registrazione/prefissi_telefonici.js"></script>
       <script src="js/registrazione/registrazione_privato.js"></script>

@@ -133,7 +133,8 @@ function checkOrariApertura() {
         let giorno = tableOrariApertura.rows[i].cells[2].children[0].value;
 
         if (oa == null || oc == null || oa.getTime() >= oc.getTime()) {
-            mostraMessaggioErroreOrari();
+            let messaggio = "Sembra che qualcosa non vada con gli orari inseriti. Controlla che siano corretti e riprova.";
+            showErrorDiv(tableOrariApertura, true, messaggio);
             return false;
         }
 
@@ -142,7 +143,8 @@ function checkOrariApertura() {
             let octemp = orariChiusura[j];
             let gtemp = giorni[j];
             if (oa.getTime() > oatemp.getTime() && oa.getTime() < octemp.getTime() && gtemp === giorno || oc.getTime() > oatemp.getTime() && oc.getTime() < octemp.getTime() && gtemp === giorno) {
-                mostraMessaggioErroreOrari();
+                let messaggio = "Sembra che qualcosa non vada con gli orari inseriti. Controlla che siano corretti e riprova.";
+                showErrorDiv(tableOrariApertura, true, messaggio);
                 return false;
             }
         }
@@ -152,24 +154,6 @@ function checkOrariApertura() {
         giorni.push(giorno);
     }
     return true;
-}
-
-function mostraMessaggioErroreOrari(){
-    let div=document.createElement("div");
-    div.className="div-errore";
-    let p=document.createElement("p");
-    p.className="p-errore";
-    let messaggio="Sembra che qualcosa non vada con gli orari inseriti. Controlla che siano corretti e riprova.";
-    p.innerText=messaggio;
-    div.appendChild(p);
-    tableOrariApertura.before(div);
-}
-
-function eraseErrorDivs(){
-    let errorDivs=document.getElementsByClassName("div-errore");
-    for(let i=0; i<errorDivs.length; i++){
-        errorDivs[i].parentNode.removeChild(errorDivs[i]);
-    }
 }
 
 function checkInfoTest(){
@@ -190,30 +174,21 @@ function checkInfoTest(){
         }
     }
     if (checked < 1) {
-        mostraMessaggioErroreInfoTest();
+        let messaggio = "Seleziona almeno un tipo di test diagnostico e riprova.";
+        showErrorDiv(tableInfoTest, true, messaggio);
         return false;
     }
 
     for (let i = 0; i < 3; i++) {
         if (effettua[i] == true) {
             if (ore[i] === "" || ore[i] < 0 || (minuti[i] != 0 && minuti[i] != 15 && minuti[i] != 30 && minuti[i] != 45) || costo[i] === "" || costo[i] < 0 || costo[i] > 9999.99) {
-                mostraMessaggioErroreInfoTest();
+                let messaggio = "Sembra che qualcosa non vada con le info sui test diagnostici effettuati. Controlla che i dati siano corretti e riprova.";
+                showErrorDiv(tableInfoTest, true, messaggio);
                 return false;
             }
         }
     }
     return true;
-}
-
-function mostraMessaggioErroreInfoTest(){
-    let div=document.createElement("div");
-    div.className="div-errore";
-    let p=document.createElement("p");
-    p.className="p-errore";
-    let messaggio="Sembra che qualcosa non vada con le info sui test diagnostici effettuati. Controlla che i dati siano corretti e riprova.";
-    p.innerText=messaggio;
-    div.appendChild(p);
-    tableInfoTest.before(div);
 }
 
 function submitLaboratorio(){
