@@ -1,4 +1,5 @@
 var nomeLaboratorio;
+var ibanLaboratorio;
 var partitaIvaLaboratorio;
 var indirizzoLaboratorio;
 var telefonoLaboratorio;
@@ -9,8 +10,9 @@ var tableOrariApertura;
 var tableInfoTest;
 
 function initElementsLaboratorio(){
-    nomeLaboratorio=document.getElementById("nome-laboratorio");
-    partitaIvaLaboratorio=document.getElementById("partita-iva-laboratorio");
+    nomeLaboratorio = document.getElementById("nome-laboratorio");
+    ibanLaboratorio = document.getElementById("iban-laboratorio");
+    partitaIvaLaboratorio = document.getElementById("partita-iva-laboratorio");
     indirizzoLaboratorio=document.getElementById("indirizzo-laboratorio");
     telefonoLaboratorio=document.getElementById("telefono-laboratorio");
     emailLaboratorio=document.getElementById("email-laboratorio");
@@ -23,6 +25,7 @@ function initElementsLaboratorio(){
     aggiungiSelectPrefissi("laboratorio");
 
     nomeLaboratorio.addEventListener("focusout", checkNomeLaboratorio);
+    ibanLaboratorio.addEventListener("focusout", checkIbanLaboratorio);
     partitaIvaLaboratorio.addEventListener("focusout", checkPartitaIvaLaboratorio);
     indirizzoLaboratorio.addEventListener("focusout", checkIndirizzoLaboratorio);
     telefonoLaboratorio.addEventListener("focusout", checkTelefonoLaboratorio);
@@ -31,24 +34,32 @@ function initElementsLaboratorio(){
     confermaPasswordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
 }
 
-function checkNomeLaboratorio(){
-    if(nomeLaboratorio.value.length<1 || nomeLaboratorio.value.length>255 || nomeLaboratorio.value.match(/\d/)){
-        nomeLaboratorio.style.backgroundColor="#ff7b5a";
+function checkNomeLaboratorio() {
+    if (nomeLaboratorio.value.length < 1 || nomeLaboratorio.value.length > 255 || nomeLaboratorio.value.match(/\d/)) {
+        nomeLaboratorio.style.backgroundColor = "#ff7b5a";
         return false;
-    }
-    else{
-        nomeLaboratorio.style.backgroundColor="white";
+    } else {
+        nomeLaboratorio.style.backgroundColor = "white";
         return true;
     }
 }
 
-function checkPartitaIvaLaboratorio(){
-    if(partitaIvaLaboratorio.value.length!==11){
-        partitaIvaLaboratorio.style.backgroundColor="#ff7b5a";
+function checkIbanLaboratorio() {
+    if (ibanLaboratorio.value.length !== 30) {
+        ibanLaboratorio.style.backgroundColor = "#ff7b5a";
         return false;
+    } else {
+        ibanLaboratorio.style.backgroundColor = "white";
+        return true;
     }
-    else{
-        partitaIvaLaboratorio.style.backgroundColor="white";
+}
+
+function checkPartitaIvaLaboratorio() {
+    if (partitaIvaLaboratorio.value.length !== 11) {
+        partitaIvaLaboratorio.style.backgroundColor = "#ff7b5a";
+        return false;
+    } else {
+        partitaIvaLaboratorio.style.backgroundColor = "white";
         return true;
     }
 }
