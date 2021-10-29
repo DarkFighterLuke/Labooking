@@ -6,6 +6,7 @@ var telefonoLaboratorio;
 var emailLaboratorio;
 var passwordLaboratorio;
 var confermaPasswordLaboratorio;
+var testPerOraLaboratorio;
 var tableOrariApertura;
 var tableInfoTest;
 
@@ -17,8 +18,9 @@ function initElementsLaboratorio(){
     telefonoLaboratorio=document.getElementById("telefono-laboratorio");
     emailLaboratorio=document.getElementById("email-laboratorio");
     passwordLaboratorio=document.getElementById("password-laboratorio");
-    confermaPasswordLaboratorio=document.getElementById("conferma-password-laboratorio");
-    tableOrariApertura=document.getElementById("table-orari-apertura");
+    confermaPasswordLaboratorio = document.getElementById("conferma-password-laboratorio");
+    testPerOraLaboratorio = document.getElementById("test-per-ora-laboratorio");
+    tableOrariApertura = document.getElementById("table-orari-apertura");
     tableInfoTest=document.getElementById("table-info-test");
 
     autocomplete(indirizzoLaboratorio);
@@ -32,6 +34,7 @@ function initElementsLaboratorio(){
     emailLaboratorio.addEventListener("focusout", checkEmailLaboratorio);
     passwordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
     confermaPasswordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
+    testPerOraLaboratorio.addEventListener("focusout", checkTestPerOraLaboratorio);
 }
 
 function checkNomeLaboratorio() {
@@ -99,26 +102,35 @@ function checkEmailLaboratorio(){
 
 function checkPasswordLaboratorio(){
     if(passwordLaboratorio.value.length<1 || passwordLaboratorio.value.length>255 || passwordLaboratorio.value!==confermaPasswordLaboratorio.value){
-        passwordLaboratorio.style.backgroundColor="#ff7b5a";
-        confermaPasswordLaboratorio.style.backgroundColor="#ff7b5a";
+        passwordLaboratorio.style.backgroundColor = "#ff7b5a";
+        confermaPasswordLaboratorio.style.backgroundColor = "#ff7b5a";
         return false;
-    }
-    else{
-        passwordLaboratorio.style.backgroundColor="white";
-        confermaPasswordLaboratorio.style.backgroundColor="white";
+    } else {
+        passwordLaboratorio.style.backgroundColor = "white";
+        confermaPasswordLaboratorio.style.backgroundColor = "white";
         return true;
     }
 }
 
-function checkOrariApertura(){
+function checkTestPerOraLaboratorio() {
+    if (testPerOraLaboratorio.value < 1) {
+        testPerOraLaboratorio.style.backgroundColor = "#ff7b5a";
+        return false;
+    } else {
+        testPerOraLaboratorio.style.backgroundColor = "white";
+        return true;
+    }
+}
+
+function checkOrariApertura() {
     eraseErrorDivs();
-    let orariApertura=[];
-    let orariChiusura=[];
-    let giorni=[];
-    for(let i=1; i<tableOrariApertura.rows.length; i++){
-        let oa=tableOrariApertura.rows[i].cells[0].childNodes[1].valueAsDate;
-        let oc=tableOrariApertura.rows[i].cells[1].childNodes[1].valueAsDate;
-        let giorno=tableOrariApertura.rows[i].cells[2].childNodes[1].value;
+    let orariApertura = [];
+    let orariChiusura = [];
+    let giorni = [];
+    for (let i = 1; i < tableOrariApertura.rows.length; i++) {
+        let oa = tableOrariApertura.rows[i].cells[0].childNodes[1].valueAsDate;
+        let oc = tableOrariApertura.rows[i].cells[1].childNodes[1].valueAsDate;
+        let giorno = tableOrariApertura.rows[i].cells[2].childNodes[1].value;
 
         if(oa==null || oc==null || oa.getTime() >= oc.getTime()){
             mostraMessaggioErroreOrari();
