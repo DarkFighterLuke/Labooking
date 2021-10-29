@@ -1,9 +1,6 @@
 var nomeLaboratorio;
 var partitaIvaLaboratorio;
 var indirizzoLaboratorio;
-var capLaboratorio;
-var viaLaboratorio;
-var civicoLaboratorio;
 var telefonoLaboratorio;
 var emailLaboratorio;
 var passwordLaboratorio;
