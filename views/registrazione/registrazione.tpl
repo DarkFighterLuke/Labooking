@@ -65,26 +65,26 @@
                               <th class="w-33 text-center">Orario chiusura</th>
                               <th class="w-33 text-center">Giorno</th>
                            </tr>
-                               <tr>
-                                  <td>
-                                     <input name="orario-apertura-1" type="time">
-                                  </td>
-                                  <td>
-                                     <input name="orario-chiusura-1" type="time">
-                                  </td>
-                                  <td>
-                                     <select name="giorno-1">
-                                        <option value="lunedi">Lunedì</option>
-                                        <option value="martedi">Martedì</option>
-                                        <option value="mercoledi">Mercoledì</option>
-                                        <option value="giovedi">Giovedì</option>
-                                        <option value="venerdi">Venerdì</option>
-                                        <option value="sabato">Sabato</option>
-                                        <option value="domenica">Domenica</option>
-                                     </select>
-                                  </td>
-                               </tr>
-                            </tbody>
+                           <tr>
+                              <td>
+                                 <input name="orario-apertura-1" type="time">
+                              </td>
+                              <td>
+                                 <input name="orario-chiusura-1" type="time">
+                              </td>
+                              <td>
+                                 <select name="giorno-1">
+                                    <option value="lunedi">Lunedì</option>
+                                    <option value="martedi">Martedì</option>
+                                    <option value="mercoledi">Mercoledì</option>
+                                    <option value="giovedi">Giovedì</option>
+                                    <option value="venerdi">Venerdì</option>
+                                    <option value="sabato">Sabato</option>
+                                    <option value="domenica">Domenica</option>
+                                 </select>
+                              </td>
+                           </tr>
+                           </tbody>
                         </table>
                      </div>
                      <div>
