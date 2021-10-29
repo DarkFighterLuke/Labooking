@@ -67,39 +67,6 @@ function checkIndirizzoLaboratorio(){
     }
 }
 
-function checkCapLaboratorio(){
-    if(capLaboratorio.value.length!==5 || !capLaboratorio.value.match(/^[0-9]+$/)){
-        capLaboratorio.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        capLaboratorio.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkViaLaboratorio(){
-    if(viaLaboratorio.value.length<1 || viaLaboratorio.value.length>255){
-        viaLaboratorio.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        viaLaboratorio.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkCivicoLaboratorio(){
-    if(civicoLaboratorio.value.length<1 || civicoLaboratorio.value.length>4 || !civicoLaboratorio.value.match(/^[0-9]+$/) || civicoLaboratorio.value==0){
-        civicoLaboratorio.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        civicoLaboratorio.style.backgroundColor="white";
-        return true;
-    }
-}
-
 function checkTelefonoLaboratorio(){
     if(telefonoLaboratorio.value.length!==10 || !telefonoLaboratorio.value.match(/^[0-9]+$/)){
         telefonoLaboratorio.style.backgroundColor="#ff7b5a";
@@ -223,7 +190,7 @@ function mostraMessaggioErroreInfoTest(){
 }
 
 function submitLaboratorio(){
-    if(!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkCapLaboratorio() && checkViaLaboratorio() && checkCivicoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkOrariApertura() && checkInfoTest())){
+    if (!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkOrariApertura() && checkInfoTest())) {
         event.preventDefault();
         return false;
     }

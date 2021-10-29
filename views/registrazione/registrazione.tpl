@@ -25,42 +25,43 @@
             <div class="tab-content">
                <div id="privato" class="tab-pane fade in active">
                   <!-- Form privato -->
-                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST" onsubmit="return submitPrivato()">
+                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST">
                      <input type="text" name="privato" hidden>
                      {{.FormPrivato | renderform}}
                      <br>Data di nascita: <input name="DataNascita" type="date" value="" id="data-nascita-privato">
-                     <br><br><input id="submit-privato" type="submit">
+                     <br><br><input id="submit-privato" type="submit" onclick="return submitPrivato()">
                   </form>
                </div>
                <div id="organizzazione" class="tab-pane fade">
                   <!-- Form organizzazione -->
-                  <form class="form-labooking" id="form-organizzazione" action="/signup?idForm=organizzazione" method="POST" onsubmit="return submitOrganizzazione()">
+                  <form class="form-labooking" id="form-organizzazione" action="/signup?idForm=organizzazione"
+                        method="POST">
                      <input type="text" name="organizzazione" hidden>
                      {{.FormOrganizzazione | renderform}}
-                     <br><br><input id="submit-organizzazione" type="submit">
+                     <br><br><input id="submit-organizzazione" type="submit" onclick="return submitOrganizzazione()">
                   </form>
                </div>
                <div id="medico" class="tab-pane fade">
                   <!-- Form medico -->
-                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST" onsubmit="return submitMedico()">
+                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST">
                      <input type="text" name="medico" hidden>
                      {{.FormMedico | renderform}}
-                     <br><br><input id="submit-medico" type="submit">
+                     <br><br><input id="submit-medico" type="submit" onclick="return submitMedico()">
                   </form>
                </div>
                <div id="laboratorio" class="tab-pane fade">
                   <!-- Form laboratorio -->
-                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST" onsubmit="return submitLaboratorio()">
+                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST">
                      <input type="text" name="laboratorio" hidden>
                      {{.FormLaboratorio | renderform}}
                      <div class="d-flex justify-content-center">
                         <table id="table-orari-apertura" class="table w-50">
-                            <tbody class="w-100">
-                               <tr>
-                                  <th class="w-33 text-center">Orario apertura</th>
-                                  <th class="w-33 text-center">Orario chiusura</th>
-                                  <th class="w-33 text-center">Giorno</th>
-                               </tr>
+                           <tbody class="w-100">
+                           <tr>
+                              <th class="w-33 text-center">Orario apertura</th>
+                              <th class="w-33 text-center">Orario chiusura</th>
+                              <th class="w-33 text-center">Giorno</th>
+                           </tr>
                                <tr>
                                   <td>
                                      <input name="orario-apertura-1" type="time">
@@ -144,7 +145,7 @@
                                      </select>
                                   </td>
                                   <td class="w-25">
-                                     <input class= "w-75" type="number" name="sierologico-costo" min="0" step="0.5">
+                                     <input class="w-75" type="number" name="sierologico-costo" min="0" step="0.5">
                                   </td>
                                   <td class="w-25">
                                      <input type="checkbox" name="sierologico-effettua">
@@ -153,7 +154,7 @@
                             </tbody>
                         </table>
                      </div>
-                     <br><br><input id="submit-laboratorio" type="submit">
+                     <br><br><input id="submit-laboratorio" type="submit" onclick="return submitLaboratorio()">
                   </form>
                </div>
             </div>
