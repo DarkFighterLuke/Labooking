@@ -25,7 +25,8 @@
             <div class="tab-content">
                <div id="privato" class="tab-pane fade in active">
                   <!-- Form privato -->
-                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST">
+                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST"
+                        autocomplete="off">
                      <input type="text" name="privato" hidden>
                      {{.FormPrivato | renderform}}
                      <br>Data di nascita: <input name="DataNascita" type="date" value="" id="data-nascita-privato">
@@ -35,7 +36,7 @@
                <div id="organizzazione" class="tab-pane fade">
                   <!-- Form organizzazione -->
                   <form class="form-labooking" id="form-organizzazione" action="/signup?idForm=organizzazione"
-                        method="POST">
+                        method="POST" autocomplete="off">
                      <input type="text" name="organizzazione" hidden>
                      {{.FormOrganizzazione | renderform}}
                      <br><br><input id="submit-organizzazione" type="submit" onclick="return submitOrganizzazione()">
@@ -43,7 +44,8 @@
                </div>
                <div id="medico" class="tab-pane fade">
                   <!-- Form medico -->
-                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST">
+                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST"
+                        autocomplete="off">
                      <input type="text" name="medico" hidden>
                      {{.FormMedico | renderform}}
                      <br><br><input id="submit-medico" type="submit" onclick="return submitMedico()">
@@ -51,7 +53,8 @@
                </div>
                <div id="laboratorio" class="tab-pane fade">
                   <!-- Form laboratorio -->
-                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST">
+                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST"
+                        autocomplete="off">
                      <input type="text" name="laboratorio" hidden>
                      {{.FormLaboratorio | renderform}}
                      <div class="d-flex justify-content-center">
