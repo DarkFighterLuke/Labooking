@@ -222,6 +222,16 @@ sup {
   top: -0.5em;
 }
 
+.a-notifica{
+  color:black;
+  text-decoration: none;
+}
+
+.a-notifica:hover{
+  color:white;
+  text-decoration: none;
+}
+
 a {
   color: #0d6efd;
   text-decoration: underline;
@@ -509,6 +519,21 @@ th{
   margin-top: 25px;
   font-size: 20px;
   font-weight: bold;
+}
+
+.notifica{
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 5px;
+  padding-bottom: 8px;
+  margin-bottom: 3px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 2px;
+  border:none;
+  font-weight: 500;
+  border-radius: 4px;
+  opacity: 85%;
 }
 
 button:not(:disabled),
@@ -3681,7 +3706,10 @@ textarea.form-control-lg {
   z-index: 1000;
   display: none;
   min-width: 10rem;
-  padding: 0.5rem 0;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-right: 2px;
+  padding-left: 2px;
   margin: 0;
   font-size: 1rem;
   color: #212529;
@@ -3711,7 +3739,7 @@ textarea.form-control-lg {
 }
 .dropdown-menu-end[data-bs-popper] {
   right: 0;
-  left: auto;
+  left: 75%;
 }
 
 @media (min-width: 576px) {

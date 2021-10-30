@@ -18,7 +18,7 @@
             {{if ne .NumNotifiche "0"}}
             <div class="dropdown-menu dropdown-menu-end me-5 mt-n1" aria-labelledby="navbarDropdown">
                 {{range $i, $v := .Notifiche}}
-                <div>
+                <div class="bg-lightblue">
                     <input type="hidden" class="notifiche" name="notifica-{{$i}}" value="{{.IdTestDiagnostico}}">
                     <a href="/dashboard/referti">Referto del {{.DataEsecuzione.Format "01/02/2006"}} pronto!</a>
                 </div>
@@ -79,13 +79,14 @@
                 {{if ne .NumNotifiche "0"}}
                 <div class="dropdown-menu dropdown-menu-end me-5 mt-n1" aria-labelledby="navbarDropdown">
                     {{range $i, $v := .Notifiche}}
-                    <div>
+                    <div class="bg-lightblue notifica">
                         <input type="hidden" class="notifiche" name="notifica-{{$i}}" value="{{.IdTestDiagnostico}}">
-                        <a href="/dashboard/referti">Referto del {{.DataEsecuzione.Format "01/02/2006"}} pronto!</a>
+                        <a class="a-notifica" href="/dashboard/referti">Referto del {{.DataEsecuzione.Format "01/02/2006"}} pronto!</a>
                     </div>
                     {{end}}
                 </div>
                 {{end}}
+                
             </div>
             <script src="/js/notifiche.js"></script>
             {{end}}
