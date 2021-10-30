@@ -63,19 +63,21 @@
             {{if eq .Ruolo "privato"}}
             <div class="collapse navbar-collapse">
                 <a href="#" class="notification nav-link" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
+                   aria-expanded="false" onclick="onclickNotificationBell()">
                     <img src="/img/icons/bell-svgrepo-com.svg" width=120%>
-                    <span class="badge">{{.NumNotifiche}}</span>
+                    <span id="num-notifiche" class="badge">{{.NumNotifiche}}</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end me-5 mt-n1" aria-labelledby="navbarDropdown">
-                    {{range .Notifiche}}
+                    {{range $i, $v := .Notifiche}}
                     <div>
+                        <input type="hidden" class="notifiche" name="notifica-{{$i}}" value="{{.IdTestDiagnostico}}">
                         <a href="/dashboard/referti">Referto del {{.DataEsecuzione.Format "01/02/2006"}} pronto!</a>
                     </div>
                     {{end}}
                 </div>
             </div>
+            <script src="/js/notifiche.js"></script>
             {{end}}
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle user menu"

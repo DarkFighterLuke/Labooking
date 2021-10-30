@@ -17,6 +17,7 @@ func init() {
 	web.Router("/dashboard/referti", &controllers.RefertoController{})
 
 	web.Router("/api/ricerca", &api.RicercaLaboratorio{})
+	web.Router("/api/notifiche", &api.Notifiche{}, "post:UpdateNotificheLette")
 
 	// signup
 	web.Router("/signup", &controllers.RegistrazioneController{})
