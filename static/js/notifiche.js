@@ -1,5 +1,6 @@
 let isOpen = false;
 let marked = false;
+let documentClick = true;
 
 function onclickNotificationBell() {
     if (!marked) {
@@ -11,13 +12,20 @@ function onclickNotificationBell() {
     } else {
         isOpen = false;
         document.getElementById("num-notifiche").style = "display: none";
+        document.getElementById("num-notifiche-mobile").style = "display: none";
     }
+    documentClick = false;
 }
 
 document.onclick = function () {
+    if (!documentClick) {
+        documentClick = true;
+        return;
+    }
     if (isOpen) {
         isOpen = false;
         document.getElementById("num-notifiche").style = "display: none";
+        document.getElementById("num-notifiche-mobile").style = "display: none";
     }
 }
 

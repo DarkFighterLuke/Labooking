@@ -11,7 +11,7 @@
                aria-expanded="false" {{if ne .NumNotifiche "0"}}onclick="onclickNotificationBell()"{{end}}>
             <img src="/img/icons/bell-svgrepo-com.svg" width=120%>
             {{if ne .NumNotifiche "0"}}
-            <span id="num-notifiche" class="badge">{{.NumNotifiche}}</span>
+            <span id="num-notifiche-mobile" class="badge">{{.NumNotifiche}}</span>
             {{end}}
             </a>
 
@@ -32,7 +32,6 @@
                     <img src="/img/icons/user-avatar-filled-alt-svgrepo-com.svg" alt="Nome Utente">
             </button>
         </div>
-        <script src="/js/notifiche.js"></script>
         {{end}}
 
         <!--suppress XmlDuplicatedId -->
