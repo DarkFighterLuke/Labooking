@@ -521,6 +521,11 @@ th{
   font-weight: bold;
 }
 
+#button-profilo-mobile{
+  color: black;
+  width: auto;
+}
+
 .notifica{
   padding-left: 6px;
   padding-right: 6px;
