@@ -10,11 +10,11 @@ type Notifiche struct {
 	web.Controller
 }
 
-func (nc *Notifiche) UpdateNotificheLette() {
+func (n *Notifiche) UpdateNotificheLette() {
 	for i := 0; ; i++ {
-		idTestDiagnosticoStr := nc.GetString("notifica-" + strconv.Itoa(i))
+		idTestDiagnosticoStr := n.GetString("notifica-" + strconv.Itoa(i))
 		if idTestDiagnosticoStr == "" {
-			return
+			n.Ctx.ResponseWriter.WriteHeader(200)
 		}
 		idTestDiagnostico, err := strconv.Atoi(idTestDiagnosticoStr)
 		if err != nil {

@@ -63,11 +63,14 @@
             {{if eq .Ruolo "privato"}}
             <div class="collapse navbar-collapse">
                 <a href="#" class="notification nav-link" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false" onclick="onclickNotificationBell()">
-                    <img src="/img/icons/bell-svgrepo-com.svg" width=120%>
-                    <span id="num-notifiche" class="badge">{{.NumNotifiche}}</span>
+                   aria-expanded="false" {{if ne .NumNotifiche "0"}}onclick="onclickNotificationBell()"{{end}}>
+                <img src="/img/icons/bell-svgrepo-com.svg" width=120%>
+                {{if ne .NumNotifiche "0"}}
+                <span id="num-notifiche" class="badge">{{.NumNotifiche}}</span>
+                {{end}}
                 </a>
 
+                {{if ne .NumNotifiche "0"}}
                 <div class="dropdown-menu dropdown-menu-end me-5 mt-n1" aria-labelledby="navbarDropdown">
                     {{range $i, $v := .Notifiche}}
                     <div>
@@ -76,6 +79,7 @@
                     </div>
                     {{end}}
                 </div>
+                {{end}}
             </div>
             <script src="/js/notifiche.js"></script>
             {{end}}
