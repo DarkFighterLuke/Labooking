@@ -24,6 +24,9 @@
                 </div>
                 {{end}}
             </div>
+            {{end}}
+        </div>
+        <script src="/js/notifiche.js"></script>
         {{end}}
         <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>-->
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
