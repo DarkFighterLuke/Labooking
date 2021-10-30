@@ -25,20 +25,15 @@
                 {{end}}
             </div>
             {{end}}
-            <div class="dropdown-menu dropdown-menu-end me-5 mt-n1" aria-labelledby="navbarDropdown">
-                                <div class="bg-lightblue notifica">
-                                    <input type="hidden" class="notifiche">
-                                    <a class="a-notifica" href="/dashboard/referti">Referto pronto!</a>
-                                </div>
-                            </div>
-        <button id="button-profilo-mobile" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle user menu"
-                onclick="openUserMenu();"><img src="/img/icons/user-avatar-filled-alt-svgrepo-com.svg"
-                                               alt="Nome Utente"></button>
+
+            <button id="button-profilo-mobile" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle user menu"
+                    onclick="openUserMenu();">
+                    <img src="/img/icons/user-avatar-filled-alt-svgrepo-com.svg" alt="Nome Utente">
+            </button>
         </div>
         <script src="/js/notifiche.js"></script>
         {{end}}
-        <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>-->
 
         <!--suppress XmlDuplicatedId -->
     </div>
@@ -93,19 +88,15 @@
                     {{end}}
                 </div>
                 {{end}}
-                <div class="dropdown-menu dropdown-menu-end me-5 mt-n1" aria-labelledby="navbarDropdown">
-                    <div class="bg-lightblue notifica">
-                        <input type="hidden" class="notifiche">
-                        <a class="a-notifica" href="/dashboard/referti">Referto pronto!</a>
-                    </div>
-                </div>
             </div>
             <script src="/js/notifiche.js"></script>
             {{end}}
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle user menu"
-                    onclick="openUserMenu();"><img src="/img/icons/user-avatar-filled-alt-svgrepo-com.svg"
-                                                   alt="Nome Utente"></button>
+                    onclick="openUserMenu();">
+                    <img src="/img/icons/user-avatar-filled-alt-svgrepo-com.svg"
+                                                   alt="Nome Utente">
+            </button>
             <!--suppress XmlDuplicatedId -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
