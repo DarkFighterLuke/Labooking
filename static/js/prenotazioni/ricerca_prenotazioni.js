@@ -121,7 +121,8 @@ function showSearchResults(){
 
     let eraseBtn=document.createElement("button");
     eraseBtn.onclick=eraseFilters;
-    eraseBtn.innerText="Cancella filtri";
+    eraseBtn.innerText = "Cancella filtri";
+    eraseBtn.className = "bg-lightblue";
 
     parentDiv.appendChild(eraseBtn);
     parentDiv.appendChild(resultsTable);
