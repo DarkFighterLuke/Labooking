@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/beego/beego/v2/client/orm"
+	"github.com/beego/beego/v2/client/orm/clauses/order_clause"
 	"strconv"
 	"time"
 )
@@ -76,6 +77,51 @@ func (td *TestDiagnostico) SelezionaTestAllByLab() (testDiagnostici []*TestDiagn
 	return testDiagnostici, err
 }
 
+func (td *TestDiagnostico) SelezionaTestAllByPriv() (testDiagnostici []*TestDiagnostico, err error) {
+	o := orm.NewOrm()
+
+	orderClause := order_clause.Clause(order_clause.Column("data_esecuzione"), order_clause.SortDescending())
+	_, err = o.QueryTable("test_diagnostico").Filter("id_privato", td.Privato.IdPrivato).RelatedSel().OrderClauses(orderClause).All(&testDiagnostici)
+	for _, v := range testDiagnostici {
+		v.LoadRelatedQuestionari()
+	}
+	return testDiagnostici, err
+}
+
+func SelezionaTestAllByMed(idMedico int64) (testDiagnostici []*TestDiagnostico, err error) {
+	o := orm.NewOrm()
+
+	_, err = o.Raw("SELECT td.* FROM test_diagnostico td, privato p WHERE td.id_privato=p.id_privato AND p.medico=? ORDER BY data_esecuzione DESC", idMedico).QueryRows(&testDiagnostici)
+	if err != nil {
+		return nil, err
+	}
+	for _, v := range testDiagnostici {
+		err = v.Privato.Seleziona("id_privato")
+		if err != nil {
+			return nil, err
+		}
+		v.LoadRelatedQuestionari()
+	}
+	return testDiagnostici, err
+}
+
+func SelezionaTestAllByOrg(idOrganizzazione int64) (testDiagnostici []*TestDiagnostico, err error) {
+	o := orm.NewOrm()
+
+	_, err = o.Raw("SELECT td.* FROM test_diagnostico td, privato p WHERE td.id_privato=p.id_privato AND p.organizzazione=? ORDER BY data_esecuzione DESC", idOrganizzazione).QueryRows(&testDiagnostici)
+	if err != nil {
+		return nil, err
+	}
+	for _, v := range testDiagnostici {
+		err = v.Privato.Seleziona("id_privato")
+		if err != nil {
+			return nil, err
+		}
+		v.LoadRelatedQuestionari()
+	}
+	return testDiagnostici, err
+}
+
 func (td *TestDiagnostico) LoadRelatedQuestionari() {
 	qa := new(QuestionarioAnamnesi)
 	qa.TestDiagnostico = new(TestDiagnostico)
@@ -94,7 +140,7 @@ func (td *TestDiagnostico) CheckInviaMailiOrganizzazione() (bool, error) {
 	var prenotazioniNotificate int
 
 	dataStr := td.DataPrenotazione.Format("2006-01-02")
-	organizzazioneStr := strconv.Itoa(td.Privato.Organizzazione.IdOrganizzazione)
+	organizzazioneStr := strconv.Itoa(int(td.Privato.Organizzazione.IdOrganizzazione))
 	queryPrenotazioni := "SELECT COUNT(*) FROM test_diagnostico td, privato p WHERE data_prenotazione = '" + dataStr + "' AND td.id_privato = p.id_privato AND p.organizzazione = '" + organizzazioneStr + "'"
 	err := o.Raw(queryPrenotazioni).QueryRow(&prenotazioni)
 	if err != nil {

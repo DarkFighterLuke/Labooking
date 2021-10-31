@@ -2,7 +2,7 @@
 <div class="parent">
     <div id="div-tabella" class="table-container">
         <form method="POST" action="/dashboard/referti" enctype="multipart/form-data">
-            <input type="submit" value="Salva modifiche">
+            <input type="submit" class="bg-lightblue" value="Salva modifiche">
             <table id="table-orari-privati" class="table-responsive">
                 <tbody>
                 <tr id="first-tr">
@@ -77,6 +77,7 @@
                 </td>
                 <td>
                     {{if not .Referto}}
+                    {{if eq $.Ruolo "laboratorio"}}
                     <input type="file" name="referto-upload-{{$i}}" accept="application/pdf">
                     <br>
                     <label for="esito-{{$i}}">Esito:</label>
@@ -86,7 +87,12 @@
                         <option value="positivo">Positivo</option>
                     </select>
                     {{else}}
-                    <a href="/dashboard/referti?idReferto={{.Referto.IdReferto}}"><img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
+                    <p>Il referto non è ancora disponibile</p>
+                    {{end}}
+                    {{else}}
+                    <a href="/dashboard/referti/download?idReferto={{.Referto.IdReferto}}"><img
+                            src="/img/icons/electrocardiogram-report-svgrepo-com.svg" width="60"
+                            class="list-group-item-image"/></a>
                     {{end}}
                 </td>
                 <td>

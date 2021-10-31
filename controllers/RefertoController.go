@@ -3,9 +3,9 @@ package controllers
 import (
 	"Labooking/controllers/utils"
 	"Labooking/models"
-	"fmt"
 	"github.com/beego/beego/v2/server/web"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -16,57 +16,52 @@ type RefertoController struct {
 }
 
 func (rc *RefertoController) Get() {
-	if rc.GetSession("ruolo") == "laboratorio" {
-		idTestDiagnosticoStr := rc.GetString("idReferto")
-		if idTestDiagnosticoStr == "" {
-			rc.Ctx.WriteString("referto: referto inesistente")
-			return
-		}
-
-		idTestDiagnostico, err := strconv.Atoi(idTestDiagnosticoStr)
-		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
-			return
-		}
-
+	var testDiagnostici []*models.TestDiagnostico
+	email := rc.GetSession("email")
+	if rc.GetSession("ruolo") == "privato" {
 		td := new(models.TestDiagnostico)
-		td.IdTestDiagnostico = int64(idTestDiagnostico)
-		err = td.Seleziona("id_test_diagnostico")
+		p := new(models.Privato)
+		p.Email = email.(string)
+		err := p.Seleziona("email")
 		if err != nil {
-			rc.Ctx.WriteString("referto: test diagnostico inesistente")
+			rc.Ctx.WriteString("referti: " + err.Error())
 			return
 		}
-		if td.Referto == nil {
-			rc.Ctx.WriteString("referto: referto inesistente")
+		td.Privato = p
+		testDiagnostici, err = td.SelezionaTestAllByPriv()
+		if err != nil {
 			return
 		}
-
-		r := new(models.Referto)
-		r.IdReferto = td.Referto.IdReferto
-		err = r.Seleziona("id_referto")
+	} else if rc.GetSession("ruolo") == "medico" {
+		m := new(models.Medico)
+		m.Email = email.(string)
+		err := m.Seleziona("email")
 		if err != nil {
-			rc.Ctx.WriteString("referto: referto inesistente")
+			rc.Ctx.WriteString("referti: " + err.Error())
 			return
 		}
-
-		pathReferti, err := web.AppConfig.String("pathreferti")
+		testDiagnostici, err = models.SelezionaTestAllByMed(m.IdMedico)
 		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
 			return
 		}
-		refertoBytes, err := ioutil.ReadFile(pathReferti + r.Nome + ".pdf")
+	} else if rc.GetSession("ruolo") == "organizzazione" {
+		o := new(models.Organizzazione)
+		o.Email = email.(string)
+		err := o.Seleziona("email")
 		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
+			rc.Ctx.WriteString("referti: " + err.Error())
 			return
 		}
-
-		rc.Ctx.ResponseWriter.Header().Set("Content-Type", "application/pdf")
-		_, err = rc.Ctx.ResponseWriter.Write(refertoBytes)
+		testDiagnostici, err = models.SelezionaTestAllByOrg(o.IdOrganizzazione)
 		if err != nil {
-			fmt.Println(err)
 			return
 		}
 	}
+
+	utils.RenderLayout(&rc.Controller)
+	rc.Data["Title"] = "Prenotazioni"
+	rc.Data["TestDiagnostici"] = testDiagnostici
+	rc.TplName = "dashboard/prenotazioni/prenotazioni_laboratorio.tpl"
 }
 
 func (rc *RefertoController) Post() {
@@ -250,4 +245,56 @@ func componiMsgOrganizzazione(dataPrenotazione time.Time) (string, error) {
 		"Visita il nostro sito per visualizzarli: " + link + "\n"
 
 	return msg, nil
+}
+
+func (rc *RefertoController) DownloadReferto() {
+	idTestDiagnosticoStr := rc.GetString("idReferto")
+	if idTestDiagnosticoStr == "" {
+		rc.Ctx.WriteString("referto: referto inesistente")
+		return
+	}
+
+	idTestDiagnostico, err := strconv.Atoi(idTestDiagnosticoStr)
+	if err != nil {
+		rc.Ctx.WriteString("referto: " + err.Error())
+		return
+	}
+
+	td := new(models.TestDiagnostico)
+	td.IdTestDiagnostico = int64(idTestDiagnostico)
+	err = td.Seleziona("id_test_diagnostico")
+	if err != nil {
+		rc.Ctx.WriteString("referto: test diagnostico inesistente")
+		return
+	}
+	if td.Referto == nil {
+		rc.Ctx.WriteString("referto: referto inesistente")
+		return
+	}
+
+	r := new(models.Referto)
+	r.IdReferto = td.Referto.IdReferto
+	err = r.Seleziona("id_referto")
+	if err != nil {
+		rc.Ctx.WriteString("referto: referto inesistente")
+		return
+	}
+
+	pathReferti, err := web.AppConfig.String("pathreferti")
+	if err != nil {
+		rc.Ctx.WriteString("referto: " + err.Error())
+		return
+	}
+	refertoBytes, err := ioutil.ReadFile(pathReferti + r.Nome + ".pdf")
+	if err != nil {
+		rc.Ctx.WriteString("referto: " + err.Error())
+		return
+	}
+
+	rc.Ctx.ResponseWriter.Header().Set("Content-Type", "application/pdf")
+	_, err = rc.Ctx.ResponseWriter.Write(refertoBytes)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 }
