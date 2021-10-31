@@ -2,7 +2,9 @@
 <div class="parent">
     <div id="div-tabella" class="table-container">
         <form method="POST" action="/dashboard/referti" enctype="multipart/form-data">
+            {{if eq .Ruolo "laboratorio"}}
             <input type="submit" class="bg-lightblue" value="Salva modifiche">
+            {{end}}
             <table id="table-orari-privati" class="table-responsive">
                 <tbody>
                 <tr id="first-tr">
