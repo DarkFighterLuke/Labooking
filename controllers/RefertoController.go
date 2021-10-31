@@ -59,7 +59,7 @@ func (rc *RefertoController) Get() {
 	}
 
 	utils.RenderLayout(&rc.Controller)
-	rc.Data["Title"] = "Prenotazioni"
+	rc.Data["Title"] = "Referti"
 	rc.Data["TestDiagnostici"] = testDiagnostici
 	rc.TplName = "dashboard/prenotazioni/prenotazioni_laboratorio.tpl"
 }
