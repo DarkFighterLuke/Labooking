@@ -272,6 +272,68 @@ func (rc *RefertoController) DownloadReferto() {
 		return
 	}
 
+	ruolo := rc.GetSession("ruolo").(string)
+	email := rc.GetSession("email").(string)
+	if ruolo == "laboratorio" {
+		l := new(models.Laboratorio)
+		l.Email = email
+		err = l.Seleziona("email")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+		if l.IdLaboratorio != td.Laboratorio.IdLaboratorio {
+			rc.Ctx.WriteString("referto: non sei autorizzato a visualizzare questo referto")
+			return
+		}
+	} else if ruolo == "privato" {
+		p := new(models.Privato)
+		p.Email = email
+		err = p.Seleziona("email")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+		if p.IdPrivato != td.Privato.IdPrivato {
+			rc.Ctx.WriteString("referto: non sei autorizzato a visualizzare questo referto")
+			return
+		}
+	} else if ruolo == "medico" {
+		m := new(models.Medico)
+		m.Email = email
+		err = m.Seleziona("email")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+		err = td.Privato.Seleziona("id_privato")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+		if td.Privato.Medico.IdMedico != m.IdMedico {
+			rc.Ctx.WriteString("referto: non sei autorizzato a visualizzare questo referto")
+			return
+		}
+	} else if ruolo == "organizzazione" {
+		o := new(models.Organizzazione)
+		o.Email = email
+		err = o.Seleziona("email")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+		err = td.Privato.Seleziona("id_privato")
+		if err != nil {
+			rc.Ctx.WriteString("referto: " + err.Error())
+			return
+		}
+		if td.Privato.Organizzazione.IdOrganizzazione != o.IdOrganizzazione {
+			rc.Ctx.WriteString("referto: non sei autorizzato a visualizzare questo referto")
+			return
+		}
+	}
+
 	r := new(models.Referto)
 	r.IdReferto = td.Referto.IdReferto
 	err = r.Seleziona("id_referto")
