@@ -9,9 +9,9 @@ var cercaEsito = document.getElementById("cerca-esito");
 var mapArray=[];
 var foundArray=[];
 
-function retrieveDataFromTable(){
-    let table=document.getElementById("table-orari-privati");
-    for(let i=2; i<table.rows.length; i++) {
+function retrieveDataFromTable(startIndex) {
+    let table = document.getElementById("table-orari-privati");
+    for (let i = startIndex; i < table.rows.length; i++) {
         let m = new Map();
         m.set("id", table.rows[i].cells[0].innerText);
         m.set("dataEsecuzione", table.rows[i].cells[1].innerText);
@@ -28,8 +28,8 @@ function retrieveDataFromTable(){
 
 function cercaPrenotazioni(){
     mapArray=[];
-    foundArray=[];
-    retrieveDataFromTable();
+    foundArray = [];
+    retrieveDataFromTable(2);
 
     let searchValues=new Map();
     searchValues.set("id", cercaId.value);
@@ -128,13 +128,15 @@ function showSearchResults(){
         resultsTable.rows[1].cells[8].innerHTML = foundArray[i].get("questionario");
     }
 
-    let eraseBtn=document.createElement("button");
-    eraseBtn.onclick=eraseFilters;
+    let eraseBtn = document.createElement("button");
+    eraseBtn.onclick = eraseFilters;
     eraseBtn.innerText = "Cancella filtri";
     eraseBtn.className = "bg-lightblue";
 
     parentDiv.appendChild(eraseBtn);
     parentDiv.appendChild(resultsTable);
+
+    calcolaStatistiche();
 }
 
 function eraseFilters(){

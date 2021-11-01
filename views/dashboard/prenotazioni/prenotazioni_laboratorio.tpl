@@ -121,13 +121,15 @@
                             class="list-group-item-image"/></a>
                     {{end}}
                 </td>
-                <td>
-                    <a href="/questionari/{{.Questionario.Nome}}.pdf"><img src="/img/icons/contact-form-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
-                </td>
-            </tr>
-            {{end}}
-            </tbody>
-        </table>
+                    <td>
+                        <a href="/questionari/{{.Questionario.Nome}}.pdf"><img
+                                src="/img/icons/contact-form-svgrepo-com.svg" width="60" class="list-group-item-image"/></a>
+                    </td>
+                </tr>
+                {{end}}
+                </tbody>
+            </table>
     </div>
 </div>
 <script src="/js/prenotazioni/ricerca_prenotazioni.js"></script>
+<script src="/js/referto/statistiche_referti.js"></script>
