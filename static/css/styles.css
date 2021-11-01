@@ -471,11 +471,16 @@ input[type=radio] {
 td>input[type=text], td>input[type=number], td>input[type=date], td>select, td>button:not(:disabled){
   margin: 0;
   vertical-align: middle;
+  width: 100%;
 }
 
-#first-tr{
+#tr-prenotazioni{
   border-width: 0;
   padding: 5px;
+}
+
+#td-id-test{
+  max-width: 10%;
 }
 
 #table-orari-privati{
@@ -523,6 +528,10 @@ th{
   margin-top: 25px;
   font-size: 20px;
   font-weight: bold;
+}
+
+#button-salva-modifiche {
+  width:auto;
 }
 
 #button-profilo-mobile{
