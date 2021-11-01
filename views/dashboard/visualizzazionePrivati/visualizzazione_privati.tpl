@@ -1,6 +1,12 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
-<div>
-    <table>
+<div id="div-tabella-privati" class="table-container">
+    {{if eq .Ruolo "organizzazione"}}
+    <a href="/dashboard/dipendenti/aggiunta"><button>Aggiungi dipendente</button></a>
+    {{end}}
+    {{if eq .Ruolo "medico"}}
+    <a href="/dashboard/pazienti/aggiunta"><button>Aggiungi paziente</button></a>
+    {{end}}
+    <table id="table-privati" class="table-responsive">
         <tr>
             <th>ID Privato</th>
             <th>Nome</th>

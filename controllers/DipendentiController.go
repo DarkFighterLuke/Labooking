@@ -24,6 +24,14 @@ func (dc *DipendentiController) Get() {
 		return
 	}
 	utils.RenderLayout(&dc.Controller)
+	dc.Data["Title"] = "I miei dipendenti"
 	dc.Data["Privati"] = dipendenti
 	dc.TplName = "dashboard/visualizzazionePrivati/visualizzazione_privati.tpl"
+}
+
+func (dc *DipendentiController) VisualizzaAggiunta() {
+	utils.RenderLayout(&dc.Controller)
+	dc.Data["Title"] = "Aggiunta dipendente"
+	dc.Data["FormPrivato"] = &models.Privato{}
+	dc.TplName = "registrazione/privato/registrazione_privato.tpl"
 }
