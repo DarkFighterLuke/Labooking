@@ -92,7 +92,8 @@ func SelezionaTestAllByMed(idMedico int64) (testDiagnostici []*TestDiagnostico, 
 	o := orm.NewOrm()
 
 	var tempTestDiagnostici []*TestDiagnostico
-	_, err = o.QueryTable("test_diagnostico").RelatedSel().All(&tempTestDiagnostici)
+	orderClause := order_clause.Clause(order_clause.Column("data_esecuzione"), order_clause.SortDescending())
+	_, err = o.QueryTable("test_diagnostico").RelatedSel().OrderClauses(orderClause).All(&tempTestDiagnostici)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +116,8 @@ func SelezionaTestAllByOrg(idOrganizzazione int64) (testDiagnostici []*TestDiagn
 	o := orm.NewOrm()
 
 	var tempTestDiagnostici []*TestDiagnostico
-	_, err = o.QueryTable("test_diagnostico").RelatedSel().All(&tempTestDiagnostici)
+	orderClause := order_clause.Clause(order_clause.Column("data_esecuzione"), order_clause.SortDescending())
+	_, err = o.QueryTable("test_diagnostico").RelatedSel().OrderClauses(orderClause).All(&tempTestDiagnostici)
 	if err != nil {
 		return nil, err
 	}
