@@ -502,6 +502,10 @@ button,
   width:15%;
 }
 
+#td-button{
+  text-align: right;
+}
+
 td{
   text-align: center;
   padding: 5px;

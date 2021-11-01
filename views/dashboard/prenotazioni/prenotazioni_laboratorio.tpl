@@ -53,8 +53,8 @@
                             <option value="positivo">Positivo</option>
                         </select>
                     </td>
-                    <td colspan="2">
-                        <button class="bg-lightblue w-100" id="cerca" onclick="return cercaPrenotazioni()">Cerca
+                    <td id="td-button" colspan="2">
+                        <button class="bg-lightblue w-75" id="cerca" onclick="return cercaPrenotazioni()">Cerca
                         </button>
                     </td>
                 </tr>
