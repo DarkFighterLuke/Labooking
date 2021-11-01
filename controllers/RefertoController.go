@@ -261,13 +261,9 @@ func (rc *RefertoController) DownloadReferto() {
 	}
 
 	td := new(models.TestDiagnostico)
-	td.IdTestDiagnostico = int64(idTestDiagnostico)
-	err = td.Seleziona("id_test_diagnostico")
+	td.Referto = &models.Referto{IdReferto: int64(idTestDiagnostico)}
+	err = td.Seleziona("id_referto")
 	if err != nil {
-		rc.Ctx.WriteString("referto: test diagnostico inesistente")
-		return
-	}
-	if td.Referto == nil {
 		rc.Ctx.WriteString("referto: referto inesistente")
 		return
 	}
