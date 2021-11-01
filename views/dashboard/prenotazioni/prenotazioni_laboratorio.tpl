@@ -1,10 +1,12 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
-<div class="parent">
-    {{if eq .Ruolo "organizzazione"}}
-    <div id="div-statistiche">
 
-    </div>
-    {{end}}
+{{if eq .Ruolo "organizzazione"}}
+<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+<script src="bar.js" type="text/javascript"></script>
+<div id="container-statistiche"></div>
+{{end}}
+
+<div class="parent">
     <div id="div-tabella" class="table-container">
         <form method="POST" action="/dashboard/referti" enctype="multipart/form-data">
             {{if eq .Ruolo "laboratorio"}}
