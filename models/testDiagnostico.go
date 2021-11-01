@@ -91,16 +91,22 @@ func (td *TestDiagnostico) SelezionaTestAllByPriv() (testDiagnostici []*TestDiag
 func SelezionaTestAllByMed(idMedico int64) (testDiagnostici []*TestDiagnostico, err error) {
 	o := orm.NewOrm()
 
-	_, err = o.Raw("SELECT td.* FROM test_diagnostico td, privato p WHERE td.id_privato=p.id_privato AND p.medico=? ORDER BY data_esecuzione DESC", idMedico).QueryRows(&testDiagnostici)
+	var tempTestDiagnostici []*TestDiagnostico
+	_, err = o.QueryTable("test_diagnostico").RelatedSel().All(&tempTestDiagnostici)
 	if err != nil {
 		return nil, err
 	}
-	for _, v := range testDiagnostici {
+	for _, v := range tempTestDiagnostici {
 		err = v.Privato.Seleziona("id_privato")
 		if err != nil {
 			return nil, err
 		}
 		v.LoadRelatedQuestionari()
+	}
+	for _, td := range tempTestDiagnostici {
+		if td.Privato.Medico != nil && td.Privato.Medico.IdMedico == idMedico {
+			testDiagnostici = append(testDiagnostici, td)
+		}
 	}
 	return testDiagnostici, err
 }
@@ -108,16 +114,22 @@ func SelezionaTestAllByMed(idMedico int64) (testDiagnostici []*TestDiagnostico, 
 func SelezionaTestAllByOrg(idOrganizzazione int64) (testDiagnostici []*TestDiagnostico, err error) {
 	o := orm.NewOrm()
 
-	_, err = o.Raw("SELECT td.* FROM test_diagnostico td, privato p WHERE td.id_privato=p.id_privato AND p.organizzazione=? ORDER BY data_esecuzione DESC", idOrganizzazione).QueryRows(&testDiagnostici)
+	var tempTestDiagnostici []*TestDiagnostico
+	_, err = o.QueryTable("test_diagnostico").RelatedSel().All(&tempTestDiagnostici)
 	if err != nil {
 		return nil, err
 	}
-	for _, v := range testDiagnostici {
+	for _, v := range tempTestDiagnostici {
 		err = v.Privato.Seleziona("id_privato")
 		if err != nil {
 			return nil, err
 		}
 		v.LoadRelatedQuestionari()
+	}
+	for _, td := range tempTestDiagnostici {
+		if td.Privato.Organizzazione != nil && td.Privato.Organizzazione.IdOrganizzazione == idOrganizzazione {
+			testDiagnostici = append(testDiagnostici, td)
+		}
 	}
 	return testDiagnostici, err
 }

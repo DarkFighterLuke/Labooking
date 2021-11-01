@@ -1,5 +1,10 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
 <div class="parent">
+    {{if eq .Ruolo "organizzazione"}}
+    <div id="div-statistiche">
+
+    </div>
+    {{end}}
     <div id="div-tabella" class="table-container">
         <form method="POST" action="/dashboard/referti" enctype="multipart/form-data">
             {{if eq .Ruolo "laboratorio"}}
@@ -49,6 +54,7 @@
                     <th>Tipologia test</th>
                     <th>Stato</th>
                     <th>Privato</th>
+                    <th>Esito</th>
                     <th>Referto</th>
                     <th>Questionario anamnesi</th>
                 </tr>
@@ -67,26 +73,33 @@
                         {{else}}
                         No
                     {{end}}
-                </td>
-                <td>
-                    {{.TipologiaTest}}
-                </td>
-                <td>
-                    {{.Stato}}
-                </td>
-                <td>
-                    {{.Privato.Nome}} {{.Privato.Cognome}} -- {{.Privato.CodiceFiscale}}
-                </td>
-                <td>
-                    {{if not .Referto}}
-                    {{if eq $.Ruolo "laboratorio"}}
-                    <input type="file" name="referto-upload-{{$i}}" accept="application/pdf">
-                    <br>
-                    <label for="esito-{{$i}}">Esito:</label>
-                    <select id="esito-{{$i}}" name="esito-{{$i}}">
-                        <option value="nullo">Nullo</option>
-                        <option value="negativo">Negativo</option>
-                        <option value="positivo">Positivo</option>
+                    </td>
+                    <td>
+                        {{.TipologiaTest}}
+                    </td>
+                    <td>
+                        {{.Stato}}
+                    </td>
+                    <td>
+                        {{.Privato.Nome}} {{.Privato.Cognome}} -- {{.Privato.CodiceFiscale}}
+                    </td>
+                    <td>
+                        {{if .Referto}}
+                        {{.Referto.Risultato}}
+                        {{else}}
+                        --
+                        {{end}}
+                    </td>
+                    <td>
+                        {{if not .Referto}}
+                        {{if eq $.Ruolo "laboratorio"}}
+                        <input type="file" name="referto-upload-{{$i}}" accept="application/pdf">
+                        <br>
+                        <label for="esito-{{$i}}">Esito:</label>
+                        <select id="esito-{{$i}}" name="esito-{{$i}}">
+                            <option value="nullo">Nullo</option>
+                            <option value="negativo">Negativo</option>
+                            <option value="positivo">Positivo</option>
                     </select>
                     {{else}}
                     <p>Il referto non è ancora disponibile</p>
