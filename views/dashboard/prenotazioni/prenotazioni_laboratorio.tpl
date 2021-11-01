@@ -45,7 +45,18 @@
                     <td>
                         <input type="text" id="cerca-privato">
                     </td>
-                    <td colspan="2"><button class="bg-lightblue w-100" id="cerca" onclick="return cercaPrenotazioni()">Cerca</button></td>
+                    <td>
+                        <select id="cerca-esito">
+                            <option value=""></option>
+                            <option value="nullo">Nullo</option>
+                            <option value="negativo">Negativo</option>
+                            <option value="positivo">Positivo</option>
+                        </select>
+                    </td>
+                    <td colspan="2">
+                        <button class="bg-lightblue w-100" id="cerca" onclick="return cercaPrenotazioni()">Cerca
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <th>ID test</th>
