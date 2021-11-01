@@ -1,0 +1,29 @@
+<h2 class="mt-4 content-tab-title">{{.Title}}</h2>
+<div>
+    <table>
+        <tr>
+            <th>ID Privato</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Codice fiscale</th>
+            <th>Indirizzo</th>
+            <th>Prefisso</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Data di nascita</th>
+        </tr>
+        {{range .Privati}}
+        <tr>
+            <td>{{.IdPrivato}}</td>
+            <td>{{.Nome}}</td>
+            <td>{{.Cognome}}</td>
+            <td>{{.CodiceFiscale}}</td>
+            <td>{{.Indirizzo}}</td>
+            <td>{{.Prefisso}}</td>
+            <td>{{.Telefono}}</td>
+            <td>{{.Email}}</td>
+            <td>{{.DataNascita}}</td>
+        </tr>
+        {{end}}
+    </table>
+</div>
