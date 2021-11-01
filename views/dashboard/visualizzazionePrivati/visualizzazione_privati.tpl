@@ -22,7 +22,7 @@
             <td>{{.Prefisso}}</td>
             <td>{{.Telefono}}</td>
             <td>{{.Email}}</td>
-            <td>{{.DataNascita}}</td>
+            <td>{{.DataNascita.Format "02/01/2006"}}</td>
         </tr>
         {{end}}
     </table>
