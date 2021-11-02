@@ -17,41 +17,37 @@
         <!-- The slideshow -->
         <div class="carousel-inner h-100">
           <div class="carousel-item active h-100 w-100">
-            <div class="card h-100 border border-3 border-info bg-light">
-              <div class="card-body align-middle w-100 d-flex justify-content-center">
+            <div class="card h-100 border border-3 border-info bg-light text-center">
                 <div class="card-body">
                   <h5 class="card-title">Lorem ipsum dolor sit amet</h5>
                   <p class="card-text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
                 </div>
-              </div>
+                <div class="card-footer text-muted"> Labooking SRL </div>
             </div>
           </div>
 
-          <div class="carousel-item h-100">
-            <div class="card h-100 border border-3 border-info  bg-light">
-              <div class="card-body align-middle w-100 d-flex justify-content-center">
+          <div class="carousel-item h-100 w-100">
+            <div class="card h-100 border border-3 border-info bg-light text-center">
                 <div class="card-body">
                   <h5 class="card-title">Lorem ipsum dolor sit amet</h5>
                   <p class="card-text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
                 </div>
-              </div>
+                <div class="card-footer text-muted"> Labooking SRL </div>
             </div>
           </div>
 
-          <div class="carousel-item  h-100">
-            <div class="card h-100 border border-3 border-info  bg-light">
-              <div class="card-body align-middle w-100 d-flex justify-content-center">
+          <div class="carousel-item h-100 w-100">
+            <div class="card h-100 border border-3 border-info bg-light text-center">
                 <div class="card-body">
                   <h5 class="card-title">Lorem ipsum dolor sit amet</h5>
                   <p class="card-text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
                 </div>
-              </div>
+                <div class="card-footer text-muted"> Labooking SRL </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
