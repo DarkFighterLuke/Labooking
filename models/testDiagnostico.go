@@ -179,3 +179,20 @@ func (td *TestDiagnostico) SelezionaAllTestsByPrivatoStato() (testDiagnostici []
 	_, err = o.QueryTable("test_diagnostico").Filter("id_privato", td.Privato.IdPrivato).Filter("stato", td.Stato).All(&testDiagnostici)
 	return testDiagnostici, err
 }
+
+func GetRefertiByTempoLuogo() ([]*TestDiagnostico, error) {
+	o := orm.NewOrm()
+	var testDiagnostici []*TestDiagnostico
+
+	query := "SELECT * FROM test_diagnostico td, laboratorio l WHERE td.id_laboratorio = l.id_laboratorio ORDER BY DATE(td.data_esecuzione), l.indirizzo"
+	_, err := o.Raw(query).QueryRows(&testDiagnostici)
+
+	for _, v := range testDiagnostici {
+		_, err := o.LoadRelated(v, "Laboratorio")
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return testDiagnostici, err
+}
