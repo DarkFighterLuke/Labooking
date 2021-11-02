@@ -3,6 +3,13 @@ initElementsPrivato();
 initElementsMedico();
 initElementsLaboratorio();
 
+document.addEventListener('keypress', function (e) {
+    if (e.keyCode === 13 || e.which === 13) {
+        e.preventDefault();
+        return false;
+    }
+
+});
 
 function underAgeValidate(birthday){
     // it will accept two types of format yyyy-mm-dd and yyyy/mm/dd

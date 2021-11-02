@@ -26,11 +26,6 @@
             <img src="/img/icons/syringe-svgrepo-com.svg" class="list-group-item-image"/>
             Gestisci prenotazioni</a>
         {{end}}
-        {{if eq .Ruolo "laboratorio"}}
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/pubblica">
-            <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
-            Pubblica esiti</a>
-        {{end}}
         {{if or (eq .Ruolo "privato") (eq .Ruolo "medico") (eq .Ruolo "organizzazione")}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/referti">
             <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
