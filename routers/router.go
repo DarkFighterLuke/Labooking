@@ -17,8 +17,10 @@ func init() {
 	web.Router("/dashboard/referti/download", &controllers.RefertoController{}, "get:DownloadReferto")
 	web.Router("/dashboard/referti", &controllers.RefertoController{})
 
+	//api
 	web.Router("/api/ricerca", &api.RicercaLaboratorio{})
 	web.Router("/api/notifiche", &api.Notifiche{}, "post:UpdateNotificheLette")
+	web.Router("/api/aziendasanitaria/prelevareferti", &api.AziendaSanitaria{}, "get:PrelevaReferti")
 
 	// signup
 	web.Router("/signup", &controllers.RegistrazioneController{})
