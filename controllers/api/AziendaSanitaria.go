@@ -37,3 +37,34 @@ func (as *AziendaSanitaria) PrelevaReferti() {
 		return
 	}
 }
+
+func (as *AziendaSanitaria) PrelevaUtentiPositivi() {
+	privati, err := models.GetPrivatiPositivi()
+	if err != nil {
+		as.Ctx.WriteString("preleva utenti positivi: " + err.Error())
+		return
+	}
+
+	type privatoMinified struct {
+		Nome                   string
+		Cognome                string
+		CodiceFiscale          string
+		NumeroTesseraSanitaria string
+		Indirizzo              string
+		Prefisso               string
+		Telefono               string
+		Email                  string
+	}
+
+	var privatiMinified []*privatoMinified
+	for _, v := range privati {
+		privatiMinified = append(privatiMinified, &privatoMinified{v.Nome, v.Cognome, v.CodiceFiscale, v.NumeroTesseraSanitaria, v.Indirizzo, v.Prefisso, v.Telefono, v.Email})
+	}
+
+	as.Data["json"] = privatiMinified
+	err = as.ServeJSON()
+	if err != nil {
+		as.Ctx.WriteString("preleva utenti positivi: " + err.Error())
+		return
+	}
+}

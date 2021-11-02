@@ -21,6 +21,7 @@ func init() {
 	web.Router("/api/ricerca", &api.RicercaLaboratorio{})
 	web.Router("/api/notifiche", &api.Notifiche{}, "post:UpdateNotificheLette")
 	web.Router("/api/aziendasanitaria/prelevareferti", &api.AziendaSanitaria{}, "get:PrelevaReferti")
+	web.Router("/api/aziendasanitaria/prelevautentipositivi", &api.AziendaSanitaria{}, "get:PrelevaUtentiPositivi")
 
 	// signup
 	web.Router("/signup", &controllers.RegistrazioneController{})
