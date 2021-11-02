@@ -105,6 +105,7 @@ func (rc *RegistrazioneController) registrazionePrivato() error {
 		}
 	} else if rc.GetSession("ruolo") == "medico" {
 		m := new(models.Medico)
+		m.Email = rc.GetSession("email").(string)
 		err = m.Seleziona("email")
 		if err != nil {
 			return err

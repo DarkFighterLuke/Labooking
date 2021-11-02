@@ -17,7 +17,9 @@ func init() {
 	web.Router("/dashboard/referti/download", &controllers.RefertoController{}, "get:DownloadReferto")
 	web.Router("/dashboard/referti", &controllers.RefertoController{})
 	web.Router("/dashboard/dipendenti", &controllers.PrivatoController{})
+	web.Router("/dashboard/pazienti", &controllers.PrivatoController{})
 	web.Router("/dashboard/dipendenti/aggiunta", &controllers.PrivatoController{}, "get:VisualizzaAggiunta")
+	web.Router("/dashboard/pazienti/aggiunta", &controllers.PrivatoController{}, "get:VisualizzaAggiunta")
 
 	web.Router("/api/ricerca", &api.RicercaLaboratorio{})
 	web.Router("/api/notifiche", &api.Notifiche{}, "post:UpdateNotificheLette")
