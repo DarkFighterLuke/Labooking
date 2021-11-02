@@ -25,62 +25,66 @@
             <div class="tab-content">
                <div id="privato" class="tab-pane fade in active">
                   <!-- Form privato -->
-                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST" onsubmit="return submitPrivato()">
+                  <form class="form-labooking" id="form-privato" action="/signup?idForm=privato" method="POST"
+                        autocomplete="off">
                      <input type="text" name="privato" hidden>
                      {{.FormPrivato | renderform}}
                      <br>Data di nascita: <input name="DataNascita" type="date" value="" id="data-nascita-privato">
-                     <br><br><input id="submit-privato" type="submit">
+                     <br><br><input id="submit-privato" type="submit" onclick="return submitPrivato()">
                   </form>
                </div>
                <div id="organizzazione" class="tab-pane fade">
                   <!-- Form organizzazione -->
-                  <form class="form-labooking" id="form-organizzazione" action="/signup?idForm=organizzazione" method="POST" onsubmit="return submitOrganizzazione()">
+                  <form class="form-labooking" id="form-organizzazione" action="/signup?idForm=organizzazione"
+                        method="POST" autocomplete="off">
                      <input type="text" name="organizzazione" hidden>
                      {{.FormOrganizzazione | renderform}}
-                     <br><br><input id="submit-organizzazione" type="submit">
+                     <br><br><input id="submit-organizzazione" type="submit" onclick="return submitOrganizzazione()">
                   </form>
                </div>
                <div id="medico" class="tab-pane fade">
                   <!-- Form medico -->
-                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST" onsubmit="return submitMedico()">
+                  <form class="form-labooking" id="form-medico" action="/signup?idForm=medico" method="POST"
+                        autocomplete="off">
                      <input type="text" name="medico" hidden>
                      {{.FormMedico | renderform}}
-                     <br><br><input id="submit-medico" type="submit">
+                     <br><br><input id="submit-medico" type="submit" onclick="return submitMedico()">
                   </form>
                </div>
                <div id="laboratorio" class="tab-pane fade">
                   <!-- Form laboratorio -->
-                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST" onsubmit="return submitLaboratorio()">
+                  <form class="form-labooking" id="form-laboratorio" action="/signup?idForm=laboratorio" method="POST"
+                        autocomplete="off">
                      <input type="text" name="laboratorio" hidden>
                      {{.FormLaboratorio | renderform}}
                      <div class="d-flex justify-content-center">
                         <table id="table-orari-apertura" class="table w-50">
-                            <tbody class="w-100">
-                               <tr>
-                                  <th class="w-33 text-center">Orario apertura</th>
-                                  <th class="w-33 text-center">Orario chiusura</th>
-                                  <th class="w-33 text-center">Giorno</th>
-                               </tr>
-                               <tr>
-                                  <td>
-                                     <input name="orario-apertura-1" type="time">
-                                  </td>
-                                  <td>
-                                     <input name="orario-chiusura-1" type="time">
-                                  </td>
-                                  <td>
-                                     <select name="giorno-1">
-                                        <option value="lunedi">Lunedì</option>
-                                        <option value="martedi">Martedì</option>
-                                        <option value="mercoledi">Mercoledì</option>
-                                        <option value="giovedi">Giovedì</option>
-                                        <option value="venerdi">Venerdì</option>
-                                        <option value="sabato">Sabato</option>
-                                        <option value="domenica">Domenica</option>
-                                     </select>
-                                  </td>
-                               </tr>
-                            </tbody>
+                           <tbody class="w-100">
+                           <tr>
+                              <th class="w-33 text-center">Orario apertura</th>
+                              <th class="w-33 text-center">Orario chiusura</th>
+                              <th class="w-33 text-center">Giorno</th>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <input name="orario-apertura-1" type="time">
+                              </td>
+                              <td>
+                                 <input name="orario-chiusura-1" type="time">
+                              </td>
+                              <td>
+                                 <select name="giorno-1">
+                                    <option value="lunedi">Lunedì</option>
+                                    <option value="martedi">Martedì</option>
+                                    <option value="mercoledi">Mercoledì</option>
+                                    <option value="giovedi">Giovedì</option>
+                                    <option value="venerdi">Venerdì</option>
+                                    <option value="sabato">Sabato</option>
+                                    <option value="domenica">Domenica</option>
+                                 </select>
+                              </td>
+                           </tr>
+                           </tbody>
                         </table>
                      </div>
                      <div>
@@ -88,17 +92,17 @@
                          <script src="js/registrazione/orari_apertura.js"></script>
                      </div>
                      <div class="d-flex justify-content-center">
-                        <table id="table-tamponi" class="table w-75">
-                            <tbody class="w-100">
-                               <tr class="row w-100 d-flex align-items-center">
-                                  <th class="w-25 text-center"> Tipologia test</th>
-                                  <th class="w-25 text-center"> Tempo necessario all'analisi</th>
-                                  <th class="w-25 text-center"> Costo</th>
-                                  <th class="w-25 text-center"> Effettua</th>
-                               </tr>
-                               <tr class="row w-100 d-flex align-items-center">
-                                  <td class="w-25 text-center">Molecolare</td>
-                                  <td class="w-25">
+                        <table id="table-info-test" class="table w-75">
+                           <tbody class="w-100">
+                           <tr class="row w-100 d-flex align-items-center">
+                              <th class="w-25 text-center"> Tipologia test</th>
+                              <th class="w-25 text-center"> Tempo necessario all'analisi</th>
+                              <th class="w-25 text-center"> Costo</th>
+                              <th class="w-25 text-center"> Effettua</th>
+                           </tr>
+                           <tr class="row w-100 d-flex align-items-center">
+                              <td class="w-25 text-center">Molecolare</td>
+                              <td class="w-25">
                                      <input class="w-25" type="number" name="molecolare-ore" min="0">
                                      <select class="w-50" name="molecolare-minuti">
                                         <option value="0">0</option>
@@ -144,7 +148,7 @@
                                      </select>
                                   </td>
                                   <td class="w-25">
-                                     <input class= "w-75" type="number" name="sierologico-costo" min="0" step="0.5">
+                                     <input class="w-75" type="number" name="sierologico-costo" min="0" step="0.5">
                                   </td>
                                   <td class="w-25">
                                      <input type="checkbox" name="sierologico-effettua">
@@ -153,7 +157,7 @@
                             </tbody>
                         </table>
                      </div>
-                     <br><br><input id="submit-laboratorio" type="submit">
+                     <br><br><input id="submit-laboratorio" type="submit" onclick="return submitLaboratorio()">
                   </form>
                </div>
             </div>
@@ -164,6 +168,7 @@
             <a href="/login" class="align-self-center">Sei già registrato? Effettua il login</a>
          </div>
       </div>
+      <script src="/js/utils/error_utils.js"></script>
       <script src="js/utils/autocompleteAddress.js"></script>
       <script src="js/registrazione/prefissi_telefonici.js"></script>
       <script src="js/registrazione/registrazione_privato.js"></script>

@@ -1,57 +1,68 @@
 var nomeLaboratorio;
+var ibanLaboratorio;
 var partitaIvaLaboratorio;
 var indirizzoLaboratorio;
-var capLaboratorio;
-var viaLaboratorio;
-var civicoLaboratorio;
 var telefonoLaboratorio;
 var emailLaboratorio;
 var passwordLaboratorio;
 var confermaPasswordLaboratorio;
+var testPerOraLaboratorio;
 var tableOrariApertura;
 var tableInfoTest;
 
 function initElementsLaboratorio(){
-    nomeLaboratorio=document.getElementById("nome-laboratorio");
-    partitaIvaLaboratorio=document.getElementById("partita-iva-laboratorio");
+    nomeLaboratorio = document.getElementById("nome-laboratorio");
+    ibanLaboratorio = document.getElementById("iban-laboratorio");
+    partitaIvaLaboratorio = document.getElementById("partita-iva-laboratorio");
     indirizzoLaboratorio=document.getElementById("indirizzo-laboratorio");
     telefonoLaboratorio=document.getElementById("telefono-laboratorio");
     emailLaboratorio=document.getElementById("email-laboratorio");
     passwordLaboratorio=document.getElementById("password-laboratorio");
-    confermaPasswordLaboratorio=document.getElementById("conferma-password-laboratorio");
-    tableOrariApertura=document.getElementById("table-orari-apertura");
+    confermaPasswordLaboratorio = document.getElementById("conferma-password-laboratorio");
+    testPerOraLaboratorio = document.getElementById("test-per-ora-laboratorio");
+    tableOrariApertura = document.getElementById("table-orari-apertura");
     tableInfoTest=document.getElementById("table-info-test");
 
     autocomplete(indirizzoLaboratorio);
     aggiungiSelectPrefissi("laboratorio");
 
     nomeLaboratorio.addEventListener("focusout", checkNomeLaboratorio);
+    ibanLaboratorio.addEventListener("focusout", checkIbanLaboratorio);
     partitaIvaLaboratorio.addEventListener("focusout", checkPartitaIvaLaboratorio);
     indirizzoLaboratorio.addEventListener("focusout", checkIndirizzoLaboratorio);
     telefonoLaboratorio.addEventListener("focusout", checkTelefonoLaboratorio);
     emailLaboratorio.addEventListener("focusout", checkEmailLaboratorio);
     passwordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
     confermaPasswordLaboratorio.addEventListener("focusout", checkPasswordLaboratorio);
+    testPerOraLaboratorio.addEventListener("focusout", checkTestPerOraLaboratorio);
 }
 
-function checkNomeLaboratorio(){
-    if(nomeLaboratorio.value.length<1 || nomeLaboratorio.value.length>255 || nomeLaboratorio.value.match(/\d/)){
-        nomeLaboratorio.style.backgroundColor="#ff7b5a";
+function checkNomeLaboratorio() {
+    if (nomeLaboratorio.value.length < 1 || nomeLaboratorio.value.length > 255 || nomeLaboratorio.value.match(/\d/)) {
+        nomeLaboratorio.style.backgroundColor = "#ff7b5a";
         return false;
-    }
-    else{
-        nomeLaboratorio.style.backgroundColor="white";
+    } else {
+        nomeLaboratorio.style.backgroundColor = "white";
         return true;
     }
 }
 
-function checkPartitaIvaLaboratorio(){
-    if(partitaIvaLaboratorio.value.length!==11){
-        partitaIvaLaboratorio.style.backgroundColor="#ff7b5a";
+function checkIbanLaboratorio() {
+    if (ibanLaboratorio.value.length !== 30) {
+        ibanLaboratorio.style.backgroundColor = "#ff7b5a";
         return false;
+    } else {
+        ibanLaboratorio.style.backgroundColor = "white";
+        return true;
     }
-    else{
-        partitaIvaLaboratorio.style.backgroundColor="white";
+}
+
+function checkPartitaIvaLaboratorio() {
+    if (partitaIvaLaboratorio.value.length !== 11) {
+        partitaIvaLaboratorio.style.backgroundColor = "#ff7b5a";
+        return false;
+    } else {
+        partitaIvaLaboratorio.style.backgroundColor = "white";
         return true;
     }
 }
@@ -63,39 +74,6 @@ function checkIndirizzoLaboratorio(){
     }
     else{
         indirizzoLaboratorio.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkCapLaboratorio(){
-    if(capLaboratorio.value.length!==5 || !capLaboratorio.value.match(/^[0-9]+$/)){
-        capLaboratorio.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        capLaboratorio.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkViaLaboratorio(){
-    if(viaLaboratorio.value.length<1 || viaLaboratorio.value.length>255){
-        viaLaboratorio.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        viaLaboratorio.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkCivicoLaboratorio(){
-    if(civicoLaboratorio.value.length<1 || civicoLaboratorio.value.length>4 || !civicoLaboratorio.value.match(/^[0-9]+$/) || civicoLaboratorio.value==0){
-        civicoLaboratorio.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        civicoLaboratorio.style.backgroundColor="white";
         return true;
     }
 }
@@ -124,64 +102,58 @@ function checkEmailLaboratorio(){
 
 function checkPasswordLaboratorio(){
     if(passwordLaboratorio.value.length<1 || passwordLaboratorio.value.length>255 || passwordLaboratorio.value!==confermaPasswordLaboratorio.value){
-        passwordLaboratorio.style.backgroundColor="#ff7b5a";
-        confermaPasswordLaboratorio.style.backgroundColor="#ff7b5a";
+        passwordLaboratorio.style.backgroundColor = "#ff7b5a";
+        confermaPasswordLaboratorio.style.backgroundColor = "#ff7b5a";
         return false;
-    }
-    else{
-        passwordLaboratorio.style.backgroundColor="white";
-        confermaPasswordLaboratorio.style.backgroundColor="white";
+    } else {
+        passwordLaboratorio.style.backgroundColor = "white";
+        confermaPasswordLaboratorio.style.backgroundColor = "white";
         return true;
     }
 }
 
-function checkOrariApertura(){
-    eraseErrorDivs();
-    let orariApertura=[];
-    let orariChiusura=[];
-    let giorni=[];
-    for(let i=1; i<tableOrariApertura.rows.length; i++){
-        let oa=tableOrariApertura.rows[i].cells[0].childNodes[1].valueAsDate;
-        let oc=tableOrariApertura.rows[i].cells[1].childNodes[1].valueAsDate;
-        let giorno=tableOrariApertura.rows[i].cells[2].childNodes[1].value;
+function checkTestPerOraLaboratorio() {
+    if (testPerOraLaboratorio.value < 1) {
+        testPerOraLaboratorio.style.backgroundColor = "#ff7b5a";
+        return false;
+    } else {
+        testPerOraLaboratorio.style.backgroundColor = "white";
+        return true;
+    }
+}
 
-        if(oa==null || oc==null || oa.getTime() >= oc.getTime()){
-            mostraMessaggioErroreOrari();
+function checkOrariApertura() {
+    eraseErrorDivs();
+    let orariApertura = [];
+    let orariChiusura = [];
+    let giorni = [];
+    for (let i = 1; i < tableOrariApertura.rows.length; i++) {
+        let oa = tableOrariApertura.rows[i].cells[0].children[0].valueAsDate;
+        let oc = tableOrariApertura.rows[i].cells[1].children[0].valueAsDate;
+        let giorno = tableOrariApertura.rows[i].cells[2].children[0].value;
+
+        if (oa == null || oc == null || oa.getTime() >= oc.getTime()) {
+            let messaggio = "Sembra che qualcosa non vada con gli orari inseriti. Controlla che siano corretti e riprova.";
+            showErrorDiv(tableOrariApertura, true, messaggio);
             return false;
         }
 
-        for(let j=0; j<orariApertura.length; j+=2){
-            let oatemp=orariApertura[j];
-            let octemp=orariChiusura[j+1];
-            let gtemp=giorni[j];
-            if(oa.getTime()>oatemp.getTime() && oa.getTime()<octemp.getTime() && gtemp===giorno || oc.getTime()>oatemp.getTime() && oc.getTime()>octemp.getTime() && gtemp===giorno){
-                mostraMessaggioErroreOrari();
+        for (let j = 0; j < orariApertura.length; j += 2) {
+            let oatemp = orariApertura[j];
+            let octemp = orariChiusura[j];
+            let gtemp = giorni[j];
+            if (oa.getTime() > oatemp.getTime() && oa.getTime() < octemp.getTime() && gtemp === giorno || oc.getTime() > oatemp.getTime() && oc.getTime() < octemp.getTime() && gtemp === giorno) {
+                let messaggio = "Sembra che qualcosa non vada con gli orari inseriti. Controlla che siano corretti e riprova.";
+                showErrorDiv(tableOrariApertura, true, messaggio);
                 return false;
             }
         }
 
         orariApertura.push(oa);
         orariChiusura.push(oc);
+        giorni.push(giorno);
     }
     return true;
-}
-
-function mostraMessaggioErroreOrari(){
-    let div=document.createElement("div");
-    div.className="div-errore";
-    let p=document.createElement("p");
-    p.className="p-errore";
-    let messaggio="Sembra che qualcosa non vada con gli orari inseriti. Controlla che siano corretti e riprova.";
-    p.innerText=messaggio;
-    div.appendChild(p);
-    tableOrariApertura.before(div);
-}
-
-function eraseErrorDivs(){
-    let errorDivs=document.getElementsByClassName("div-errore");
-    for(let i=0; i<errorDivs.length; i++){
-        errorDivs[i].parentNode.removeChild(errorDivs[i]);
-    }
 }
 
 function checkInfoTest(){
@@ -191,19 +163,27 @@ function checkInfoTest(){
     let costo=[];
     let effettua=[];
 
-    for(let i=0; i<3; i++){
-        effettua[i]=tableInfoTest.rows[i+1].cells[3].childNodes[1].checked;
-        if(effettua[i]==true){
-            ore[i]=tableInfoTest.rows[i+1].cells[1].childNodes[1].value;
-            minuti[i]=tableInfoTest.rows[i+1].cells[1].childNodes[3].value;
-            costo[i]=tableInfoTest.rows[i+1].cells[2].childNodes[1].value;
+    let checked = 0;
+    for (let i = 0; i < 3; i++) {
+        effettua[i] = tableInfoTest.rows[i + 1].cells[3].children[0].checked;
+        if (effettua[i] == true) {
+            ore[i] = tableInfoTest.rows[i + 1].cells[1].children[0].value;
+            minuti[i] = tableInfoTest.rows[i + 1].cells[1].children[1].value;
+            costo[i] = tableInfoTest.rows[i + 1].cells[2].children[0].value;
+            checked++;
         }
     }
+    if (checked < 1) {
+        let messaggio = "Seleziona almeno un tipo di test diagnostico e riprova.";
+        showErrorDiv(tableInfoTest, true, messaggio);
+        return false;
+    }
 
-    for(let i=0; i<3; i++){
-        if(effettua[i]==true){
-            if(ore[i]<0 || (minuti[i]!=0 && minuti[i]!=15 && minuti[i]!=30 && minuti[i]!=45) || costo[i]<0 || costo[i]>9999.99){
-                mostraMessaggioErroreInfoTest();
+    for (let i = 0; i < 3; i++) {
+        if (effettua[i] == true) {
+            if (ore[i] === "" || ore[i] < 0 || (minuti[i] != 0 && minuti[i] != 15 && minuti[i] != 30 && minuti[i] != 45) || costo[i] === "" || costo[i] < 0 || costo[i] > 9999.99) {
+                let messaggio = "Sembra che qualcosa non vada con le info sui test diagnostici effettuati. Controlla che i dati siano corretti e riprova.";
+                showErrorDiv(tableInfoTest, true, messaggio);
                 return false;
             }
         }
@@ -211,19 +191,8 @@ function checkInfoTest(){
     return true;
 }
 
-function mostraMessaggioErroreInfoTest(){
-    let div=document.createElement("div");
-    div.className="div-errore";
-    let p=document.createElement("p");
-    p.className="p-errore";
-    let messaggio="Sembra che qualcosa non vada con le info sui test diagnostici effettuati. Controlla che i dati siano corretti e riprova.";
-    p.innerText=messaggio;
-    div.appendChild(p);
-    tableInfoTest.before(div);
-}
-
 function submitLaboratorio(){
-    if(!(checkNomeLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkCapLaboratorio() && checkViaLaboratorio() && checkCivicoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkOrariApertura() && checkInfoTest())){
+    if (!(checkNomeLaboratorio() && checkIbanLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkIbanLaboratorio() && checkOrariApertura() && checkInfoTest())) {
         event.preventDefault();
         return false;
     }

@@ -50,12 +50,11 @@ function checkPartitaIvaOrganizzazione(){
 }
 
 function checkIndirizzoOrganizzazione(){
-    if(indirizzoOrganizzazione.value.length < 0 || indirizzoOrganizzazione.value.length > 255){
-        indirizzoOrganizzazione.style.backgroundColor="#ff7b5a";
+    if (indirizzoOrganizzazione.value.length < 1 || indirizzoOrganizzazione.value.length > 255) {
+        indirizzoOrganizzazione.style.backgroundColor = "#ff7b5a";
         return false;
-    }
-    else{
-        indirizzoOrganizzazione.style.backgroundColor="white";
+    } else {
+        indirizzoOrganizzazione.style.backgroundColor = "white";
         return true;
     }
 }
