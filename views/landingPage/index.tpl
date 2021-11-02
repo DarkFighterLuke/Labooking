@@ -5,7 +5,7 @@
   <body class="bg-light">
     {{template "landingPage/top_bar.html"}}
     <div class="container h-75 w-100">
-      <div id="carousel-landing-page" class="carousel slide h-50 w-100" data-ride="carousel">
+      <div id="carousel-landing-page" class="carousel slide h-100 w-100" data-ride="carousel">
 
         <!-- The slideshow -->
         <div class="carousel-inner h-100">
@@ -13,9 +13,14 @@
           <div class="carousel-item active h-100 w-100">
             <div class="card h-100 border border-3 border-info bg-light text-center">
                 <div class="card-body">
-                  <h5 class="card-title">Lorem ipsum dolor sit amet</h5>
-                  <p class="card-text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+                    <h5 class="card-title">Servizio Prenotazione Test Diagnostico per Privati</h5>
+                    <p class="card-text">Sei un privato e cerchi un test diagnostico COVID-19?</p>
+                    <p class="card-text">Se la risposta è sì, sei nel posto giusto. Labooking è la piattaforma di riferimento in Italia
+                        per la prenotazione di test diagnostici COVID-19 per privati.</p>
+                    <p class="card-text">Usando il nostro servizio, potrai confrontare prezzi e disponibilità di tutti i laboratori nella tua zona
+                        e prenotare il tuo test diagnostico in pochi semplici click, senza code e lunghe chiamate.
+                    </p>
+                    <a href="/signup" class="btn btn-primary">Prenota Ora</a>
                 </div>
                 <div class="card-footer text-muted"> Labooking SRL </div>
             </div>
