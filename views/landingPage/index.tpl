@@ -5,17 +5,11 @@
   <body class="bg-light">
     {{template "landingPage/top_bar.html"}}
     <div class="container h-75 w-100">
-      <div id="demo" class="carousel slide h-50 w-100" data-ride="carousel">
-
-        <!-- Indicators -->
-        <ul class="carousel-indicators">
-          <li class="bg-primary" data-target="#demo" data-slide-to="0" class="active"></li>
-          <li class="bg-primary" data-target="#demo" data-slide-to="1"></li>
-          <li class="bg-primary" data-target="#demo" data-slide-to="2"></li>
-        </ul>
+      <div id="carousel-landing-page" class="carousel slide h-50 w-100" data-ride="carousel">
 
         <!-- The slideshow -->
         <div class="carousel-inner h-100">
+
           <div class="carousel-item active h-100 w-100">
             <div class="card h-100 border border-3 border-info bg-light text-center">
                 <div class="card-body">
@@ -48,6 +42,16 @@
                 <div class="card-footer text-muted"> Labooking SRL </div>
             </div>
           </div>
+
+          <a class="carousel-control-prev" href="#carousel-landing-page" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-landing-page" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+
         </div>
       </div>
     </div>
