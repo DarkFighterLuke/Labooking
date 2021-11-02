@@ -18,6 +18,7 @@ type TestDiagnostico struct {
 	Pagato            bool                  `orm:""`
 	TipologiaTest     string                `orm:""`
 	Stato             string                `orm:""`
+	LastUpdate        time.Time             `orm:"auto_now;type(datetime)"`
 	Laboratorio       *Laboratorio          `orm:"rel(fk);on_update(cascade);on_delete(do_nothing);column(id_laboratorio)"`
 	Referto           *Referto              `orm:"rel(fk);on_update(cascade);on_delete(cascade);column(id_referto);null"`
 	Privato           *Privato              `orm:"rel(fk);on_update(cascade);on_delete(cascade);column(id_privato)"`
