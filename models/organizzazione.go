@@ -11,7 +11,7 @@ func init() {
 }
 
 type Organizzazione struct {
-	IdOrganizzazione int        `orm:"pk;auto" form:"-"`
+	IdOrganizzazione int64      `orm:"pk;auto" form:"-"`
 	RagioneSociale   string     `orm:"size(255)" form:"" valid:"Required" id:"ragione-sociale-organizzazione"`
 	PartitaIva       string     `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-organizzazione"`
 	Indirizzo        string     `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-organizzazione"`
@@ -22,7 +22,7 @@ type Organizzazione struct {
 	Email            string     `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-organizzazione"`
 	Psw              string     `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-organizzazione"`
 	ConfermaPsw      string     `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-organizzazione"`
-	Dipendenti       []*Privato `orm:"rel(m2m);rel_table(dipendente_presso)"`
+	Dipendenti       []*Privato `orm:"reverse(many)"`
 }
 
 func (org *Organizzazione) Aggiungi() (int64, error) {

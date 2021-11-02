@@ -3,8 +3,6 @@ package models
 import (
 	"Labooking/models/utils"
 	"github.com/beego/beego/v2/client/orm"
-	"github.com/beego/beego/v2/server/web"
-	"net/smtp"
 	"time"
 )
 
@@ -13,8 +11,7 @@ func init() {
 }
 
 type GestioneRecupero interface {
-	creaRecupero() (string, error)
-	InviaLink() error
+	CreaRecupero() (string, error)
 }
 
 type RecuperoPassword struct {
@@ -26,7 +23,7 @@ type RecuperoPassword struct {
 	Organizzazione *Organizzazione `orm:"rel(one);null;on_delete(do_nothing);on_update(cascade);column(id_organizzazione)"`
 }
 
-func (m *Medico) creaRecupero() (string, error) {
+func (m *Medico) CreaRecupero() (string, error) {
 	err := m.Seleziona("email")
 	if err != nil {
 		return "", err
@@ -44,21 +41,7 @@ func (m *Medico) creaRecupero() (string, error) {
 	return rec.HashKey, nil
 }
 
-func (m *Medico) InviaLink() error {
-	hashKey, err := m.creaRecupero()
-	if err != nil {
-		return err
-	}
-
-	err = inviaMail(hashKey, m.Email)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (p *Privato) creaRecupero() (string, error) {
+func (p *Privato) CreaRecupero() (string, error) {
 	err := p.Seleziona("email")
 	if err != nil {
 		return "", err
@@ -76,21 +59,7 @@ func (p *Privato) creaRecupero() (string, error) {
 	return rec.HashKey, nil
 }
 
-func (p *Privato) InviaLink() error {
-	hashKey, err := p.creaRecupero()
-	if err != nil {
-		return err
-	}
-
-	err = inviaMail(hashKey, p.Email)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (l *Laboratorio) creaRecupero() (string, error) {
+func (l *Laboratorio) CreaRecupero() (string, error) {
 	err := l.Seleziona("email")
 	if err != nil {
 		return "", err
@@ -108,21 +77,7 @@ func (l *Laboratorio) creaRecupero() (string, error) {
 	return rec.HashKey, nil
 }
 
-func (l *Laboratorio) InviaLink() error {
-	hashKey, err := l.creaRecupero()
-	if err != nil {
-		return err
-	}
-
-	err = inviaMail(hashKey, l.Email)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (org *Organizzazione) creaRecupero() (string, error) {
+func (org *Organizzazione) CreaRecupero() (string, error) {
 	err := org.Seleziona("email")
 	if err != nil {
 		return "", err
@@ -138,53 +93,6 @@ func (org *Organizzazione) creaRecupero() (string, error) {
 	}
 
 	return rec.HashKey, nil
-}
-
-func (org *Organizzazione) InviaLink() error {
-	hashKey, err := org.creaRecupero()
-	if err != nil {
-		return err
-	}
-
-	err = inviaMail(hashKey, org.Email)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func inviaMail(hashKey, reciver string) error {
-	from, err := web.AppConfig.String("email")
-	if err != nil {
-		return err
-	}
-	pass, err := web.AppConfig.String("passwordemail")
-	if err != nil {
-		return err
-	}
-	to := reciver
-
-	websitelink, err := web.AppConfig.String("websitelink")
-	if err != nil {
-		return err
-	}
-
-	link := websitelink + "cambiapassword?hash=" + hashKey
-
-	msg := "From: " + from + "\n" +
-		"To: " + to + "\n" +
-		"Subject: Recupero password Labooking\n\n" +
-		"Cliccare il seguente link per recuperare la password:\n" + link
-
-	err = smtp.SendMail("smtp.gmail.com:587",
-		smtp.PlainAuth("", from, pass, "smtp.gmail.com"),
-		from, []string{to}, []byte(msg))
-
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 func generaHash() RecuperoPassword {
@@ -238,5 +146,18 @@ func insertOrUpdate(rec *RecuperoPassword, idCol string) error {
 			return err
 		}
 	}
+	return nil
+}
+
+func DeleteHashExpired() error {
+	o := orm.NewOrm()
+	_, err := o.Raw("DELETE FROM recupero_password WHERE timeout < NOW();").Exec()
+	//fmt.Printf("[%v:%v:%v] ", time.Now().Hour(), time.Now().Minute(), time.Now().Second())
+	//x, _ := res.RowsAffected()
+	//fmt.Println("Timer expired hashcode over, number of deleted hash: ", x)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
