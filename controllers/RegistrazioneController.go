@@ -31,7 +31,6 @@ func (rc *RegistrazioneController) Post() {
 			rc.Ctx.WriteString(err.Error())
 			return
 		}
-		rc.Redirect("/login", http.StatusFound)
 		break
 	case "medico":
 		err := rc.registrazioneMedico()
@@ -39,7 +38,6 @@ func (rc *RegistrazioneController) Post() {
 			rc.Ctx.WriteString(err.Error())
 			return
 		}
-		rc.Redirect("/login", http.StatusFound)
 		break
 	case "laboratorio":
 		err := rc.registrazioneLaboratorio()
@@ -47,7 +45,6 @@ func (rc *RegistrazioneController) Post() {
 			rc.Ctx.WriteString(err.Error())
 			return
 		}
-		rc.Redirect("/login", http.StatusFound)
 		break
 	case "organizzazione":
 		err := rc.registrazioneOrganizzazione()
@@ -55,11 +52,19 @@ func (rc *RegistrazioneController) Post() {
 			rc.Ctx.WriteString(err.Error())
 			return
 		}
-		rc.Redirect("/login", http.StatusFound)
 		break
 	default:
 		rc.Abort("400")
 	}
+
+	if rc.GetSession("ruolo") == "organizzazione" && rc.GetString("goToLogin") == "false" {
+		rc.Redirect("/dashboard/dipendenti", http.StatusFound)
+	} else if rc.GetSession("ruolo") == "medico" && rc.GetString("goToLogin") == "false" {
+		rc.Redirect("/dashboard/pazienti", http.StatusFound)
+	} else {
+		rc.Redirect("/login", http.StatusFound)
+	}
+
 }
 
 func (rc *RegistrazioneController) registrazionePrivato() error {
@@ -86,10 +91,39 @@ func (rc *RegistrazioneController) registrazionePrivato() error {
 	if err != nil {
 		return err
 	}
-	_, err = p.Aggiungi()
-	if err != nil {
-		return err
+	if rc.GetSession("ruolo") == "organizzazione" {
+		o := new(models.Organizzazione)
+		o.Email = rc.GetSession("email").(string)
+		err = o.Seleziona("email")
+		if err != nil {
+			return err
+		}
+		p.Organizzazione = o
+		_, err = p.Aggiungi()
+		if err != nil {
+			return err
+		}
+	} else if rc.GetSession("ruolo") == "medico" {
+		m := new(models.Medico)
+		err = m.Seleziona("email")
+		if err != nil {
+			return err
+		}
+		p.Medico = m
+		m.Email = rc.GetSession("email").(string)
+		_, err = p.Aggiungi()
+		if err != nil {
+			return err
+		}
+	} else if p.Psw == "" {
+		return fmt.Errorf("Psw Can not be empty")
+	} else {
+		_, err = p.Aggiungi()
+		if err != nil {
+			return err
+		}
 	}
+
 	return nil
 }
 
