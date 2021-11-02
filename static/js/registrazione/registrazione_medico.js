@@ -2,9 +2,6 @@ var nomeMedico;
 var cognomeMedico;
 var codiceFiscaleMedico;
 var indirizzoMedico;
-var capMedico;
-var viaMedico;
-var civicoMedico;
 var telefonoMedico;
 var emailMedico;
 var passwordMedico;
@@ -80,39 +77,6 @@ function checkIndirizzoMedico(){
     }
 }
 
-function checkCapMedico(){
-    if(capMedico.value.length!==5 || !capMedico.value.match(/^[0-9]+$/)){
-        capMedico.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        capMedico.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkViaMedico(){
-    if(viaMedico.value.length<1 || viaMedico.value.length>255){
-        viaMedico.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        viaMedico.style.backgroundColor="white";
-        return true;
-    }
-}
-
-function checkCivicoMedico(){
-    if(civicoMedico.value.length<1 || civicoMedico.value.length>4 || !civicoMedico.value.match(/^[0-9]+$/) || civicoMedico.value==0){
-        civicoMedico.style.backgroundColor="#ff7b5a";
-        return false;
-    }
-    else{
-        civicoMedico.style.backgroundColor="white";
-        return true;
-    }
-}
-
 function checkTelefonoMedico(){
     if(telefonoMedico.value.length!==10 || !telefonoMedico.value.match(/^[0-9]+$/)){
         telefonoMedico.style.backgroundColor="#ff7b5a";
@@ -159,7 +123,7 @@ function checkCodiceRegionale(){
 }
 
 function submitMedico(){
-    if(!(checkNomeMedico() && checkCognomeMedico() && checkCodiceFiscaleMedico() && checkIndirizzoMedico() && checkCapMedico() && checkViaMedico() && checkCivicoMedico() && checkTelefonoMedico() && checkEmailMedico() && checkPasswordMedico())){
+    if (!(checkNomeMedico() && checkCognomeMedico() && checkCodiceFiscaleMedico() && checkIndirizzoMedico() && checkTelefonoMedico() && checkEmailMedico() && checkPasswordMedico())) {
         event.preventDefault();
         return false;
     }

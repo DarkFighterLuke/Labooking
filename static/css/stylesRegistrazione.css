@@ -79,7 +79,7 @@ button{
     width: 100%!important;
 }
 
-#table-tamponi>tbody>tr>td {
+#table-info-test > tbody > tr > td {
     border: 0;
 }
 

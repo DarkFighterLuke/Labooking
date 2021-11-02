@@ -120,7 +120,9 @@
             </div>
         </div>
 
-        <input id="conferma-prenotazione" type="submit" class="bg-lightblue" value="Conferma prenotazione" onclick="return checkDatiInseriti()">
+        <input id="conferma-prenotazione" type="submit" class="bg-lightblue" value="Conferma prenotazione"
+               onclick="return checkDatiInseriti()">
     </form>
 </div>
+<script src="/js/utils/error_utils.js"></script>
 <script src="/js/prenota/prenota.js"></script>

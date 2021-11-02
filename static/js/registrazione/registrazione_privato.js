@@ -138,7 +138,7 @@ function checkDataNascitaPrivato(){
 }
 
 function submitPrivato(){
-    if(!(checkNomePrivato() && checkCognomePrivato() && checkCodiceFiscalePrivato() && checkNumeroTesseraSanitariaPrivato() && checkIndirizzoPrivato() && checkCapPrivato() && checkViaPrivato() && checkCivicoPrivato() && checkTelefonoPrivato() && checkEmailPrivato() && checkPasswordPrivato() && checkDataNascitaPrivato())){
+    if (!(checkNomePrivato() && checkCognomePrivato() && checkCodiceFiscalePrivato() && checkNumeroTesseraSanitariaPrivato() && checkIndirizzoPrivato() && checkTelefonoPrivato() && checkEmailPrivato() && checkPasswordPrivato() && checkDataNascitaPrivato())) {
         event.preventDefault();
         return false;
     }

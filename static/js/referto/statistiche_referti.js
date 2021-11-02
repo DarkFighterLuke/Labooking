@@ -16,32 +16,60 @@ function calcolaStatistiche() {
             numNulli++;
         }
     }
-    mostraStatistiche(numPositivi, numNegativi, numNulli);
+    return [numPositivi, numNegativi, numNulli]
 }
 
-function mostraStatistiche(numPos, numNeg, numNul) {
-    let divStatistiche = document.getElementById("div-statistiche");
-    if (divStatistiche == null) {
-        return;
-    }
-    let numChildren = divStatistiche.children.length;
-    for (let i = 0; i < numChildren; i++) {
-        divStatistiche.children[0].remove();
-    }
+var values = calcolaStatistiche()
 
-    let pPositivi = document.createElement("p");
-    pPositivi.id = "num-positivi";
-    pPositivi.innerText = "Numero Positivi: ".concat(numPos);
-    let pNegativi = document.createElement("p");
-    pNegativi.id = "num-negativi";
-    pNegativi.innerText = "Numero Negativi: ".concat(numNeg);
-    let pNulli = document.createElement("p");
-    pNulli.id = "num-nulli";
-    pNulli.innerText = "Numero Nulli: ".concat(numNul);
+var chart = new ej.charts.Chart({
 
-    divStatistiche.appendChild(pPositivi);
-    divStatistiche.appendChild(pNegativi);
-    divStatistiche.appendChild(pNulli);
-}
+    primaryXAxis: {
+        valueType: "Category",
+        majorGridLines : {
+            color : 'white',
+            width : 0
+        },
+        minorGridLines : {
+            color : 'white',
+            width : 0
+        }
+    },
 
-window.onload = calcolaStatistiche;
+    primaryYAxis: {
+        title: "Numero Referti",
+        majorGridLines : {
+            color : 'white',
+            width : 0
+        },
+        minorGridLines : {
+            color : 'white',
+            width : 0
+        }
+    },
+
+    //Initializing Chart Series
+    series: [
+        {
+            type: "Bar",
+            dataSource: [
+                { month: "Positivi", visitors: values[0] },
+                { month: "Negativi", visitors: values[1] },
+                { month: "Nulli", visitors: values[2] },
+
+            ],
+            xName: "month",
+            yName: "visitors",
+            marker: {
+                // Data label for chart series
+                dataLabel: {
+                    visible: true
+                }
+            }
+        }
+    ],
+    height: '300'
+
+});
+
+chart.appendTo("#container-statistiche");
+

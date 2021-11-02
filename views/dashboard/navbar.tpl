@@ -18,9 +18,9 @@
             {{if ne .NumNotifiche "0"}}
             <div class="dropdown-menu dropdown-menu-end me-5 mt-n1" aria-labelledby="navbarDropdown">
                 {{range $i, $v := .Notifiche}}
-                <div class="bg-lightblue">
+                <div class="bg-lightblue notifica">
                     <input type="hidden" class="notifiche" name="notifica-{{$i}}" value="{{.IdTestDiagnostico}}">
-                    <a href="/dashboard/referti">Referto del {{.DataEsecuzione.Format "01/02/2006"}} pronto!</a>
+                    <a class="a-notifica" href="/dashboard/referti">Referto del {{.DataEsecuzione.Format "01/02/2006"}} pronto!</a>
                 </div>
                 {{end}}
             </div>
@@ -93,8 +93,7 @@
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle user menu"
                     onclick="openUserMenu();">
-                    <img src="/img/icons/user-avatar-filled-alt-svgrepo-com.svg"
-                                                   alt="Nome Utente">
+                        <img src="/img/icons/user-avatar-filled-alt-svgrepo-com.svg" alt="Nome Utente">
             </button>
             <!--suppress XmlDuplicatedId -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">

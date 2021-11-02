@@ -88,12 +88,12 @@ function checkDatiInseriti() {
         let scadenza=document.getElementById("scadenza");
         let cvv=document.getElementById("cvv");
         if(numeroCarta==null || numeroCarta.value.length!==16 || !/^[0-9]+$/.test(numeroCarta.value) ||scadenza==null || scadenza.value=="" || cvv==null || cvv.value==""){
-            showErrorDiv(document.getElementById("div-pagamenti").children[0], true, "Controllare i dati di pagamento inseriti e riprovare.");
+            showErrorDiv(document.getElementById("div-pagamento").children[0], true, "Controllare i dati di pagamento inseriti e riprovare.");
             errMap.set("pagamenti", false);
         }
     }
     else if(pagaPresenza==null || !pagaPresenza.checked){
-        showErrorDiv(document.getElementById("div-pagamenti").children[0], true, "Scegliere una modalità di pagamento.");
+        showErrorDiv(document.getElementById("div-pagamento").children[0], true, "Scegliere una modalità di pagamento.");
         errMap.set("pagamenti", false);
     }
     let isAllFine=true;
@@ -103,26 +103,4 @@ function checkDatiInseriti() {
         }
     })
     return isAllFine;
-}
-
-function showErrorDiv(parentNode, isBefore, errMessage) {
-    let div = document.createElement("div");
-    div.className = "div-errore";
-    let p = document.createElement("p");
-    p.className = "p-errore";
-    p.innerText = errMessage;
-    div.appendChild(p);
-    if (isBefore) {
-        parentNode.before(div);
-    } else {
-        parentNode.after(div);
-    }
-}
-
-function eraseErrorDivs() {
-    let errorDivs = document.getElementsByClassName("div-errore");
-    let errorDivsLength=errorDivs.length;
-    for (let i = 0; i < errorDivsLength; i++) {
-        errorDivs[0].parentNode.removeChild(errorDivs[0]);
-    }
 }
