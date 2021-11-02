@@ -6,11 +6,11 @@ import (
 	"github.com/beego/beego/v2/server/web"
 )
 
-type DipendentiController struct {
+type PrivatoController struct {
 	web.Controller
 }
 
-func (dc *DipendentiController) Get() {
+func (dc *PrivatoController) Get() {
 	o := new(models.Organizzazione)
 	o.Email = dc.GetSession("email").(string)
 	err := o.Seleziona("email")
@@ -29,7 +29,7 @@ func (dc *DipendentiController) Get() {
 	dc.TplName = "dashboard/visualizzazionePrivati/visualizzazione_privati.tpl"
 }
 
-func (dc *DipendentiController) VisualizzaAggiunta() {
+func (dc *PrivatoController) VisualizzaAggiunta() {
 	utils.RenderLayout(&dc.Controller)
 	dc.Data["Title"] = "Aggiunta dipendente"
 	dc.Data["FormPrivato"] = &models.Privato{}
