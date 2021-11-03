@@ -4,7 +4,7 @@
 
   <body>
     {{template "landingPage/top_bar.html"}}
-    <div class="container h-75 w-100">
+    <div class="container w-100">
       <div id="carousel-landing-page" class="carousel slide h-100 w-100" data-ride="carousel">
 
         <!-- The slideshow -->
@@ -29,10 +29,10 @@
           <div class="carousel-item h-100 w-100">
             <div class="card h-100 border border-3 border-info bg-light text-center">
                 <div class="card-body">
-                  <h5 class="card-title">Servizi Esclusivi per le Aziende</h5>
+                    <h5 class="card-title">Servizi Esclusivi per le Aziende</h5>
                     <p class="card-text">Semplifica la gestione dei test diagnostici per i tuoi dipendenti e mantieni la tua azienda
-                        sicura dal COVID-19.</p>
-                    <p class="card-text">Grazie ai servizi dedicati di Labooking, potrai creare un account aziendale,
+                        al sicuro dal COVID-19.</p>
+                    <p class="card-text">Grazie ai servizi dedicati di Labooking potrai creare un account aziendale,
                         registrare i tuoi dipendenti e prenotare un test diagnostico per il personale della tua azienda
                         in pochi semplici passaggi, risparmiando tempo e denaro.</p>
                     <p class="card-text">Inoltre, avrai accesso alle statistiche e ai referti di tutti i tuoi dipendenti
@@ -46,9 +46,14 @@
           <div class="carousel-item h-100 w-100">
             <div class="card h-100 border border-3 border-info bg-light text-center">
                 <div class="card-body">
-                  <h5 class="card-title">Lorem ipsum dolor sit amet</h5>
-                  <p class="card-text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+                    <h5 class="card-title">Gestione Studio di Medicina Generale</h5>
+                    <p class="card-text">Labooking aiuta anche i medici di base nel semplificare la gestione del proprio studio.</p>
+                    <p class="card-text">Se sei un medico di medicina generale e cerchi una soluzione per fornire ai tuoi pazienti il servizio di
+                    prenotazione dei test diagnostici COVID-19, Labooking può esserti di aiuto.</p>
+                    <p class="card-text">Effettua la registrazione come medico, aggiungi i tuoi pazienti e, in pochi secondi potrai
+                    prenotare per loro un test diagnostico scegliendo tra i molti laboratori disponibili.
+                    </p>
+                    <a href="/signup" class="btn btn-primary">Registrati come medico</a>
                 </div>
                 <div class="card-footer text-muted"> Labooking SRL </div>
             </div>
