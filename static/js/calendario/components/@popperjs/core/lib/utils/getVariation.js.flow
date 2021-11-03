@@ -1,0 +1,6 @@
+// @flow
+import {type Placement, type Variation} from '../enums';
+
+export default function getVariation(placement: Placement): ?Variation {
+  return (placement.split('-')[1]: any);
+}
