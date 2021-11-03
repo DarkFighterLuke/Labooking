@@ -44,15 +44,16 @@ func (p *Privato) Aggiungi() (int64, error) {
 			p.CodiceFiscale = ptemp.CodiceFiscale
 			p.NumeroTesseraSanitaria = ptemp.NumeroTesseraSanitaria
 			p.DataNascita = ptemp.DataNascita
+			p.Psw = ptemp.Psw
 			p.Medico = ptemp.Medico
 		} else {
 			return -1, fmt.Errorf("utente già registrato")
 		}
-	}
-
-	p.Psw, err = utils.CryptSHA1(p.Psw)
-	if err != nil {
-		return -1, err
+	} else {
+		p.Psw, err = utils.CryptSHA1(p.Psw)
+		if err != nil {
+			return -1, err
+		}
 	}
 
 	o := orm.NewOrm()
