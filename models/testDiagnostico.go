@@ -183,14 +183,19 @@ func (td *TestDiagnostico) SelezionaAllTestsByPrivatoStato() (testDiagnostici []
 func GetRefertiByTempoLuogo() ([]*TestDiagnostico, error) {
 	o := orm.NewOrm()
 	var testDiagnostici []*TestDiagnostico
+	var testDiagnosticiTemp []*TestDiagnostico
 
 	query := "SELECT * FROM test_diagnostico td, laboratorio l WHERE td.id_laboratorio = l.id_laboratorio ORDER BY DATE(td.data_esecuzione), l.indirizzo"
-	_, err := o.Raw(query).QueryRows(&testDiagnostici)
+	_, err := o.Raw(query).QueryRows(&testDiagnosticiTemp)
 
-	for _, v := range testDiagnostici {
+	for _, v := range testDiagnosticiTemp {
 		_, err := o.LoadRelated(v, "Laboratorio")
 		if err != nil {
 			return nil, err
+		}
+		_, err = o.LoadRelated(v, "Referto")
+		if err == nil {
+			testDiagnostici = append(testDiagnostici, v)
 		}
 	}
 

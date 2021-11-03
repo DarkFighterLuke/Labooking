@@ -22,11 +22,13 @@ func (as *AziendaSanitaria) PrelevaReferti() {
 		TipologiaTest        string
 		NomeLaboratorio      string
 		IndirizzoLaboratorio string
+		Risultato            string
+		DataRilascio         time.Time
 	}
 	var jsons []*servedJson
 
 	for _, v := range testDiagnostici {
-		json := &servedJson{v.DataEsecuzione, v.TipologiaTest, v.Laboratorio.Nome, v.Laboratorio.Indirizzo}
+		json := &servedJson{v.DataEsecuzione, v.TipologiaTest, v.Laboratorio.Nome, v.Laboratorio.Indirizzo, v.Referto.Risultato, v.Referto.DataRilascio}
 		jsons = append(jsons, json)
 	}
 
