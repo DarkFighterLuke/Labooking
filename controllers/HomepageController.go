@@ -15,6 +15,7 @@ func (hc *HomepageController) Get() {
 	utils.RenderLayout(&hc.Controller)
 
 	td := new(models.TestDiagnostico)
+	td.Privato = new(models.Privato)
 	utente := fmt.Sprint(hc.GetSession("ruolo"))
 	switch utente {
 	case "privato":
