@@ -247,6 +247,17 @@ func GetLaboratoriForMap(laboratori *[]Laboratorio) error {
 	return err
 }
 
+func SelezionaAllLaboratori() ([]*Laboratorio, error) {
+	o := orm.NewOrm()
+
+	var laboratori []*Laboratorio
+	_, err := o.QueryTable("laboratorio").All(&laboratori)
+	if err != nil {
+		return nil, err
+	}
+	return laboratori, nil
+}
+
 func (l *Laboratorio) Valid(v *validation.Validation) {
 
 	if l.Psw != l.ConfermaPsw {
