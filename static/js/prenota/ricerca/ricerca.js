@@ -53,7 +53,6 @@ async function sendFilters(){
     filters.append("sierologico", sierologico);
     filters.append("inizio-intervallo", inizio);
     filters.append("fine-intervallo", fine);
-    // TODO: Inviare data per filtrare anche in base a disponibilità laboratorio
     filters.append("data", data);
 
     let request=new Request(filtersEndpoint, {
