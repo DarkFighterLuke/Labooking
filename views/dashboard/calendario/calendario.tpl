@@ -9,65 +9,16 @@
             tmpl_path: "/js/calendario/tmpls/",
             view: "month",
             events_source: [
-                {{range .Eventi}
-        }
+        {{range .Eventi}}
         {
-            "id"
-        :
-            {
-                {.
-                    Id
-                }
-            }
-        ,
-            "title"
-        :
-            {
-                {.
-                    Title
-                }
-            }
-        ,
-            "url"
-        :
-            {
-                {.
-                    Url
-                }
-            }
-        ,
-            "class"
-        :
-            {
-                {.
-                    Class
-                }
-            }
-        ,
-            "start"
-        :
-            {
-                {.
-                    Start
-                }
-            }
-        ,
-            "end"
-        :
-            {
-                {.
-                    End
-                }
-            }
-        }
-        ,
-        {
-            {
-                end
-            }
-        }
-        ]
-        })
-        ;
+            "id": {{.Id}},
+            "title": {{.Title}},
+            "url": {{.Url}},
+            "class": {{.Class}},
+            "start": {{.Start}},
+            "end": {{.End}}
+        },
+        {{end}}
+            ]});
     </script>
 </div>
