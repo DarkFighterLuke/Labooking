@@ -28,7 +28,7 @@ func (rc *RefertoController) Get() {
 			return
 		}
 		td.Privato = p
-		testDiagnostici, err = td.SelezionaTestAllByPriv()
+		testDiagnostici, err = td.SelezionaTestAllByPriv("data_esecuzione")
 		if err != nil {
 			return
 		}
@@ -40,7 +40,7 @@ func (rc *RefertoController) Get() {
 			rc.Ctx.WriteString("referti: " + err.Error())
 			return
 		}
-		testDiagnostici, err = models.SelezionaTestAllByMed(m.IdMedico)
+		testDiagnostici, err = models.SelezionaTestAllByMed(m.IdMedico, "data_esecuzione")
 		if err != nil {
 			return
 		}
@@ -52,7 +52,7 @@ func (rc *RefertoController) Get() {
 			rc.Ctx.WriteString("referti: " + err.Error())
 			return
 		}
-		testDiagnostici, err = models.SelezionaTestAllByOrg(o.IdOrganizzazione)
+		testDiagnostici, err = models.SelezionaTestAllByOrg(o.IdOrganizzazione, "data_esecuzione")
 		if err != nil {
 			return
 		}

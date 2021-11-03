@@ -395,7 +395,7 @@ func (pc *PrenotazioneController) VisualizzaPrenotazioni() {
 		return
 	}
 	td.Laboratorio = l
-	testDiagnostici, err := td.SelezionaTestAllByLab()
+	testDiagnostici, err := td.SelezionaTestAllByLab("id_test_diagnostico")
 	if err != nil {
 		return
 	}
