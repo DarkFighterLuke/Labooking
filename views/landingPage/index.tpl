@@ -2,7 +2,7 @@
 <html lang="en">
   {{template "landingPage/head.html"}}
 
-  <body class="bg-light">
+  <body>
     {{template "landingPage/top_bar.html"}}
     <div class="container h-75 w-100">
       <div id="carousel-landing-page" class="carousel slide h-100 w-100" data-ride="carousel">
@@ -20,7 +20,7 @@
                     <p class="card-text">Usando il nostro servizio, potrai confrontare prezzi e disponibilità di tutti i laboratori nella tua zona
                         e prenotare il tuo test diagnostico in pochi semplici click, senza code e lunghe chiamate.
                     </p>
-                    <a href="/signup" class="btn btn-primary">Prenota Ora</a>
+                    <a href="/signup" class="btn btn-primary">Prenota un test ora</a>
                 </div>
                 <div class="card-footer text-muted"> Labooking SRL </div>
             </div>
@@ -29,9 +29,15 @@
           <div class="carousel-item h-100 w-100">
             <div class="card h-100 border border-3 border-info bg-light text-center">
                 <div class="card-body">
-                  <h5 class="card-title">Lorem ipsum dolor sit amet</h5>
-                  <p class="card-text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+                  <h5 class="card-title">Servizi Esclusivi per le Aziende</h5>
+                    <p class="card-text">Semplifica la gestione dei test diagnostici per i tuoi dipendenti e mantieni la tua azienda
+                        sicura dal COVID-19.</p>
+                    <p class="card-text">Grazie ai servizi dedicati di Labooking, potrai creare un account aziendale,
+                        registrare i tuoi dipendenti e prenotare un test diagnostico per il personale della tua azienda
+                        in pochi semplici passaggi, risparmiando tempo e denaro.</p>
+                    <p class="card-text">Inoltre, avrai accesso alle statistiche e ai referti di tutti i tuoi dipendenti
+                    in unica piattaforma.</p>
+                    <a href="/signup" class="btn btn-primary">Registra la tua azienda</a>
                 </div>
                 <div class="card-footer text-muted"> Labooking SRL </div>
             </div>
