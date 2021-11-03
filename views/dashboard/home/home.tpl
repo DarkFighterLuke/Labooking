@@ -3,8 +3,12 @@
 <div>
     {{range .TestDiagnostici}}
     <div>
-        <p>Referto Test {{.TipologiaTest}} - {{.LastUpdate}}</p>
+        {{if .Referto}}
+        <p>Referto Test {{.TipologiaTest}} - {{.LastUpdate.Format "02/01/2006"}}</p>
         <p>Accedi alla pagina referti per visualizzarlo</p>
+        {{else}}
+        <p>Prenotazione Test {{.TipologiaTest}} - {{.LastUpdate.Format "02/01/2006"}}</p>
+        {{end}}
     </div>
     {{end}}
 </div>
