@@ -11,4 +11,4 @@
 </div>
 <script src="/js/utils/autocompleteAddress.js"></script>
 <script src="/js/registrazione/prefissi_telefonici.js"></script>
-<script src="/js/dipendenti/aggiunta.js"></script>
+<script src="/js/privati/aggiunta.js"></script>
