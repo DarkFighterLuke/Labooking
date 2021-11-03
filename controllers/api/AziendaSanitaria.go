@@ -68,3 +68,62 @@ func (as *AziendaSanitaria) PrelevaUtentiPositivi() {
 		return
 	}
 }
+
+func (as *AziendaSanitaria) PrelevaStatisticheLaboratori() {
+	laboratori, err := models.SelezionaAllLaboratori()
+	if err != nil {
+		as.Ctx.WriteString("preleva statistiche laboratori: " + err.Error())
+		return
+	}
+
+	type statisticaLaboratorio struct {
+		PartitaIva                      string
+		Nome                            string
+		NumeroTestDiagnosticiEffettuati int
+		NumeroPositivi                  int
+		NumeroNegativi                  int
+		NumeroNulli                     int
+	}
+
+	var statisticheLaboratori []*statisticaLaboratorio
+	for _, v := range laboratori {
+		td := models.TestDiagnostico{Laboratorio: v}
+
+		testsByLab, err := td.SelezionaTestAllByLab()
+		if err != nil {
+			as.Ctx.WriteString("preleva statistiche laboratori: " + err.Error())
+			return
+		}
+
+		var statisticaLaboratorio statisticaLaboratorio
+		statisticaLaboratorio.PartitaIva = v.PartitaIva
+		statisticaLaboratorio.Nome = v.Nome
+		for _, k := range testsByLab {
+			if k.Referto != nil {
+				switch k.Referto.Risultato {
+				case "positivo":
+					statisticaLaboratorio.NumeroTestDiagnosticiEffettuati++
+					statisticaLaboratorio.NumeroPositivi++
+					break
+				case "negativo":
+					statisticaLaboratorio.NumeroTestDiagnosticiEffettuati++
+					statisticaLaboratorio.NumeroNegativi++
+					break
+				case "nullo":
+					statisticaLaboratorio.NumeroTestDiagnosticiEffettuati++
+					statisticaLaboratorio.NumeroNulli++
+					break
+				default:
+				}
+			}
+		}
+		statisticheLaboratori = append(statisticheLaboratori, &statisticaLaboratorio)
+	}
+
+	as.Data["json"] = statisticheLaboratori
+	err = as.ServeJSON()
+	if err != nil {
+		as.Ctx.WriteString("preleva statistiche laboratori: " + err.Error())
+		return
+	}
+}
