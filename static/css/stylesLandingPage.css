@@ -34,20 +34,19 @@ html, body {
 
 p {
     font-weight: normal;
-    font-family: 'Open Sans';
-    font-family: cursive;
+    font-family: 'Open Sans', cursive;
     font-size: 17px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', cursive;
     font-weight: bold;
     font-size: 20px;
 }
 
 nav .navbar-nav li {
     color: white !important;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', cursive;
     font-weight: bold;
     text-decoration: underline;
     font-size: 17px;
@@ -74,7 +73,7 @@ a {
 }
 
 .title {
-    font-family: "Oleo Script Swash Caps";
+    font-family: "Oleo Script Swash Caps", serif;
     color: #fff;
 }
 
@@ -108,3 +107,4 @@ a {
     font-size: 90%;
     border-radius:5px;
 }
+
