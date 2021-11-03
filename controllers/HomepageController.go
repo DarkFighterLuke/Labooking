@@ -63,12 +63,19 @@ func (hc *HomepageController) Get() {
 		break
 	}
 
-	tests, err := td.SelezionaLastUpdate(10, utente)
+	var testDiagnostici []*models.TestDiagnostico
+	var err error
+	if hc.GetString("all") == "true" {
+		testDiagnostici, err = td.SelezionaLastUpdate(10000, utente)
+	} else {
+		testDiagnostici, err = td.SelezionaLastUpdate(10, utente)
+	}
+
 	if err != nil {
 		hc.Ctx.WriteString("homepage: " + err.Error())
 		return
 	}
-	hc.Data["TestDiagnostici"] = tests
+	hc.Data["TestDiagnostici"] = testDiagnostici
 	hc.Data["Title"] = "Attività recenti"
 	hc.TplName = "dashboard/home/home.tpl"
 }

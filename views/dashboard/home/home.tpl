@@ -12,3 +12,4 @@
     </div>
     {{end}}
 </div>
+<div><a href="/dashboard/home?all=true">Meno recenti...</a></div>
