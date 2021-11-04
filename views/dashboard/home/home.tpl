@@ -8,14 +8,18 @@
                 {{if .Referto}}
                     <td>
                         <div class="attivita">
-                            <p> <strong> Referto test {{.TipologiaTest}}</strong> del {{.LastUpdate.Format "02/01/2006"}}</p>
+                            <p> <strong> Referto test {{.TipologiaTest}} </strong> del {{.LastUpdate.Format "02/01/2006"}}</p>
                             <p> Il referto del tuo test diagnostico è pronto. Puoi consultarlo nella sezione
                                 <a href="/dashboard/referti"> referti</a>
                             </p>
                         </div>
                     <td>
                 {{else}}
-                    <td>Prenotazione Test {{.TipologiaTest}} - {{.LastUpdate.Format "02/01/2006"}}</p>
+                    <td>
+                        <div class="attivita">
+                            <p> <strong> Prenotazione test {{.TipologiaTest}} </strong> del {{.LastUpdate.Format "02/01/2006"}}</p>
+                        </div>
+                    </td>
                 {{end}}
                 </tr>
             {{end}}
@@ -23,6 +27,6 @@
     </table>
 </div>
 
-<div>
+<div id="meno-recenti">
     <a href="/dashboard/home?all=true">Meno recenti</a>
 </div>

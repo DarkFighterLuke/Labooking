@@ -589,6 +589,10 @@ th{
   margin-left: 8px;
 }
 
+#meno-recenti {
+  margin-bottom: 15px;
+}
+
 button:not(:disabled),
 [type=button]:not(:disabled),
 [type=reset]:not(:disabled),
