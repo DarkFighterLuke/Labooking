@@ -411,6 +411,20 @@ select:disabled {
   margin-top: 15px;
 }
 
+#table-attivita-recenti{
+  margin-bottom: 15px;
+  margin-top: 15px;
+  width: 80%;
+}
+
+#table-attivita-recenti > tbody > tr{
+  border-width: 0;
+}
+
+#table-attivita-recenti > tbody > tr > td{
+  padding: 5px 0;
+}
+
 #lab-title{
   margin-bottom: 30px;
 }
@@ -534,6 +548,13 @@ th{
   width:auto;
 }
 
+.button-attivita-recenti {
+  width: auto!important;
+  height: auto!important;
+  padding: 5%!important;
+  margin-bottom: 5px!important;
+}
+
 #button-profilo-mobile{
   color: black;
   width: auto;
@@ -556,6 +577,24 @@ th{
   font-weight: 500;
   border-radius: 4px;
   opacity: 85%;
+}
+
+.attivita{
+  background-color: #f8f9fa !important;
+  border-radius: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: left;
+}
+
+.attivita > p{
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 8px;
+}
+
+#meno-recenti {
+  margin-bottom: 15px;
 }
 
 button:not(:disabled),

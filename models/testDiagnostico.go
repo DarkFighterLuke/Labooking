@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/client/orm/clauses/order_clause"
+	"github.com/pkg/errors"
 	"strconv"
 	"time"
 )
@@ -68,20 +69,21 @@ func (td *TestDiagnostico) SelezionaByDataStr(dataStr, slot string) error {
 	return err
 }
 
-func (td *TestDiagnostico) SelezionaTestAllByLab() (testDiagnostici []*TestDiagnostico, err error) {
+func (td *TestDiagnostico) SelezionaTestAllByLab(orderColumn string) (testDiagnostici []*TestDiagnostico, err error) {
 	o := orm.NewOrm()
 
-	_, err = o.QueryTable("test_diagnostico").Filter("id_laboratorio", td.Laboratorio.IdLaboratorio).RelatedSel().All(&testDiagnostici)
+	orderClause := order_clause.Clause(order_clause.Column(orderColumn), order_clause.SortDescending())
+	_, err = o.QueryTable("test_diagnostico").Filter("id_laboratorio", td.Laboratorio.IdLaboratorio).RelatedSel().OrderClauses(orderClause).All(&testDiagnostici)
 	for _, v := range testDiagnostici {
 		v.LoadRelatedQuestionari()
 	}
 	return testDiagnostici, err
 }
 
-func (td *TestDiagnostico) SelezionaTestAllByPriv() (testDiagnostici []*TestDiagnostico, err error) {
+func (td *TestDiagnostico) SelezionaTestAllByPriv(orderColumn string) (testDiagnostici []*TestDiagnostico, err error) {
 	o := orm.NewOrm()
 
-	orderClause := order_clause.Clause(order_clause.Column("data_esecuzione"), order_clause.SortDescending())
+	orderClause := order_clause.Clause(order_clause.Column(orderColumn), order_clause.SortDescending())
 	_, err = o.QueryTable("test_diagnostico").Filter("id_privato", td.Privato.IdPrivato).RelatedSel().OrderClauses(orderClause).All(&testDiagnostici)
 	for _, v := range testDiagnostici {
 		v.LoadRelatedQuestionari()
@@ -89,11 +91,11 @@ func (td *TestDiagnostico) SelezionaTestAllByPriv() (testDiagnostici []*TestDiag
 	return testDiagnostici, err
 }
 
-func SelezionaTestAllByMed(idMedico int64) (testDiagnostici []*TestDiagnostico, err error) {
+func SelezionaTestAllByMed(idMedico int64, orderColumn string) (testDiagnostici []*TestDiagnostico, err error) {
 	o := orm.NewOrm()
 
 	var tempTestDiagnostici []*TestDiagnostico
-	orderClause := order_clause.Clause(order_clause.Column("data_esecuzione"), order_clause.SortDescending())
+	orderClause := order_clause.Clause(order_clause.Column(orderColumn), order_clause.SortDescending())
 	_, err = o.QueryTable("test_diagnostico").RelatedSel().OrderClauses(orderClause).All(&tempTestDiagnostici)
 	if err != nil {
 		return nil, err
@@ -113,11 +115,11 @@ func SelezionaTestAllByMed(idMedico int64) (testDiagnostici []*TestDiagnostico, 
 	return testDiagnostici, err
 }
 
-func SelezionaTestAllByOrg(idOrganizzazione int64) (testDiagnostici []*TestDiagnostico, err error) {
+func SelezionaTestAllByOrg(idOrganizzazione int64, orderColumn string) (testDiagnostici []*TestDiagnostico, err error) {
 	o := orm.NewOrm()
 
 	var tempTestDiagnostici []*TestDiagnostico
-	orderClause := order_clause.Clause(order_clause.Column("data_esecuzione"), order_clause.SortDescending())
+	orderClause := order_clause.Clause(order_clause.Column(orderColumn), order_clause.SortDescending())
 	_, err = o.QueryTable("test_diagnostico").RelatedSel().OrderClauses(orderClause).All(&tempTestDiagnostici)
 	if err != nil {
 		return nil, err
@@ -179,6 +181,45 @@ func (td *TestDiagnostico) SelezionaAllTestsByPrivatoStato() (testDiagnostici []
 	o := orm.NewOrm()
 	_, err = o.QueryTable("test_diagnostico").Filter("id_privato", td.Privato.IdPrivato).Filter("stato", td.Stato).All(&testDiagnostici)
 	return testDiagnostici, err
+}
+
+func (td *TestDiagnostico) SelezionaLastUpdate(limit int64, utente string) ([]*TestDiagnostico, error) {
+	var testDiagnostici []*TestDiagnostico
+	var err error
+	switch utente {
+	case "privato":
+		testDiagnostici, err = td.SelezionaTestAllByPriv("last_update")
+		if err != nil {
+			return nil, err
+		}
+		break
+	case "organizzazione":
+		testDiagnostici, err = SelezionaTestAllByOrg(td.Privato.Organizzazione.IdOrganizzazione, "last_update")
+		if err != nil {
+			return nil, err
+		}
+		break
+	case "laboratorio":
+		testDiagnostici, err = td.SelezionaTestAllByLab("last_update")
+		if err != nil {
+			return nil, err
+		}
+		break
+	case "medico":
+		testDiagnostici, err = SelezionaTestAllByMed(td.Privato.Medico.IdMedico, "last_update")
+		if err != nil {
+			return nil, err
+		}
+		break
+	default:
+		return nil, errors.Errorf("tipo utente inserito errato")
+	}
+
+	if len(testDiagnostici) < int(limit) {
+		return testDiagnostici, err
+	} else {
+		return testDiagnostici[0:limit], err
+	}
 }
 
 func GetRefertiByTempoLuogo() ([]*TestDiagnostico, error) {
