@@ -7,7 +7,7 @@
 {{end}}
 
 <div class="parent">
-    <div id="div-tabella" class="table-container">
+    <div id="div-tabella" class="table-container table-responsive">
         <form method="POST" action="/dashboard/referti" enctype="multipart/form-data">
             {{if eq .Ruolo "laboratorio"}}
             <input id="button-salva-modifiche" type="submit" class="bg-lightblue" value="Salva modifiche">
@@ -15,7 +15,7 @@
             <table id="table-orari-privati" class="table-responsive">
                 <tbody>
                 <tr id="tr-prenotazioni">
-                    <td id="td-id-test">
+                    <td id="td-id-test" class="td-id-test">
                         <input type="number" min="1" id="cerca-id">
                     </td>
                     <td>

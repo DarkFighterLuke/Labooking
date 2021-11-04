@@ -493,8 +493,8 @@ td>input[type=text], td>input[type=number], td>input[type=date], td>select, td>b
   padding: 5px;
 }
 
-#td-id-test{
-  max-width: 10%;
+.td-id-test{
+  width: 5%;
 }
 
 #table-orari-privati{
@@ -558,6 +558,10 @@ th{
 #button-profilo-mobile{
   color: black;
   width: auto;
+}
+
+.button-visualizzazione-privati{
+  width: auto!important;
 }
 
 .notifica{
