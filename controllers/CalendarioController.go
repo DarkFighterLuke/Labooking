@@ -22,7 +22,7 @@ func (cc *CalendarioController) Get() {
 	}
 	td := new(models.TestDiagnostico)
 	td.Privato = p
-	testDiagnostici, err := td.SelezionaTestAllByPriv()
+	testDiagnostici, err := td.SelezionaTestAllByPriv("data_prenotazione")
 	if err != nil {
 		cc.Ctx.WriteString("calendario: " + err.Error())
 		return

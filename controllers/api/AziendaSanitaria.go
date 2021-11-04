@@ -91,7 +91,7 @@ func (as *AziendaSanitaria) PrelevaStatisticheLaboratori() {
 	for _, v := range laboratori {
 		td := models.TestDiagnostico{Laboratorio: v}
 
-		testsByLab, err := td.SelezionaTestAllByLab()
+		testsByLab, err := td.SelezionaTestAllByLab("id_laboratorio")
 		if err != nil {
 			as.Ctx.WriteString("preleva statistiche laboratori: " + err.Error())
 			return
