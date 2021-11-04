@@ -19,7 +19,6 @@
     <div id="page-content-wrapper">
         {{.Navbar}}
         <div class="container-fluid">
-            <!--<h2 class="mt-4 content-tab-title">{{.Title}}</h2>-->
             {{.LayoutContent}}
         </div>
     </div>
