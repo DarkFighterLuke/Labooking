@@ -127,6 +127,7 @@ function checkDateTimeFields(inizio, fine, data) {
     }
     let dataObj = new Date(data);
     let today = new Date();
+    today.setTime(dataObj.getTime());
     if (dataObj < today) {
         flag = false;
         messaggio = "La data non può essere precedente a quella odierna!"
