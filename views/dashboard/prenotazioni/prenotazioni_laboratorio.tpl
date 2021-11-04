@@ -15,7 +15,7 @@
             <table id="table-orari-privati" class="table-responsive">
                 <tbody>
                 <tr id="tr-prenotazioni">
-                    <td class="td-id-test">
+                    <td id="td-id-test" class="td-id-test">
                         <input type="number" min="1" id="cerca-id">
                     </td>
                     <td>
