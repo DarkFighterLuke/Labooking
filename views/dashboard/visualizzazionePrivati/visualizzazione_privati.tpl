@@ -1,18 +1,18 @@
 <h2 class="mt-4 content-tab-title">{{.Title}}</h2>
 <div id="div-tabella-privati" class="table-container">
     {{if eq .Ruolo "organizzazione"}}
-    <a href="/dashboard/dipendenti/aggiunta"><button class="bg-lightblue">Aggiungi dipendente</button></a>
-    <button class="bg-lightblue" onclick="return eliminaSelezionati()">Elimina dipendente</button>
+    <a href="/dashboard/dipendenti/aggiunta"><button class="bg-lightblue button-visualizzazione-privati">Aggiungi dipendente</button></a>
+    <button class="bg-lightblue button-visualizzazione-privati" onclick="return eliminaSelezionati()">Elimina dipendente</button>
     {{end}}
     {{if eq .Ruolo "medico"}}
-    <a href="/dashboard/pazienti/aggiunta"><button class="bg-lightblue">Aggiungi paziente</button></a>
-    <button class="bg-lightblue" onclick="return eliminaSelezionati()">Elimina paziente</button>
+    <a href="/dashboard/pazienti/aggiunta"><button class="bg-lightblue button-visualizzazione-privati">Aggiungi paziente</button></a>
+    <button class="bg-lightblue button-visualizzazione-privati" onclick="return eliminaSelezionati()">Elimina paziente</button>
     {{end}}
     <table id="table-privati" class="table-responsive">
         <tbody>
         <tr>
             <td></td>
-            <td>
+            <td class="td-id-test">
                 <input type="number" min="1" id="cerca-id">
             </td>
             <td>
@@ -38,7 +38,7 @@
                 <input type="date" id="cerca-data-nascita">
             </td>
             <td id="td-button" colspan="2">
-                <button class="bg-lightblue w-75" id="cerca" onclick="return cercaPrivati()">Cerca
+                <button class="bg-lightblue w-100" id="cerca" onclick="return cercaPrivati()">Cerca
             </button>
         </td>
 
