@@ -31,6 +31,7 @@
             <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
             Referti</a>
         {{end}}
+        {{if eq .Ruolo "privato"}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/calendario">
             <img src="/img/icons/calendar-svgrepo-com.svg" class="list-group-item-image"/>
             Calendario</a>

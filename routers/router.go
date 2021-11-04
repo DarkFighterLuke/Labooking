@@ -22,6 +22,7 @@ func init() {
 	web.Router("/dashboard/dipendenti/eliminazione", &controllers.PrivatoController{}, "post:Eliminazione")
 	web.Router("/dashboard/pazienti/aggiunta", &controllers.PrivatoController{}, "get:VisualizzaAggiunta")
 	web.Router("/dashboard/pazienti/eliminazione", &controllers.PrivatoController{}, "post:Eliminazione")
+	web.Router("/dashboard/calendario", &controllers.CalendarioController{})
 
 	web.Router("/api/ricerca", &api.RicercaLaboratorio{})
 	web.Router("/api/notifiche", &api.Notifiche{}, "post:UpdateNotificheLette")
