@@ -35,6 +35,7 @@
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/calendario">
             <img src="/img/icons/calendar-svgrepo-com.svg" class="list-group-item-image"/>
             Calendario</a>
+        {{end}}
         {{if or (eq .Ruolo "privato") (eq .Ruolo "medico") (eq .Ruolo "organizzazione")}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/guida">
             <img src="/img/icons/help-svgrepo-com.svg" class="list-group-item-image"/>
