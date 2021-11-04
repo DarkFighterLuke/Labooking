@@ -168,11 +168,12 @@
     position: absolute;
     right: 50%;
     bottom: -21px;
-    padding: 0px 5px;
+    padding: 5px 5px;
     cursor: pointer;
     z-index: 5;
     text-align: center;
-    width: 26px;
+    width: 30px;
+    height: 20px;
     margin-right: -17px;
 }
 
