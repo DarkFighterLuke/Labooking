@@ -8,14 +8,19 @@
     height: 100%;
 }
 
-.carousel-indicators li {
-    width: 0.5em;
-    height: 0.5em;
-    border-radius: 100%;
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+    margin-right: 50%;
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+    margin-left: 50%;
 }
 
 html, body {
-    height: 100%
+    height: 100%;
+    background-color: #a8e5f5;
 }
 
 .navbar-brand {
@@ -29,20 +34,19 @@ html, body {
 
 p {
     font-weight: normal;
-    font-family: 'Open Sans';
-    font-family: cursive;
+    font-family: 'Open Sans', cursive;
     font-size: 17px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', cursive;
     font-weight: bold;
     font-size: 20px;
 }
 
 nav .navbar-nav li {
     color: white !important;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', cursive;
     font-weight: bold;
     text-decoration: underline;
     font-size: 17px;
@@ -56,7 +60,7 @@ nav .navbar-nav li {
     border-width: 3px !important;
 }
 
-#demo {
+#carousel-landing-page {
     margin-top: 5%;
 }
 
@@ -69,10 +73,38 @@ a {
 }
 
 .title {
-    font-family: "Oleo Script Swash Caps";
+    font-family: "Oleo Script Swash Caps", serif;
     color: #fff;
 }
 
 .bg-primary {
     background-color: #00A4D3 !important;
 }
+
+.card-body{
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.card-title{
+    font-size: 21px;
+    margin-bottom: 5%;
+}
+
+.card-text{
+    font-size: 17px;
+}
+
+.btn-primary{
+    width: 35%;
+    height: 10%;
+    margin-top: 5%;
+    appearance:none;
+    -webkit-appearance:none;
+    border:none;
+    color:#fff;
+    font-weight:600;
+    font-size: 90%;
+    border-radius:5px;
+}
+
