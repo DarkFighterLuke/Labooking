@@ -31,13 +31,10 @@
             <img src="/img/icons/electrocardiogram-report-svgrepo-com.svg" class="list-group-item-image"/>
             Referti</a>
         {{end}}
+        {{if eq .Ruolo "privato"}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/calendario">
             <img src="/img/icons/calendar-svgrepo-com.svg" class="list-group-item-image"/>
             Calendario</a>
-        {{if eq .Ruolo "laboratorio"}}
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/pagamenti">
-            <img src="/img/icons/credit-cards-svgrepo-com.svg" class="list-group-item-image"/>
-            Pagamenti</a>
         {{end}}
         {{if or (eq .Ruolo "privato") (eq .Ruolo "medico") (eq .Ruolo "organizzazione")}}
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/dashboard/guida">

@@ -2,6 +2,7 @@ package models
 
 import (
 	"Labooking/models/utils"
+	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/validation"
 	"time"
@@ -23,8 +24,8 @@ type Privato struct {
 	Prefisso               string          `orm:"size(6)" form:"-" valid:"Required"`
 	Telefono               string          `orm:"size(10);unique" form:"" maxLength:"10" valid:"Required;Numeric;Length(10)" id:"telefono-privato"`
 	Email                  string          `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-privato"`
-	Psw                    string          `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-privato"`
-	ConfermaPsw            string          `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-privato"`
+	Psw                    string          `orm:"size(255)" form:"Password,password,Password: " id:"password-privato"`
+	ConfermaPsw            string          `orm:"-" form:"ConfermaPassword,password,Conferma password: " id:"conferma-password-privato"`
 	DataNascita            time.Time       `orm:"type(date)" valid:"Required"`
 	Medico                 *Medico         `orm:"rel(fk);null;on_delete(set_null);column(medico)" form:"-"`
 	Organizzazione         *Organizzazione `orm:"rel(fk);null;on_delete(set_null);column(organizzazione)" form:"-"`
@@ -35,25 +36,30 @@ func (p *Privato) Aggiungi() (int64, error) {
 	ptemp := *p
 	err := ptemp.Seleziona("numero_tessera_sanitaria")
 	if err == nil {
-		found = true
-		p.IdPrivato = ptemp.IdPrivato
-		p.Nome = ptemp.Nome
-		p.Cognome = ptemp.Cognome
-		p.CodiceFiscale = ptemp.CodiceFiscale
-		p.NumeroTesseraSanitaria = ptemp.NumeroTesseraSanitaria
-		p.DataNascita = ptemp.DataNascita
-		p.Medico = ptemp.Medico
-	}
-
-	p.Psw, err = utils.CryptSHA1(p.Psw)
-	if err != nil {
-		return -1, err
+		if ptemp.Email == p.Email && ptemp.CodiceFiscale == p.CodiceFiscale {
+			found = true
+			p.IdPrivato = ptemp.IdPrivato
+			p.Nome = ptemp.Nome
+			p.Cognome = ptemp.Cognome
+			p.CodiceFiscale = ptemp.CodiceFiscale
+			p.NumeroTesseraSanitaria = ptemp.NumeroTesseraSanitaria
+			p.DataNascita = ptemp.DataNascita
+			p.Psw = ptemp.Psw
+			p.Medico = ptemp.Medico
+		} else {
+			return -1, fmt.Errorf("utente già registrato")
+		}
+	} else {
+		p.Psw, err = utils.CryptSHA1(p.Psw)
+		if err != nil {
+			return -1, err
+		}
 	}
 
 	o := orm.NewOrm()
 	if found {
 		_, err = o.Update(p)
-		return int64(p.IdPrivato), err
+		return p.IdPrivato, err
 	} else {
 		newId, err := o.Insert(p)
 		return newId, err

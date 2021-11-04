@@ -49,10 +49,6 @@
 
                 <!--suppress XmlDuplicatedId -->
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="navbarSupportedContent">
-                    <a class="dropdown-item" href="#!">Il mio profilo</a>
-                    <a class="dropdown-item" href="#!">Messaggi<span class="badge badge-danger">{{.NumNotifiche}}</span></a>
-                    <a class="dropdown-item" href="#!">I miei pagamenti</a>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
             </li>
@@ -111,10 +107,6 @@
                         <!--suppress XmlDuplicatedId -->
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"
                              id="navbarSupportedContent">
-                            <a class="dropdown-item" href="#!">Il mio profilo</a>
-                            <a class="dropdown-item" href="#!">Messaggi<span class="badge badge-danger">{{.NumNotifiche}}</span></a>
-                            <a class="dropdown-item" href="#!">I miei pagamenti</a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
                     </li>
