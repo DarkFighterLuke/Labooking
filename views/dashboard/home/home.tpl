@@ -10,7 +10,7 @@
                         <div class="attivita">
                             <p> <strong> Referto test {{.TipologiaTest}} </strong> del {{.LastUpdate.Format "02/01/2006"}}</p>
                             <p> Il referto del tuo test diagnostico è pronto. Puoi consultarlo nella sezione
-                                <a href="/dashboard/referti"> referti</a>
+                                <a href="/dashboard/referti"> Referti</a>
                             </p>
                         </div>
                     <td>
