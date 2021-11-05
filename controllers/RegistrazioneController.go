@@ -207,6 +207,9 @@ func (rc *RegistrazioneController) registrazioneLaboratorio() error {
 	if err != nil {
 		return err
 	}
+	if l.TestPerOra < 1 {
+		return fmt.Errorf("TestPerOra non può essere minore di 1")
+	}
 	ll := models.LatLong{}
 	err = models.RetrieveLatLong(l.Indirizzo, &ll)
 	if err != nil {
