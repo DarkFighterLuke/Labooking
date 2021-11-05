@@ -50,7 +50,7 @@
     </table>
 </div>
 <div>
-    <button class="bg-lightblue" onclick="return prenota()">Prenota</button>
+    <button id="button-prenota" class="bg-lightblue" onclick="return prenota()">Prenota</button>
 </div>
 <script>
     function prenota(){
