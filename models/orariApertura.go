@@ -18,6 +18,9 @@ type OrariApertura struct {
 }
 
 func (oa *OrariApertura) Aggiungi() (int64, error) {
+	orarioStr := oa.Orario.Format("2006-01-02 15:04")
+	oa.Orario, _ = time.ParseInLocation("2006-01-02 15:04", orarioStr, time.Local)
+
 	o := orm.NewOrm()
 	newId, err := o.Insert(oa)
 	return newId, err
