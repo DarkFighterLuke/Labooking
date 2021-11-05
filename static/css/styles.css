@@ -525,6 +525,24 @@ button,
   text-align: right;
 }
 
+#td-referto{
+  width: 15%;
+}
+
+#td-questionario{
+  width: 15%;
+}
+
+#img-questionario{
+  width: 35%;
+  padding: 5%;
+}
+
+#img-referto{
+  width: 40%;
+  padding: 5%;
+}
+
 td{
   text-align: center;
   padding: 5px;
