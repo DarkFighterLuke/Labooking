@@ -181,7 +181,7 @@ function checkInfoTest(){
 
     for (let i = 0; i < 3; i++) {
         if (effettua[i] == true) {
-            if (ore[i] === "" || ore[i] < 0 || (minuti[i] != 0 && minuti[i] != 15 && minuti[i] != 30 && minuti[i] != 45) || costo[i] === "" || costo[i] < 0 || costo[i] > 9999.99) {
+            if (ore[i] === "" || ore[i] < 0 || (minuti[i] != 0 && minuti[i] != 15 && minuti[i] != 30 && minuti[i] != 45) || costo[i] === "" || costo[i] < 0 || costo[i] > 9999.99 || (ore[i] == 0 && minuti[i] == 0)) {
                 let messaggio = "Sembra che qualcosa non vada con le info sui test diagnostici effettuati. Controlla che i dati siano corretti e riprova.";
                 showErrorDiv(tableInfoTest, true, messaggio);
                 return false;
