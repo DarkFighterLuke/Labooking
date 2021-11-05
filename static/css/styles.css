@@ -661,6 +661,7 @@ button:not(:disabled),
 
 #dati-pagamento-online>input{
   margin-right: 15px;
+  margin-bottom: 0;
 }
 
 ::-moz-focus-inner {
