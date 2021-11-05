@@ -40,7 +40,7 @@
             <label for="data">del </label>
             <input type="date" id="data" name="data" value="{{.Data}}">
             <br>
-            <input class="bg-lightblue" type="button" value="Cerca" onclick="return sendFilters()">
+            <input id="button-cerca" class="bg-lightblue" type="button" value="Cerca" onclick="return sendFilters()">
             <br>
         </div>
 

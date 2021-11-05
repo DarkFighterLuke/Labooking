@@ -544,6 +544,10 @@ th{
   font-weight: bold;
 }
 
+#button-cerca{
+  width: auto;
+}
+
 #button-salva-modifiche {
   width:auto;
 }
@@ -565,14 +569,8 @@ th{
 }
 
 .notifica{
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-top: 5px;
-  padding-bottom: 8px;
-  margin-bottom: 3px;
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 2px;
+  padding: 5px 6px 8px;
+  margin: 2px 2px 3px;
   border:none;
   font-weight: 500;
   border-radius: 4px;
