@@ -459,7 +459,7 @@ input[type=range] {
   border:none;
   font-weight:600;
   border-radius:5px;
-  width:10%;
+  width: auto;
   background-color: #00A4D3;
 }
 
