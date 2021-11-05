@@ -48,7 +48,7 @@ function checkNomeLaboratorio() {
 }
 
 function checkIbanLaboratorio() {
-    if (ibanLaboratorio.value.length !== 30) {
+    if (ibanLaboratorio.value.length < 15) {
         ibanLaboratorio.style.backgroundColor = "#ff7b5a";
         return false;
     } else {

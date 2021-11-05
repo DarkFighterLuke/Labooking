@@ -103,7 +103,7 @@
                            <tr class="row w-100 d-flex align-items-center">
                               <td class="w-25 text-center">Molecolare</td>
                               <td class="w-25">
-                                     <input class="w-25" type="number" name="molecolare-ore" min="0">
+                                     <input class="w-25" type="number" name="molecolare-ore" min="0" value="0">
                                      <select class="w-50" name="molecolare-minuti">
                                         <option value="0">0</option>
                                         <option value="15">15</option>
@@ -121,7 +121,7 @@
                                <tr class="row w-100 d-flex align-items-center">
                                   <td class="w-25 text-center">Antigenico</td>
                                   <td class="w-25">
-                                     <input class="w-25" type="number" name="antigenico-ore" min="0">
+                                     <input class="w-25" type="number" name="antigenico-ore" min="0" value="0">
                                      <select class="w-50" name="antigenico-minuti">
                                         <option value="0">0</option>
                                         <option value="15">15</option>
@@ -139,7 +139,7 @@
                                <tr class="row w-100 d-flex align-items-center">
                                   <td class="w-25 text-center">Sierologico</td>
                                   <td class="w-25">
-                                     <input class="w-25" type="number" name="sierologico-ore" min="0">
+                                     <input class="w-25" type="number" name="sierologico-ore" min="0" value="0">
                                      <select class="w-50" name="sierologico-minuti">
                                         <option value="0">0</option>
                                         <option value="15">15</option>
