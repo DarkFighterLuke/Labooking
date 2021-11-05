@@ -192,7 +192,7 @@ function checkInfoTest(){
 }
 
 function submitLaboratorio(){
-    if (!(checkNomeLaboratorio() && checkIbanLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkIbanLaboratorio() && checkOrariApertura() && checkInfoTest())) {
+    if (!(checkNomeLaboratorio() && checkIbanLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkIbanLaboratorio() && checkTestPerOraLaboratorio() && checkOrariApertura() && checkInfoTest())) {
         event.preventDefault();
         return false;
     }
