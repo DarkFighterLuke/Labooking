@@ -7,7 +7,7 @@
     <meta name="author" content="" />
     <title>Labooking</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet"/>
     {{.Head}}
