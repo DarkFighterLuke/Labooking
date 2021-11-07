@@ -16,7 +16,7 @@ type Laboratorio struct {
 	IdLaboratorio int64            `orm:"pk;auto" form:"-" json:"id_laboratorio"`
 	Nome          string           `orm:"size(255)" form:"" valid:"Required" id:"nome-laboratorio" json:"nome"`
 	Iban          string           `orm:"size(30)" form:"" maxLength:"30" valid:"Required" id:"iban-laboratorio"`
-	PartitaIva    string           `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-laboratorio"`
+	PartitaIva    string           `orm:"size(11);unique" form:",,Partita IVA: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-laboratorio"`
 	Indirizzo     string           `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-laboratorio"`
 	Lat           float64          `orm:"digits(10);decimals(7)" form:"-" json:"lat"`
 	Long          float64          `orm:"digits(10);decimals(7)" form:"-" json:"long"`

@@ -12,8 +12,8 @@ func init() {
 
 type Organizzazione struct {
 	IdOrganizzazione int64      `orm:"pk;auto" form:"-"`
-	RagioneSociale   string     `orm:"size(255)" form:"" valid:"Required" id:"ragione-sociale-organizzazione"`
-	PartitaIva       string     `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-organizzazione"`
+	RagioneSociale   string     `orm:"size(255)" form:",,Ragione sociale: " valid:"Required" id:"ragione-sociale-organizzazione"`
+	PartitaIva       string     `orm:"size(11);unique" form:",,Partita IVA: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-organizzazione"`
 	Indirizzo        string     `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-organizzazione"`
 	Lat              float64    `orm:"digits(10);decimals(7)" form:"-"`
 	Long             float64    `orm:"digits(10);decimals(7)" form:"-"`
