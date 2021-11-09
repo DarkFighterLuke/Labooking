@@ -20,55 +20,57 @@
 
         <div id="div-orari-privati">
             <h3>Orari prenotabili</h3>
-            <table id="table-orari-privati" class="table-responsive">
-                <tbody>
-                {{$ruolo := .Ruolo}}
-                {{$privati := .Privati}}
-                <tr>
-                    <th colspan="2">Orario</th>
-                    <th>Disponibilità</th>
-                    {{if ne $ruolo "privato"}}
-                    {{if eq $ruolo "organizzazione"}}
-                    <th>Dipendente</th>
-                        {{else}}
-                        <th>Paziente</th>
-                        {{end}}
-                        <th>Questionario</th>
-                    {{end}}
-                </tr>
-                {{range .Slots}}
-                <tr {{if not .Disponibile}}style="color: darkred" {{end}}>
-                    <td>
-                        {{if eq $ruolo "privato"}}
-                        <input type="radio" name="slot" value="{{.Orario}}" {{if not .Disponibile}}disabled{{end}}>
-                        {{else}}
-                        <input type="checkbox" name="slot" value="{{.Orario}}" {{if not .Disponibile}}disabled{{end}}>
-                        {{end}}
-
-                    </td>
-                    <td>{{.Orario}}</td>
-                    <td>
-                        {{if .Disponibile}}
-                        Disponibile
-                        {{else}}
-                        Non disponibile
-                        {{end}}
-                    </td>
-                    {{if ne $ruolo "privato"}}
-                    <td>
-                        <select name="privato-{{.Orario}}">
-                            <option>---</option>
-                            {{range $privati}}
-                            <option value="{{.IdPrivato}}">{{.Nome}} {{.Cognome}} --- {{.CodiceFiscale}}</option>
+            <div id="div-tabella" class="table-container table-responsive">
+                <table id="table-orari-privati" class="table-responsive">
+                    <tbody>
+                    {{$ruolo := .Ruolo}}
+                    {{$privati := .Privati}}
+                    <tr>
+                        <th colspan="2">Orario</th>
+                        <th>Disponibilità</th>
+                        {{if ne $ruolo "privato"}}
+                        {{if eq $ruolo "organizzazione"}}
+                        <th>Dipendente</th>
+                            {{else}}
+                            <th>Paziente</th>
                             {{end}}
-                        </select>
-                    </td>
-                    <td><input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload-{{.Orario}}"></td>
+                            <th>Questionario</th>
+                        {{end}}
+                    </tr>
+                    {{range .Slots}}
+                    <tr {{if not .Disponibile}}style="color: darkred" {{end}}>
+                        <td>
+                            {{if eq $ruolo "privato"}}
+                            <input type="radio" name="slot" value="{{.Orario}}" {{if not .Disponibile}}disabled{{end}}>
+                            {{else}}
+                            <input type="checkbox" name="slot" value="{{.Orario}}" {{if not .Disponibile}}disabled{{end}}>
+                            {{end}}
+
+                        </td>
+                        <td>{{.Orario}}</td>
+                        <td>
+                            {{if .Disponibile}}
+                            Disponibile
+                            {{else}}
+                            Non disponibile
+                            {{end}}
+                        </td>
+                        {{if ne $ruolo "privato"}}
+                        <td>
+                            <select name="privato-{{.Orario}}">
+                                <option>---</option>
+                                {{range $privati}}
+                                <option value="{{.IdPrivato}}">{{.Nome}} {{.Cognome}} --- {{.CodiceFiscale}}</option>
+                                {{end}}
+                            </select>
+                        </td>
+                        <td><input type="file" id="questionario-anamnesi-upload" name="questionario-anamnesi-upload-{{.Orario}}"></td>
+                        {{end}}
+                    </tr>
                     {{end}}
-                </tr>
-                {{end}}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <br>
 

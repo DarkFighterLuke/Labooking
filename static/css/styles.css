@@ -411,6 +411,20 @@ select:disabled {
   margin-top: 15px;
 }
 
+#table-attivita-recenti{
+  margin-bottom: 15px;
+  margin-top: 15px;
+  width: 80%;
+}
+
+#table-attivita-recenti > tbody > tr{
+  border-width: 0;
+}
+
+#table-attivita-recenti > tbody > tr > td{
+  padding: 5px 0;
+}
+
 #lab-title{
   margin-bottom: 30px;
 }
@@ -445,7 +459,7 @@ input[type=range] {
   border:none;
   font-weight:600;
   border-radius:5px;
-  width:10%;
+  width: auto;
   background-color: #00A4D3;
 }
 
@@ -479,8 +493,8 @@ td>input[type=text], td>input[type=number], td>input[type=date], td>select, td>b
   padding: 5px;
 }
 
-#td-id-test{
-  max-width: 10%;
+.td-id-test{
+  width: 5%;
 }
 
 #table-orari-privati{
@@ -504,11 +518,29 @@ button,
 }
 
 #conferma-prenotazione{
-  width:15%;
+  width:auto;
 }
 
 #td-button{
   text-align: right;
+}
+
+#td-referto{
+  width: 15%;
+}
+
+#td-questionario{
+  width: 15%;
+}
+
+#img-questionario{
+  width: 35%;
+  padding: 5%;
+}
+
+#img-referto{
+  width: 40%;
+  padding: 5%;
 }
 
 td{
@@ -530,8 +562,19 @@ th{
   font-weight: bold;
 }
 
+#button-cerca{
+  width: auto;
+}
+
 #button-salva-modifiche {
   width:auto;
+}
+
+.button-attivita-recenti {
+  width: auto!important;
+  height: auto!important;
+  padding: 5%!important;
+  margin-bottom: 5px!important;
 }
 
 #button-profilo-mobile{
@@ -539,19 +582,39 @@ th{
   width: auto;
 }
 
+#button-prenota {
+  width: auto;
+}
+
+.button-visualizzazione-privati{
+  width: auto!important;
+}
+
 .notifica{
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-top: 5px;
-  padding-bottom: 8px;
-  margin-bottom: 3px;
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 2px;
+  padding: 5px 6px 8px;
+  margin: 2px 2px 3px;
   border:none;
   font-weight: 500;
   border-radius: 4px;
   opacity: 85%;
+}
+
+.attivita{
+  background-color: #f8f9fa !important;
+  border-radius: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: left;
+}
+
+.attivita > p{
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 8px;
+}
+
+#meno-recenti {
+  margin-bottom: 15px;
 }
 
 button:not(:disabled),
@@ -598,6 +661,7 @@ button:not(:disabled),
 
 #dati-pagamento-online>input{
   margin-right: 15px;
+  margin-bottom: 0;
 }
 
 ::-moz-focus-inner {

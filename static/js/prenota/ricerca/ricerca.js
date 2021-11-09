@@ -127,7 +127,9 @@ function checkDateTimeFields(inizio, fine, data) {
     }
     let dataObj = new Date(data);
     let today = new Date();
-    if (dataObj < today) {
+    dataObj.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    if (dataObj.getUnixTime() < today.getUnixTime()) {
         flag = false;
         messaggio = "La data non può essere precedente a quella odierna!"
     }
@@ -150,4 +152,14 @@ function eraseErrorDivs() {
     for (let i = 0; i < errorDivs.length; i++) {
         errorDivs[i].parentNode.removeChild(errorDivs[i]);
     }
+}
+
+Date.prototype.getUnixTime = function () {
+    return this.getTime() / 1000 | 0
+};
+if (!Date.now) Date.now = function () {
+    return new Date();
+}
+Date.time = function () {
+    return Date.now().getUnixTime();
 }

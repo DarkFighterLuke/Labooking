@@ -102,3 +102,16 @@ func (p *Privato) Valid(v *validation.Validation) {
 		v.SetError("Psw", "is not strong enough")
 	}*/
 }
+
+func GetPrivatiPositivi() ([]*Privato, error) {
+	o := orm.NewOrm()
+
+	query := "SELECT DISTINCT p.nome, p.cognome, p.codice_fiscale, p.numero_tessera_sanitaria, p.indirizzo, p.email, p.prefisso, p.telefono FROM test_diagnostico td, privato p, referto r WHERE td.id_privato = p.id_privato AND td.id_referto = r.id_referto AND r.risultato = 'positivo'"
+
+	var privati []*Privato
+	_, err := o.Raw(query).QueryRows(&privati)
+	if err != nil {
+		return nil, err
+	}
+	return privati, err
+}

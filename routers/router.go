@@ -24,8 +24,12 @@ func init() {
 	web.Router("/dashboard/pazienti/eliminazione", &controllers.PrivatoController{}, "post:Eliminazione")
 	web.Router("/dashboard/calendario", &controllers.CalendarioController{})
 
+	//api
 	web.Router("/api/ricerca", &api.RicercaLaboratorio{})
 	web.Router("/api/notifiche", &api.Notifiche{}, "post:UpdateNotificheLette")
+	web.Router("/api/aziendasanitaria/prelevareferti", &api.AziendaSanitaria{}, "get:PrelevaReferti")
+	web.Router("/api/aziendasanitaria/prelevautentipositivi", &api.AziendaSanitaria{}, "get:PrelevaUtentiPositivi")
+	web.Router("/api/aziendasanitaria/prelevastatistichelaboratori", &api.AziendaSanitaria{}, "get:PrelevaStatisticheLaboratori")
 
 	// signup
 	web.Router("/signup", &controllers.RegistrazioneController{})

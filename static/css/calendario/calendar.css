@@ -589,7 +589,7 @@ span[data-cal-date]:hover {
 #cal-slide-content {
     padding: 20px;
     color: #ffffff;
-    background-image: url("../../js/calendario/img/dark_wood.png");
+    background-image: url("../../js/calendario/img/background_calendar.png");
     -webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
     box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
 }

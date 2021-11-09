@@ -48,7 +48,7 @@ function checkNomeLaboratorio() {
 }
 
 function checkIbanLaboratorio() {
-    if (ibanLaboratorio.value.length !== 30) {
+    if (ibanLaboratorio.value.length < 15) {
         ibanLaboratorio.style.backgroundColor = "#ff7b5a";
         return false;
     } else {
@@ -181,7 +181,7 @@ function checkInfoTest(){
 
     for (let i = 0; i < 3; i++) {
         if (effettua[i] == true) {
-            if (ore[i] === "" || ore[i] < 0 || (minuti[i] != 0 && minuti[i] != 15 && minuti[i] != 30 && minuti[i] != 45) || costo[i] === "" || costo[i] < 0 || costo[i] > 9999.99) {
+            if (ore[i] === "" || ore[i] < 0 || (minuti[i] != 0 && minuti[i] != 15 && minuti[i] != 30 && minuti[i] != 45) || costo[i] === "" || costo[i] < 0 || costo[i] > 9999.99 || (ore[i] == 0 && minuti[i] == 0)) {
                 let messaggio = "Sembra che qualcosa non vada con le info sui test diagnostici effettuati. Controlla che i dati siano corretti e riprova.";
                 showErrorDiv(tableInfoTest, true, messaggio);
                 return false;
@@ -192,7 +192,7 @@ function checkInfoTest(){
 }
 
 function submitLaboratorio(){
-    if (!(checkNomeLaboratorio() && checkIbanLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkIbanLaboratorio() && checkOrariApertura() && checkInfoTest())) {
+    if (!(checkNomeLaboratorio() && checkIbanLaboratorio() && checkPartitaIvaLaboratorio() && checkIndirizzoLaboratorio() && checkTelefonoLaboratorio() && checkEmailLaboratorio() && checkPasswordLaboratorio() && checkIbanLaboratorio() && checkTestPerOraLaboratorio() && checkOrariApertura() && checkInfoTest())) {
         event.preventDefault();
         return false;
     }

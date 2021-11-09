@@ -15,8 +15,8 @@ func init() {
 type Laboratorio struct {
 	IdLaboratorio int64            `orm:"pk;auto" form:"-" json:"id_laboratorio"`
 	Nome          string           `orm:"size(255)" form:"" valid:"Required" id:"nome-laboratorio" json:"nome"`
-	Iban          string           `orm:"size(30)" form:"" maxLength:"30" valid:"Required;Length(30)" id:"iban-laboratorio"`
-	PartitaIva    string           `orm:"size(11);unique" form:",,Partita Iva: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-laboratorio"`
+	Iban          string           `orm:"size(30)" form:"" maxLength:"30" valid:"Required" id:"iban-laboratorio"`
+	PartitaIva    string           `orm:"size(11);unique" form:",,Partita IVA: " maxLength:"11" valid:"Required;Length(11)" id:"partita-iva-laboratorio"`
 	Indirizzo     string           `orm:"size(255)" form:"" valid:"Required" id:"indirizzo-laboratorio"`
 	Lat           float64          `orm:"digits(10);decimals(7)" form:"-" json:"lat"`
 	Long          float64          `orm:"digits(10);decimals(7)" form:"-" json:"long"`
@@ -25,7 +25,7 @@ type Laboratorio struct {
 	Email         string           `orm:"size(255);unique" form:"" valid:"Required;Email" id:"email-laboratorio"`
 	Psw           string           `orm:"size(255)" form:"Password,password,Password: " valid:"Required" id:"password-laboratorio"`
 	ConfermaPsw   string           `orm:"-" form:"ConfermaPassword,password,Conferma password: " valid:"Required" id:"conferma-password-laboratorio"`
-	TestPerOra    int64            `orm:"column(test_per_ora);type(int)" form:",number,Test per ora: " valid:"Required;Min(1)" id:"test-per-ora-laboratorio"`
+	TestPerOra    int64            `orm:"column(test_per_ora);type(int)" form:",number,Test per ora: " valid:"Required" id:"test-per-ora-laboratorio"`
 	Test          []*InfoTest      `orm:"reverse(many)" form:"-"`
 	Orari         []*OrariApertura `orm:"reverse(many)" form:"-"`
 }
@@ -245,6 +245,17 @@ func GetLaboratoriForMap(laboratori *[]Laboratorio) error {
 	query := "SELECT l.id_laboratorio, l.nome, l.lat, l.long FROM laboratorio l"
 	_, err := o.Raw(query).QueryRows(laboratori)
 	return err
+}
+
+func SelezionaAllLaboratori() ([]*Laboratorio, error) {
+	o := orm.NewOrm()
+
+	var laboratori []*Laboratorio
+	_, err := o.QueryTable("laboratorio").All(&laboratori)
+	if err != nil {
+		return nil, err
+	}
+	return laboratori, nil
 }
 
 func (l *Laboratorio) Valid(v *validation.Validation) {

@@ -28,7 +28,7 @@ func (rc *RefertoController) Get() {
 			return
 		}
 		td.Privato = p
-		testDiagnostici, err = td.SelezionaTestAllByPriv()
+		testDiagnostici, err = td.SelezionaTestAllByPriv("data_esecuzione")
 		if err != nil {
 			return
 		}
@@ -40,7 +40,7 @@ func (rc *RefertoController) Get() {
 			rc.Ctx.WriteString("referti: " + err.Error())
 			return
 		}
-		testDiagnostici, err = models.SelezionaTestAllByMed(m.IdMedico)
+		testDiagnostici, err = models.SelezionaTestAllByMed(m.IdMedico, "data_esecuzione")
 		if err != nil {
 			return
 		}
@@ -52,7 +52,7 @@ func (rc *RefertoController) Get() {
 			rc.Ctx.WriteString("referti: " + err.Error())
 			return
 		}
-		testDiagnostici, err = models.SelezionaTestAllByOrg(o.IdOrganizzazione)
+		testDiagnostici, err = models.SelezionaTestAllByOrg(o.IdOrganizzazione, "data_esecuzione")
 		if err != nil {
 			return
 		}
@@ -132,73 +132,70 @@ func (rc *RefertoController) Post() {
 			return
 		}
 
+		//componi mail privato
 		msgPrivato, err := componiMsgPrivato(int(r.IdReferto), r.Risultato)
 		if err != nil {
 			rc.Ctx.WriteString("referto: " + err.Error())
 			return
 		}
-
-		//componi mail privato
-		msgMedico, err := componiMsgMedico(int(r.IdReferto), int(privato.IdPrivato), r.Risultato)
-		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
-			return
-		}
-
-		medico := new(models.Medico)
-		medico.IdMedico = privato.Medico.IdMedico
-		err = medico.Seleziona("id_medico")
-		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
-			return
-		}
-
-		//componi mail organizzazione
-		organizzazione := new(models.Organizzazione)
-		organizzazione.IdOrganizzazione = privato.Organizzazione.IdOrganizzazione
-		err = organizzazione.Seleziona()
-		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
-			return
-		}
-		testDiagnostico.Privato.Organizzazione = new(models.Organizzazione)
-		testDiagnostico.Privato.Organizzazione.IdOrganizzazione = organizzazione.IdOrganizzazione
-		ok, err := testDiagnostico.CheckInviaMailiOrganizzazione()
-		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
-			return
-		}
-
-		var msgOrganizzazione string
-		if ok {
-			msgOrganizzazione, err = componiMsgOrganizzazione(testDiagnostico.DataPrenotazione)
-			if err != nil {
-				rc.Ctx.WriteString("referto: " + err.Error())
-				return
-			}
-		}
-
-		//invio mail
 		err = InviaMail(msgPrivato, []string{privato.Email})
 		if err != nil {
 			rc.Ctx.WriteString("referto: " + err.Error())
 			return
 		}
 
-		err = InviaMail(msgMedico, []string{medico.Email})
-		if err != nil {
-			rc.Ctx.WriteString("referto: " + err.Error())
-			return
-		}
-
-		if ok {
-			err = InviaMail(msgOrganizzazione, []string{organizzazione.Email})
+		// componi mail medico
+		if privato.Medico != nil {
+			msgMedico, err := componiMsgMedico(int(r.IdReferto), int(privato.IdPrivato), r.Risultato)
+			if err != nil {
+				rc.Ctx.WriteString("referto: " + err.Error())
+				return
+			}
+			medico := new(models.Medico)
+			medico.IdMedico = privato.Medico.IdMedico
+			err = medico.Seleziona("id_medico")
+			if err != nil {
+				rc.Ctx.WriteString("referto: " + err.Error())
+				return
+			}
+			err = InviaMail(msgMedico, []string{medico.Email})
 			if err != nil {
 				rc.Ctx.WriteString("referto: " + err.Error())
 				return
 			}
 		}
 
+		//componi mail organizzazione
+		var msgOrganizzazione string
+		if privato.Organizzazione != nil {
+			organizzazione := new(models.Organizzazione)
+			organizzazione.IdOrganizzazione = privato.Organizzazione.IdOrganizzazione
+			err = organizzazione.Seleziona()
+			if err != nil {
+				rc.Ctx.WriteString("referto: " + err.Error())
+				return
+			}
+			testDiagnostico.Privato.Organizzazione = new(models.Organizzazione)
+			testDiagnostico.Privato.Organizzazione.IdOrganizzazione = organizzazione.IdOrganizzazione
+			ok, err := testDiagnostico.CheckInviaMailiOrganizzazione()
+			if err != nil {
+				rc.Ctx.WriteString("referto: " + err.Error())
+				return
+			}
+
+			if ok {
+				msgOrganizzazione, err = componiMsgOrganizzazione(testDiagnostico.DataPrenotazione)
+				if err != nil {
+					rc.Ctx.WriteString("referto: " + err.Error())
+					return
+				}
+				err = InviaMail(msgOrganizzazione, []string{organizzazione.Email})
+				if err != nil {
+					rc.Ctx.WriteString("referto: " + err.Error())
+					return
+				}
+			}
+		}
 	}
 	rc.Redirect("/dashboard/prenotazioni", http.StatusFound)
 }
