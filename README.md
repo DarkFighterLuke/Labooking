@@ -18,6 +18,7 @@ cp /path/to/your/app.conf conf/
 ### Windows
 ```
 cd Labooking
+mkdir conf
 cp /path/to/your/app.conf conf/
 Labooking.exe
 ```
