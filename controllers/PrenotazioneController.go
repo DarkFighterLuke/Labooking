@@ -165,7 +165,12 @@ func (pc *PrenotazioneController) Post() {
 		pc.Ctx.WriteString("prenotazione: " + err.Error())
 		return
 	}
-	if data.Before(time.Now()) {
+	now, err := time.ParseInLocation("2006-01-02", time.Now().Format("2006-01-02"), time.Local)
+	if err != nil {
+		pc.Ctx.WriteString("prenotazione: " + err.Error())
+		return
+	}
+	if data.Before(now) {
 		pc.Ctx.WriteString("prenotazione: data prenotazione scaduta")
 		return
 	}
