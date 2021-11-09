@@ -10,6 +10,7 @@ Demo: https://labooking.tk
 ### Linux
 ```
 cd Labooking
+mkdir conf
 cp /path/to/your/app.conf conf/
 ./Labooking
 ```
@@ -36,6 +37,7 @@ In un nuovo terminale:
 ```
 git clone https://github.com/DarkFighterLuke/Labooking.git
 cd Labooking
+go mod tidy
 bee pack
 ```
 Sarà ora disponibile un archivio contenente tutti i file necessari per il funzionamento, basterà estrarne il contenuto e lanciare l'eseguibile come mostrato sopra.
