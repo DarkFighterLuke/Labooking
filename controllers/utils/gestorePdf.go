@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"mime/multipart"
+	"os"
 )
 
 func SaveUploadedPdf(file multipart.File, pathAppConfig string) (fileName string, err error) {
@@ -20,6 +21,13 @@ func SaveUploadedPdf(file multipart.File, pathAppConfig string) (fileName string
 
 	fileName = utils.RandStringRunes(32)
 	filePath := path + fileName + ".pdf"
+
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		err := os.MkdirAll(path, 0777)
+		if err != nil {
+			return "", err
+		}
+	}
 
 	err = ioutil.WriteFile(filePath, fileBytes, 0655)
 	if err != nil {
